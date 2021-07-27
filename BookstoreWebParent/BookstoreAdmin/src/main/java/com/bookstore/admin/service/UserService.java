@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,8 +32,10 @@ public class UserService {
         return (List<User>) userRepository.findAll();
     }
 
-    public Page<User> listByPage(int pageNum) {
-        Pageable pageable = PageRequest.of(pageNum - 1, USERS_PER_PAGE);
+    public Page<User> listByPage(int pageNum, String sortField, String sortDir) {
+        Sort sort = Sort.by(sortField);
+        sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+        Pageable pageable = PageRequest.of(pageNum - 1, USERS_PER_PAGE, sort);
         return userRepository.findAll(pageable);
     }
 
@@ -84,7 +87,7 @@ public class UserService {
 
     public void delete(Integer id) throws UserNotFoundException {
         Long countById = userRepository.countById(id);
-        if(countById == null || countById == 0) {
+        if (countById == null || countById == 0) {
             throw new UserNotFoundException("Could not find any user with ID " + id);
         }
         userRepository.deleteById(id);
