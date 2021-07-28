@@ -2,7 +2,6 @@ package com.bookstore.admin.security;
 
 import com.bookstore.admin.repository.UserRepository;
 import com.bookstore.common.entity.User;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
