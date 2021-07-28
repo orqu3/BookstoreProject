@@ -59,4 +59,8 @@ public class BookstoreUserDetails implements UserDetails {
     public boolean isEnabled() {
         return user.getEnabled();
     }
+
+    public String getFullName() {
+        return user.getFirstName() + " " + user.getLastName();
+    }
 }
