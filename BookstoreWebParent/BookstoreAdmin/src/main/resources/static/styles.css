@@ -13,3 +13,15 @@
 *.icon-dark {
     color: darkgray;
 }
+
+.btn-primary {
+
+    background-color: cornflowerblue;
+    border-color: cornflowerblue;
+}
+
+.btn-secondary {
+
+    background-color: darkgray;
+    border-color: darkgray;
+}
