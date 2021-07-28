@@ -8,7 +8,10 @@
 <div class="container-fluid">
     <div th:replace="navigation :: menu"></div>
     <div class="p-3">
-        <h1>Bookstore Control Panel</h1>
+        <h2>Bookstore Control Panel</h2>
+        Welcome,
+        <b><a sec:authentication="principal.fullName"></a></b>
+        <span sec:authentication="principal.authorities"></span>
     </div>
     <div th:replace="fragments :: footer"></div>
 </div>
