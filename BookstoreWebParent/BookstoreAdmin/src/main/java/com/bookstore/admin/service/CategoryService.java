@@ -11,20 +11,42 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class CategoryService {
 
-    public static final int CATEGORIES_PER_PAGE = 10;
+    public static final int CATEGORIES_PER_PAGE = 5;
 
     private final CategoryRepository categoryRepository;
 
     public List<Category> listAll() {
         return (List<Category>) categoryRepository.findAll();
+    }
+
+    public List<Category> listCategoriesUsedInForm() {
+        List<Category> categoriesUsedInForm = new ArrayList<>();
+        Iterable<Category> categoriesInDB = categoryRepository.findAll();
+
+        for (Category category : categoriesInDB) {
+            if (category.getParent() == null) {
+                categoriesUsedInForm.add(new Category(category.getName()));
+
+                Set<Category> children = category.getChildren();
+
+                for (Category subCategory : children) {
+                    String name = "-- " + subCategory.getName();
+                    categoriesUsedInForm.add(new Category(name));
+                }
+            }
+        }
+
+        return categoriesUsedInForm;
     }
 
     public Page<Category> listByPage(int pageNum, String sortField, String sortDir, String keyword) {
