@@ -43,6 +43,10 @@ public class Category {
         this.parent = parent;
     }
 
+    public Category(Integer id) {
+        this.id = id;
+    }
+
     public static Category copyIdAndName(Category category) {
         Category copyCategory = new Category();
         copyCategory.setId(category.getId());
@@ -57,8 +61,19 @@ public class Category {
         return copyCategory;
     }
 
-    public Category(Integer id) {
-        this.id = id;
+    public static Category copyFull(Category category) {
+        Category copyCategory = new Category();
+        copyCategory.setId(category.getId());
+        copyCategory.setName(category.getName());
+        copyCategory.setAlias(category.getAlias());
+        copyCategory.setEnabled(category.getEnabled());
+        return copyCategory;
+    }
+
+    public static Category copyFull(Category category, String name) {
+        Category copyCategory = Category.copyFull(category);
+        copyCategory.setName(name);
+        return copyCategory;
     }
 
     public Integer getId() {
