@@ -4,6 +4,7 @@ import com.bookstore.admin.exception.CategoryNotFoundException;
 import com.bookstore.admin.repository.CategoryRepository;
 import com.bookstore.common.entity.Category;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,7 +24,8 @@ public class CategoryService {
 
     public static final int CATEGORIES_PER_PAGE = 5;
 
-    private final CategoryRepository categoryRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     public List<Category> listAll() {
         List<Category> rootCategories = categoryRepository.findRootCategories();
@@ -88,7 +90,7 @@ public class CategoryService {
         int newSubLevel = subLevel + 1;
         Set<Category> children = parent.getChildren();
 
-        for(Category subCategory : children) {
+        for (Category subCategory : children) {
             String name = "";
             for (int i = 0; i < newSubLevel; i++) {
                 name += "-- ";
@@ -132,6 +134,32 @@ public class CategoryService {
 
     public void updateCategoryEnabledStatus(Integer id, Boolean enabled) {
         categoryRepository.updateEnabledStatus(id, enabled);
+    }
+
+    public String checkUnique(Integer id, String name, String alias) {
+        boolean isCreatingNew = (id == null || id == 0);
+
+        Category categoryByName = categoryRepository.findByName(name);
+
+        if (isCreatingNew) {
+            if (categoryByName != null) {
+                return "DuplicateName";
+            } else {
+                Category categoryByAlias = categoryRepository.findByAlias(alias);
+                if (categoryByAlias != null) {
+                    return "DuplicateAlias";
+                }
+            }
+        } else {
+            if (categoryByName != null && categoryByName.getId() != id) {
+                return "DuplicateName";
+            }
+            Category categoryByAlias = categoryRepository.findByAlias(alias);
+            if (categoryByAlias != null && categoryByAlias.getId() != id) {
+                return "DuplicateAlias";
+            }
+        }
+        return "OK";
     }
 }
 

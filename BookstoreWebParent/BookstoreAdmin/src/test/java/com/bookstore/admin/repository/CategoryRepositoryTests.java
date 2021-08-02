@@ -72,11 +72,11 @@ public class CategoryRepositoryTests {
     @Test
     public void testPrintHierarchicalCategories() {
         Iterable<Category> categories = categoryRepository.findAll();
-        for(Category category : categories) {
-            if(category.getParent() == null) {
+        for (Category category : categories) {
+            if (category.getParent() == null) {
                 System.out.println(category.getName());
                 Set<Category> children = category.getChildren();
-                for(Category subCategory : children) {
+                for (Category subCategory : children) {
                     System.out.println("-- " + subCategory.getName());
                 }
             }
@@ -87,5 +87,21 @@ public class CategoryRepositoryTests {
     public void testListRootCategories() {
         List<Category> rootCategories = categoryRepository.findRootCategories();
         rootCategories.forEach(category -> System.out.println(category.getName()));
+    }
+
+    @Test
+    public void testFindByName() {
+        String name = "Business";
+        Category category = categoryRepository.findByName(name);
+        assertThat(category).isNotNull();
+        assertThat(category.getName()).isEqualTo(name);
+    }
+
+    @Test
+    public void testFindByAlias() {
+        String alias = "Arts";
+        Category category = categoryRepository.findByAlias(alias);
+        assertThat(category).isNotNull();
+        assertThat(category.getAlias()).isEqualTo(alias);
     }
 }
