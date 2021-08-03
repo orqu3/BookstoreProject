@@ -22,39 +22,17 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @GetMapping("/categories")
-    public String listFirstPage(Model model) {
-        return listByPage(1, model, "id", "asc", null);
-    }
-
-    @GetMapping("/categories/page/{pageNum}")
-    public String listByPage(@PathVariable(name = "pageNum") int pageNum,
-                             Model model,
-                             @Param("sortField") String sortField,
-                             @Param("sortDir") String sortDir,
-                             @Param("keyword") String keyword) {
-        Page<Category> page = categoryService.listByPage(pageNum, sortField, sortDir, keyword);
-        List<Category> categories = page.getContent();
-
-        long startCount = (pageNum - 1) * CategoryService.CATEGORIES_PER_PAGE + 1;
-        long endCount = startCount + CategoryService.CATEGORIES_PER_PAGE - 1;
-
-        if (endCount > page.getTotalElements()) {
-            endCount = page.getTotalElements();
+    public String listAll(@Param("sortDir") String sortDir, Model model) {
+        if (sortDir == null || sortDir.isEmpty()) {
+            sortDir = "asc";
         }
+
+        List<Category> categories = categoryService.listAll(sortDir);
 
         String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
 
-        model.addAttribute("currentPage", pageNum);
-        model.addAttribute("totalPages", page.getTotalPages());
-        model.addAttribute("startCount", startCount);
-        model.addAttribute("endCount", endCount);
-        model.addAttribute("totalItems", page.getTotalElements());
         model.addAttribute("categories", categories);
-        model.addAttribute("sortField", sortField);
-        model.addAttribute("sortDir", sortDir);
         model.addAttribute("reverseSortDir", reverseSortDir);
-        model.addAttribute("keyword", keyword);
-
         return "categories";
     }
 
@@ -63,7 +41,7 @@ public class CategoryController {
         List<Category> categories = categoryService.listCategoriesUsedInForm();
         Category category = new Category();
         category.setEnabled(true);
-        model.addAttribute("category", category );
+        model.addAttribute("category", category);
         model.addAttribute("categories", categories);
         model.addAttribute("pageTitle", "Create New Category");
         return "category_form";
@@ -104,8 +82,8 @@ public class CategoryController {
 
     @GetMapping("/categories/{id}/enabled/{status}")
     public String updateCategoryEnabledStatus(@PathVariable("id") Integer id,
-                                          @PathVariable("status") Boolean enabled,
-                                          RedirectAttributes redirectAttributes) {
+                                              @PathVariable("status") Boolean enabled,
+                                              RedirectAttributes redirectAttributes) {
         categoryService.updateCategoryEnabledStatus(id, enabled);
         String status = enabled ? "enabled" : "disabled";
         String message = "The category ID " + id + " has been " + status;

@@ -29,27 +29,10 @@
 
 </th>
 
-<th th:fragment="column_link_cat(fieldName, columnLabel)">
-
-    <a class="text-white"
-       th:href="@{'/categories/page/' + ${currentPage} + '?sortField=' + ${fieldName} + '&sortDir=' + ${sortField != fieldName ? sortDir : reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">
-        [[${columnLabel}]]
-    </a>
-
-    <span th:if="${sortField == fieldName}"
-          th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
-
-</th>
-
 
 <a th:fragment="page_link(pageNum, label)"
    class="page-link"
    th:href="@{'/users/page/' + ${pageNum} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">[[${label}]]</a>
-
-<a th:fragment="page_link_cat(pageNum, label)"
-   class="page-link"
-   th:href="@{'/categories/page/' + ${pageNum} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">[[${label}]]</a>
-
 
 <div th:fragment="footer" class="text-center m-3">
     <p>Bookstore Admin - Copyright &copy; Bookstore</p>
