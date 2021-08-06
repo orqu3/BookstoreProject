@@ -25,3 +25,14 @@
     background-color: darkgray;
     border-color: darkgray;
 }
+
+.page-link {
+    color: cornflowerblue;
+}
+
+.page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: cornflowerblue;
+    border-color: cornflowerblue;
+}
