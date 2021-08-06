@@ -1,4 +1,4 @@
-# BookstoreProject <br/>
+# BookstoreProject  - Shopping Webapp using Java Spring Boot, Thymeleaf, Bootstrap, jQuery and HTML <br/>
 Bookstore Admin App Starter - <b>BookstoreAdminApplication</b> <br/>
 Access to Admin Panel: /BookstoreAdmin (port=8080)<br/>
 (credentials for Admin: admin@mail.com, password: admin2021) <br/>
