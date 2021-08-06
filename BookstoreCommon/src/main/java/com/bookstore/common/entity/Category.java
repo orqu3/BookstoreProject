@@ -58,6 +58,7 @@ public class Category {
         Category copyCategory = new Category();
         copyCategory.setId(category.getId());
         copyCategory.setName(category.getName());
+
         return copyCategory;
     }
 
@@ -65,6 +66,7 @@ public class Category {
         Category copyCategory = new Category();
         copyCategory.setId(id);
         copyCategory.setName(name);
+
         return copyCategory;
     }
 
@@ -74,12 +76,15 @@ public class Category {
         copyCategory.setName(category.getName());
         copyCategory.setAlias(category.getAlias());
         copyCategory.setEnabled(category.getEnabled());
+        copyCategory.setHasChildren(category.getChildren().size() > 0);
+
         return copyCategory;
     }
 
     public static Category copyFull(Category category, String name) {
         Category copyCategory = Category.copyFull(category);
         copyCategory.setName(name);
+
         return copyCategory;
     }
 
@@ -129,5 +134,16 @@ public class Category {
 
     public void setChildren(Set<Category> children) {
         this.children = children;
+    }
+
+    @Transient
+    private Boolean hasChildren;
+
+    public Boolean getHasChildren() {
+        return hasChildren;
+    }
+
+    public void setHasChildren(Boolean hasChildren) {
+        this.hasChildren = hasChildren;
     }
 }
