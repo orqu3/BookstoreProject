@@ -2,18 +2,17 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-<head th:replace="fragments :: page_head('Home - Bookstore Admin')"></head>
+<head th:replace="fragments :: page_head('Error - Bookstore Admin')"></head>
 
 <body>
+
 <div class="container-fluid">
     <div th:replace="navigation :: menu"></div>
-    <div class="p-3">
-        <h2>Bookstore Control Panel</h2>
-        Welcome,
-        <b><a sec:authentication="principal.fullName"></a></b>
-        <span sec:authentication="principal.authorities"></span>
+    <div class="m-3">
+        <h2>Sorry, the server has encountered an error while processing your request</h2>
     </div>
     <div th:replace="fragments :: footer"></div>
 </div>
+
 </body>
 </html>
