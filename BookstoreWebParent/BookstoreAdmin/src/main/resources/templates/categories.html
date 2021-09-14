@@ -10,22 +10,15 @@
         <h2>Manage Categories</h2>
         <a class="fas fa-folder-plus icon-green fa-2x" th:href="@{/categories/new}" title="Create New Category"></a>
     </div>
-    <div th:if="${message != null}" class="alert alert-success text-center">
-        [[${message}]]
-    </div>
 
-    <div th:replace="fragments :: search_form('/categories/page/1')"></div>
+    <div th:replace="fragments :: search_form_and_message('/categories/page/1')"></div>
 
     <div class="full-details">
         <table class="table table-bordered table-striped table-hover table-responsive-xl text-center">
             <thead class="thead-dark">
             <tr>
                 <th>ID</th>
-                <th>
-                    <a class="text-white"
-                       th:href="@{'/categories/page/' + ${pageNum} + '?sortDir=' + ${reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">Name</a>
-                    <span th:class="${reverseSortDir == 'desc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
-                </th>
+                <th th:replace="fragments :: column_link('/categories', 'name', 'Name')"></th>
                 <th>Alias</th>
                 <th>Enabled</th>
                 <th>Action</th>
@@ -37,10 +30,12 @@
                 <td>[[${category.name}]]</td>
                 <td>[[${category.alias}]]</td>
                 <td>
-                    <div th:replace="fragments :: category_status"></div>
+                    <div th:replace="fragments :: status(${category.enabled}, 'category', '/categories/' + ${category.id})"></div>
                 </td>
                 <td>
-                    <div th:replace="fragments :: category_action"></div>
+                    <div th:replace="fragments :: edit('category', '/categories/edit/' + ${category.id})"></div>
+                    &nbsp;&nbsp;
+                    <div th:replace="fragments :: delete('category', ${category.id}, '/categories/delete/' + ${category.id}, ${!category.hasChildren})"></div>
                 </td>
             </tr>
             </tbody>
