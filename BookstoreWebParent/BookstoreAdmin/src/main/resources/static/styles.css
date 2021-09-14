@@ -36,3 +36,7 @@
     background-color: cornflowerblue;
     border-color: cornflowerblue;
 }
+
+.nav-link {
+    margin-right: 60px;
+}

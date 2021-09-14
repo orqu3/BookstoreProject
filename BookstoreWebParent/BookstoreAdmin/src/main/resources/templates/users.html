@@ -10,34 +10,19 @@
         <h2>Manage Users</h2>
         <a class="fas fa-user-plus icon-green fa-2x" th:href="@{/users/new}" title="Create New User"></a>
     </div>
-    <div th:if="${message != null}" class="alert alert-success text-center">
-        [[${message}]]
-    </div>
 
-    <div>
-        <form th:action="@{/users/page/1}" class="form-inline m-3">
-            <input type="hidden" name="sortField" th:value="${sortField}"/>
-            <input type="hidden" name="sortDir" th:value="${sortDir}"/>
-
-            Filter:&nbsp;
-            <input type="search" name="keyword" th:value="${keyword}" class="form-control" required/>
-            &nbsp;&nbsp;
-            <input type="submit" value="Search" class="btn btn-primary"/>
-            &nbsp;&nbsp;
-            <input type="button" value="Clear" class="btn btn-secondary" onclick="clearFilter()"/>
-        </form>
-    </div>
+    <div th:replace="fragments :: search_form_and_message('/users/page/1')"></div>
 
     <div>
         <table class="table table-bordered table-striped table-hover table-responsive-xl text-center">
             <thead class="thead-dark">
             <tr>
-                <th th:replace="fragments :: column_link('id', 'ID')"></th>
-                <th th:replace="fragments :: column_link('email', 'E-mail')"></th>
-                <th th:replace="fragments :: column_link('firstName', 'First Name')"></th>
-                <th th:replace="fragments :: column_link('lastName', 'Last Name')"></th>
+                <th th:replace="fragments :: column_link('/users', 'id', 'ID')"></th>
+                <th th:replace="fragments :: column_link('/users', 'email', 'E-mail')"></th>
+                <th th:replace="fragments :: column_link('/users', 'firstName', 'First Name')"></th>
+                <th th:replace="fragments :: column_link('/users', 'lastName', 'Last Name')"></th>
                 <th>Roles</th>
-                <th th:replace="fragments :: column_link('enabled', 'Enabled')"></th>
+                <th th:replace="fragments :: column_link('/users', 'enabled', 'Enabled')"></th>
                 <th>Action</th>
             </tr>
             </thead>
@@ -49,43 +34,20 @@
                 <td>[[${user.lastName}]]</td>
                 <td>[[${user.roles}]]</td>
                 <td>
-                    <div th:replace="fragments :: user_status"></div>
+                    <div th:replace="fragments :: status(${user.enabled}, 'user', '/users/' + ${user.id})"></div>
                 </td>
                 <td>
-                    <div th:replace="fragments :: user_action"></div>
+                    <div th:replace="fragments :: edit('user', '/users/edit/' + ${user.id})"></div>
+                    &nbsp;&nbsp;
+                    <div th:replace="fragments :: delete('user', ${user.id}, '/users/delete/' + ${user.id}, true)"></div>
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
-    <div class="text-center mt-3 mb-2" th:if="${totalItems > 0}">
-        <span>Showing users # [[${startCount}]] to [[${endCount}]] of [[${totalItems}]]</span>
-    </div>
-    <div class="text-center mt-3 mb-2" th:unless="${totalItems > 0}">
-        <span>No users found</span>
-    </div>
-    <div th:if="${totalPages > 1}">
-        <nav>
-            <ul class="pagination justify-content-center">
-                <li th:class="${currentPage > 1 ? 'page-item':'page-item disabled'}">
-                    <a th:replace="fragments :: page_link(1, 'First')"></a>
-                </li>
-                <li th:class="${currentPage > 1 ? 'page-item':'page-item disabled'}">
-                    <a th:replace="fragments :: page_link(${currentPage - 1}, 'Previous')"></a>
-                </li>
-                <li th:class="${currentPage != i ? 'page-item':'page-item active'}"
-                    th:each="i : ${#numbers.sequence(1, totalPages)}">
-                    <a th:replace="fragments :: page_link(${i}, ${i})"></a>
-                </li>
-                <li th:class="${currentPage < totalPages ? 'page-item':'page-item disabled'}">
-                    <a th:replace="fragments :: page_link(${currentPage + 1}, 'Next')"></a>
-                </li>
-                <li th:class="${currentPage < totalPages ? 'page-item':'page-item disabled'}">
-                    <a th:replace="fragments :: page_link(${totalPages}, 'Last')"></a>
-                </li>
-            </ul>
-        </nav>
-    </div>
+
+    <div th:replace="fragments :: pagination('/users', 'users')"></div>
+
     <div th:replace="modal_fragments :: confirm_modal"></div>
 
     <div th:replace="fragments :: footer"></div>
