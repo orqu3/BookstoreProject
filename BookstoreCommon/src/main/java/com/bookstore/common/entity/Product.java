@@ -22,7 +22,10 @@ public class Product {
     @Column(unique = true, length = 256, nullable = false)
     private String alias;
 
-    @Column(length = 512, nullable = false)
+    @Column(unique = true, length = 256, nullable = false)
+    private String author;
+
+    @Column(length = 1024, nullable = false)
     private String description;
 
     @Column(name = "created_time")
@@ -48,4 +51,12 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
