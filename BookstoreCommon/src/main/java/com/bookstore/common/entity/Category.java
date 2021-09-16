@@ -146,4 +146,17 @@ public class Category {
     public void setHasChildren(Boolean hasChildren) {
         this.hasChildren = hasChildren;
     }
+
+    public Category(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

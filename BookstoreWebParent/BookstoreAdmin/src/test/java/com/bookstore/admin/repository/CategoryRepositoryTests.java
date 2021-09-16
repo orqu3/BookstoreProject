@@ -105,4 +105,11 @@ public class CategoryRepositoryTests {
         assertThat(category).isNotNull();
         assertThat(category.getAlias()).isEqualTo(alias);
     }
+
+    @Test
+    public void testFindAll() {
+        Iterable<Category> categories = categoryRepository.findAll();
+        categories.forEach(System.out::println);
+        assertThat(categories).isNotEmpty();
+    }
 }
