@@ -1,5 +1,6 @@
 package com.bookstore.admin.service;
 
+import com.bookstore.admin.exception.ProductNotFoundException;
 import com.bookstore.admin.repository.ProductRepository;
 import com.bookstore.common.entity.Product;
 import lombok.RequiredArgsConstructor;
@@ -55,5 +56,15 @@ public class ProductService {
 
     public void updateProductEnabledStatus(Integer id, Boolean enabled) {
         productRepository.updateEnabledStatus(id, enabled);
+    }
+
+    public void delete(Integer id) throws ProductNotFoundException {
+        Long countById = productRepository.countById(id);
+
+        if (countById == null || countById == 0) {
+            throw new ProductNotFoundException("Could not find any product with ID " + id);
+        }
+
+        productRepository.deleteById(id);
     }
 }
