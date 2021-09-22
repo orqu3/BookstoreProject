@@ -5,11 +5,13 @@ import com.bookstore.common.entity.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ProductService {
 
     private final ProductRepository productRepository;
@@ -49,5 +51,9 @@ public class ProductService {
             }
         }
         return "OK";
+    }
+
+    public void updateProductEnabledStatus(Integer id, Boolean enabled) {
+        productRepository.updateEnabledStatus(id, enabled);
     }
 }
