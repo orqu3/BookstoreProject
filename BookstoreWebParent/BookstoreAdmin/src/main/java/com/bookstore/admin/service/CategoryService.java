@@ -200,5 +200,9 @@ public class CategoryService {
         sortedChildren.addAll(children);
         return sortedChildren;
     }
+
+    public List<Category> listAll() {
+        return categoryRepository.findAll();
+    }
 }
 
