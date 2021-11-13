@@ -1,7 +1,7 @@
 package com.bookstore.shopping.controller;
 
 import com.bookstore.common.entity.Category;
-import com.bookstore.shopping.category.CategoryService;
+import com.bookstore.shopping.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

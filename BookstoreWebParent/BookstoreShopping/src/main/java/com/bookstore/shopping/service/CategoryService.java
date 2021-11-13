@@ -1,7 +1,8 @@
-package com.bookstore.shopping.category;
+package com.bookstore.shopping.service;
 
 
 import com.bookstore.common.entity.Category;
+import com.bookstore.shopping.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
