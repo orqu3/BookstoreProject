@@ -39,7 +39,13 @@
                 <div class="tab-pane" id="description-container" role="tabpanel">
                     <div th:replace="product_description :: content"></div>
                 </div>
-                <div class="tab-pane" id="details" role="tabpanel">Details</div>
+                <div class="tab-pane" id="details" role="tabpanel">
+                    <div th:replace="product_details :: content"></div>
+                    <div>
+                        <input type="button" class="btn btn-secondary" value="Add More Detail"
+                        onclick="addNextDetailSection()"/>
+                    </div>
+                </div>
                 <div class="tab-pane" id="shipping" role="tabpanel">
                     <div th:replace="product_shipping :: content"></div>
                 </div>
@@ -56,6 +62,7 @@
     <div th:replace="fragments :: footer"></div>
 </div>
 <script th:src="@{/js/common_form.js}"></script>
+<script th:src="@{/js/product_form_details.js}"></script>
 <script type="text/javascript">
     moduleURL = "[[@{/products}]]"
 
