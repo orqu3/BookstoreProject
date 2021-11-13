@@ -115,4 +115,13 @@ public class ProductRepositoryTests {
         Optional<Product> result = productRepository.findById(id);
         assertThat(result.isEmpty());
     }
+
+    @Test
+    public void testSaveProductWithDetails() {
+        Integer productId = 1;
+        Product product = productRepository.findById(productId).get();
+        product.addDetail("detail name", "detail value");
+        Product savedProduct = productRepository.save(product);
+        assertThat(savedProduct.getDetails()).isNotEmpty();
+    }
 }
