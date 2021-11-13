@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -41,6 +42,15 @@ public class CurrencyRepositoryTests {
 
         Iterable<Currency> iterable = repo.findAll();
 
+        iterable.forEach(System.out::println);
+
         assertThat(iterable).size().isEqualTo(12);
+    }
+
+    @Test
+    public void testListAllOrderByNameAsc(){
+        List<Currency> currencies = repo.findAllByOrderByNameAsc();
+        currencies.forEach(System.out::println);
+        assertThat(currencies.size()).isGreaterThan(0);
     }
 }

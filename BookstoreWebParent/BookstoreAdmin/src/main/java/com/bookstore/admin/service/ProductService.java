@@ -4,6 +4,7 @@ import com.bookstore.admin.exception.ProductNotFoundException;
 import com.bookstore.admin.repository.ProductRepository;
 import com.bookstore.common.entity.Product;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -15,7 +16,8 @@ import java.util.List;
 @Transactional
 public class ProductService {
 
-    private final ProductRepository productRepository;
+    @Autowired
+    private ProductRepository productRepository;
 
     public List<Product> listAll() {
         return (List<Product>) productRepository.findAll();

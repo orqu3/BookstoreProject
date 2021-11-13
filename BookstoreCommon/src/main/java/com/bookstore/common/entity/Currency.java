@@ -19,6 +19,9 @@ public class Currency {
     @Column(nullable = false, length = 4)
     private String code;
 
+    public Currency() {
+    }
+
     public Currency(String name, String symbol, String code) {
         super();
         this.name = name;
@@ -56,5 +59,15 @@ public class Currency {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    @Override
+    public String toString() {
+        return "Currency{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", symbol='" + symbol + '\'' +
+                ", code='" + code + '\'' +
+                '}';
     }
 }
