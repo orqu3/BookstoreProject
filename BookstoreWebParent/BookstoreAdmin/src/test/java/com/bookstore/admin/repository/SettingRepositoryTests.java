@@ -26,7 +26,7 @@ public class SettingRepositoryTests {
         Setting siteLogo = new Setting("SITE_LOGO", "Bookstore.png", SettingCategory.GENERAL);
         Setting copyright = new Setting("COPYRIGHT", "Copyright (C) 2021 Bookstore Ltd.", SettingCategory.GENERAL);
 
-        repo.saveAll(List.of(siteName));
+        repo.saveAll(List.of(siteName, siteLogo, copyright));
 
         Iterable<Setting> iterable = repo.findAll();
 

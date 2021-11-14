@@ -31,7 +31,19 @@ function showImageThumbnail(fileInput) {
     reader.onload = function (e) {
         $("#thumbnail").attr("src", e.target.result);
     };
-
     reader.readAsDataURL(file);
+}
 
+function checkFileSize(fileInput) {
+    fileSize = fileInput.files[0].size;
+
+    if(fileSize > MAX_FILE_SIZE){
+        // fileInput.setCustomValidity("You must choose an image less than " + MAX_FILE_SIZE + " byte");
+        // fileInput.reportValidity();
+
+        return false;
+    } else {
+        // this.setCustomValidity("");
+        showImageThumbnail(this);
+    }
 }
