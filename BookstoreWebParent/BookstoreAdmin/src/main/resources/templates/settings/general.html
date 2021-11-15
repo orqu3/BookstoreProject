@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <div th:fragment="content" th:remove="tag">
-        <form action="@{/settings/save_general}" method="post">
+        <form action="@{/settings/save_general}" method="post" enctype="multipart/form-data">
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Copyright:</label>
                 <div class="col-sm-8">

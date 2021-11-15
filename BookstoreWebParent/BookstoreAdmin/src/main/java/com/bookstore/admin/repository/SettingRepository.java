@@ -1,8 +1,11 @@
 package com.bookstore.admin.repository;
 
 import com.bookstore.common.entity.Setting;
+import com.bookstore.common.entity.SettingCategory;
 import org.springframework.data.repository.CrudRepository;
 
-public interface SettingRepository extends CrudRepository<Setting, String> {
+import java.util.List;
 
+public interface SettingRepository extends CrudRepository<Setting, String> {
+    public List<Setting> findByCategory(SettingCategory category);
 }
