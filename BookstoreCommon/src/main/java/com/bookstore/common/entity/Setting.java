@@ -3,6 +3,7 @@ package com.bookstore.common.entity;
 import javax.persistence.*;
 import java.util.Objects;
 
+
 @Entity
 @Table(name = "settings")
 public class Setting {
