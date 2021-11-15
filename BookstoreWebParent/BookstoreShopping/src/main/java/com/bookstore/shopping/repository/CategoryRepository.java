@@ -11,5 +11,5 @@ import java.util.List;
 public interface CategoryRepository extends CrudRepository <Category, Integer> {
 
     @Query("SELECT c FROM Category c WHERE c.enabled = true ORDER BY c.name ASC")
-    List<Category> findAllEnable();
+    public List<Category> findAllEnable();
 }

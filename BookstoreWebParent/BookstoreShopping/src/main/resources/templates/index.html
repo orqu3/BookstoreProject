@@ -9,6 +9,12 @@
         <h1> Shopping by Categories </h1>
     </div>
 
+    <div class="row">
+        <div class="col" th:each="cat : ${listCategories}">
+            <a th:href="@{'c'+ ${cat.alias}}">[[${cat.name}]]</a>
+        </div>
+    </div>
+
 
     <div th:replace="navigation :: footer_menu"></div>
 </div>
