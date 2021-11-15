@@ -40,23 +40,27 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/users/**").hasAuthority("Admin")
-                .antMatchers("/categories/**", "/products/**").hasAnyAuthority("Admin", "Salesperson")
-                .anyRequest()
-                .authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .usernameParameter("email")
-                .permitAll()
-                .and()
-                .logout()
-                .permitAll();
+        http
+            .authorizeRequests()
+            .antMatchers("/users/**", "/settings/**").hasAuthority("Admin")
+            .antMatchers("/categories/**", "/products/**").hasAnyAuthority("Admin", "Salesperson")
+            .anyRequest()
+            .authenticated()
+            .and()
+            .formLogin()
+            .loginPage("/login")
+            .usernameParameter("email")
+            .permitAll()
+            .and()
+            .logout()
+            .permitAll();
+        http.csrf().disable();
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/images/**", "/js/**", "/webjars/**", "/styles.css", "/richtext/**");
     }
+
+
 }

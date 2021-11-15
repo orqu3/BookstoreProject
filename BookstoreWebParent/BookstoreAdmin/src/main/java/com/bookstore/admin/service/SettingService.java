@@ -28,7 +28,7 @@ public class SettingService {
         settings.addAll(generalSettings);
         settings.addAll(currencySettings);
 
-        return new GeneralSettingBag(generalSettings);
+        return new GeneralSettingBag(settings);
 
     }
 

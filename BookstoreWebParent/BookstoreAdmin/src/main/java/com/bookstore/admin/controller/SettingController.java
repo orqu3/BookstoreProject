@@ -44,8 +44,7 @@ public class SettingController {
     }
 
     @PostMapping("/settings/save_general")
-    public String saveGeneralSettings(@RequestParam("fileImage")MultipartFile multipartFile,
-                                      HttpServletRequest request, RedirectAttributes ra){
+    public String saveGeneralSettings(HttpServletRequest request, RedirectAttributes ra){
         GeneralSettingBag settingBag = service.getGeneralSettings();
 
         saveCurrencySymbol(request, settingBag);
