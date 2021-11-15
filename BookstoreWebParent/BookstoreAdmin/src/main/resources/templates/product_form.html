@@ -69,6 +69,9 @@
 
     $(document).ready(function () {
         $("#description").richText();
+        $("#buttonCancel").on("click", function () {
+            window.location = "[[@{/products}]]";
+        });
     });
 
     function checkUnique(form) {

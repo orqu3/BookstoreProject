@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.swing.text.StyledEditorKit;
 import java.util.List;
 
 @Controller
@@ -47,22 +46,26 @@ public class ProductController {
 
     @PostMapping("/products/save")
     public String saveProduct(Product product, RedirectAttributes redirectAttributes,
+                              @RequestParam(name = "detailIDs", required = false) String[] detailIDs,
                               @RequestParam(name = "detailNames", required = false) String[] detailNames,
                               @RequestParam(name = "detailValues", required = false) String[] detailValues) {
-        setProductDetails(detailNames, detailValues, product);
+        setProductDetails(detailIDs, detailNames, detailValues, product);
         productService.save(product);
         redirectAttributes.addFlashAttribute("message", "The product has been saved successfully.");
         return "redirect:/products";
     }
 
-    private void setProductDetails(String[] detailNames, String[] detailValues, Product product) {
+    private void setProductDetails(String[] detailIDs, String[] detailNames, String[] detailValues, Product product) {
         if (detailNames == null || detailNames.length == 0) return;
 
         for (int count = 0; count < detailNames.length; count++) {
             String name = detailNames[count];
             String value = detailValues[count];
+            Integer id = Integer.parseInt(detailIDs[count]);
 
-            if (!name.isEmpty() && !value.isEmpty()) {
+            if(id != 0) {
+                product.addDetail(id, name, value);
+            } else if (!name.isEmpty() && !value.isEmpty()) {
                 product.addDetail(name, value);
             }
         }
