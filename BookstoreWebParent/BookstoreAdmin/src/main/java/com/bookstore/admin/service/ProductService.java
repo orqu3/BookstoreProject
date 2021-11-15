@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -66,5 +67,13 @@ public class ProductService {
         }
 
         productRepository.deleteById(id);
+    }
+
+    public Product get(Integer id) throws ProductNotFoundException {
+        try {
+            return productRepository.findById(id).get();
+        } catch (NoSuchElementException e) {
+            throw new ProductNotFoundException("Could not find any product with ID " + id);
+        }
     }
 }
