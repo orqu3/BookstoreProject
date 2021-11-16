@@ -27,7 +27,7 @@ public class ProductRepositoryTests {
 
     @Test
     public void testCreateFirstProduct() {
-        Category category = entityManager.find(Category.class, 36);
+        Category category = entityManager.find(Category.class, 12);
 
         Product product = new Product();
         product.setName("Doctor Zhivago");
@@ -55,7 +55,7 @@ public class ProductRepositoryTests {
 
     @Test
     public void testCreateSecondProduct() {
-        Category category = entityManager.find(Category.class, 37);
+        Category category = entityManager.find(Category.class, 12);
 
         Product product = new Product();
         product.setName("The Incorrigible Optimists Club");
