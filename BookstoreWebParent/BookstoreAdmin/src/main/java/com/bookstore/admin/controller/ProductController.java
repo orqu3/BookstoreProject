@@ -63,7 +63,7 @@ public class ProductController {
             String value = detailValues[count];
             Integer id = Integer.parseInt(detailIDs[count]);
 
-            if(id != 0) {
+            if (id != 0) {
                 product.addDetail(id, name, value);
             } else if (!name.isEmpty() && !value.isEmpty()) {
                 product.addDetail(name, value);
@@ -108,6 +108,21 @@ public class ProductController {
             model.addAttribute("pageTitle", "Edit Product (ID: " + id + ")");
 
             return "product_form";
+        } catch (ProductNotFoundException e) {
+            redirectAttributes.addFlashAttribute("message", e.getMessage());
+
+            return "redirect:/products";
+        }
+    }
+
+    @GetMapping("/products/detail/{id}")
+    public String viewProductDetails(@PathVariable("id") Integer id, Model model, RedirectAttributes redirectAttributes) {
+        try {
+            Product product = productService.get(id);
+
+            model.addAttribute("product", product);
+
+            return "product_detail_modal";
         } catch (ProductNotFoundException e) {
             redirectAttributes.addFlashAttribute("message", e.getMessage());
 
