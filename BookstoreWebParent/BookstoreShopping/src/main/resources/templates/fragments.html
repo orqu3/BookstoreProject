@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="page_head(title, remove)" th:remove="${remove}">
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
+
+    <title>[[${title}]] - [[${SITE_NAME}]]</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+</head>
+
+<div th:if="${product.discountPercent <= 0}">
+    <span th:if="${CURRENCY_SYMBOL_POSITION == 'Before price'}" th:remove="tag">[[${CURRENCY_SYMBOL}]]</span>
+    [[${product.price}]]
+    <span th:if="${CURRENCY_SYMBOL_POSITION == 'After price'}" th:remove="tag">[[${CURRENCY_SYMBOL}]]</span>
+
+</div>
+
+<body>
+
+<div th:fragment="footer" class="text-center m-3">
+    <p>Bookstore - Copyright &copy; Bookstore</p>
+</div>
+
+
+</body>
+</html>

@@ -1,5 +1,6 @@
 package com.bookstore.shopping.other_classes.setting;
 
+import com.bookstore.common.entity.Setting;
 import com.bookstore.shopping.service.SettingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.List;
 
 @Component
 @ComponentScan(basePackages={"com.bookstore.shopping.repository"})
@@ -24,7 +26,17 @@ public class SettingFilter implements Filter {
         HttpServletRequest servletRequest = (HttpServletRequest) request;
         String url = servletRequest.getRequestURL().toString();
 
-        System.out.println(url);
+        if(url.endsWith(".css") || url.endsWith(".js") || url.endsWith(".png") || url.endsWith(".jpg")){
+            chain.doFilter(request, response);
+            return;
+        }
+
+        List<Setting> generalSettings = service.getGeneralSettings();
+
+        generalSettings.forEach(setting -> {
+            System.out.println(setting);
+            request.setAttribute(setting.getKey(), setting.getValue());
+        });
 
         chain.doFilter(request, response);
     }
