@@ -25,6 +25,9 @@ public class Category {
     @Column(name = "enabled", nullable = false)
     private Boolean enabled;
 
+    @Column(name = "all_parent_ids", length = 256, nullable = true)
+    private String allParentIDs;
+
     @ManyToOne
     @JoinColumn(name = "parent_id")
     private Category parent;
@@ -134,6 +137,14 @@ public class Category {
 
     public void setChildren(Set<Category> children) {
         this.children = children;
+    }
+
+    public String getAllParentIDs() {
+        return allParentIDs;
+    }
+
+    public void setAllParentIDs(String allParentIDs) {
+        this.allParentIDs = allParentIDs;
     }
 
     @Transient
