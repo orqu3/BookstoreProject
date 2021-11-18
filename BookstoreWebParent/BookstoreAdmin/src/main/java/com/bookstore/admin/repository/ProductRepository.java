@@ -1,6 +1,8 @@
 package com.bookstore.admin.repository;
 
 import com.bookstore.common.entity.Product;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -14,4 +16,7 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, I
     void updateEnabledStatus(Integer id, Boolean enabled);
 
     Long countById(Integer id);
+
+    @Query("SELECT p FROM Product p WHERE p.name LIKE %?1% OR p.description LIKE %?1% OR p.category.name LIKE %?1%")
+    Page<Product> findAll(String keyword, Pageable pageable);
 }

@@ -17,12 +17,12 @@
         <table class="table table-bordered table-striped table-hover table-responsive-xl text-center">
             <thead class="thead-dark">
             <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Author</th>
-                <th>Category</th>
+                <th th:replace="fragments :: column_link('/products', 'id', 'ID')"></th>
+                <th th:replace="fragments :: column_link('/products', 'name', 'Name')"></th>
+                <th th:replace="fragments :: column_link('/products', 'author', 'Author')"></th>
+                <th th:replace="fragments :: column_link('/products', 'category.name', 'Category')"></th>
                 <th>Enabled</th>
-                <th></th>
+                <th>Action</th>
             </tr>
             </thead>
             <tbody>
@@ -62,6 +62,8 @@
             </div>
         </div>
     </div>
+
+    <div th:replace="fragments :: pagination('/products', 'products')"></div>
 
     <div th:replace="fragments :: footer"></div>
 </div>
