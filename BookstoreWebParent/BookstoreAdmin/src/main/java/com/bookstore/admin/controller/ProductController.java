@@ -1,6 +1,7 @@
 package com.bookstore.admin.controller;
 
 import com.bookstore.admin.exception.ProductNotFoundException;
+import com.bookstore.admin.security.BookstoreUserDetails;
 import com.bookstore.admin.service.CategoryPageInfo;
 import com.bookstore.admin.service.CategoryService;
 import com.bookstore.admin.service.ProductService;
@@ -11,6 +12,7 @@ import com.bookstore.common.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -89,7 +91,15 @@ public class ProductController {
     public String saveProduct(Product product, RedirectAttributes redirectAttributes,
                               @RequestParam(name = "detailIDs", required = false) String[] detailIDs,
                               @RequestParam(name = "detailNames", required = false) String[] detailNames,
-                              @RequestParam(name = "detailValues", required = false) String[] detailValues) {
+                              @RequestParam(name = "detailValues", required = false) String[] detailValues,
+                              @AuthenticationPrincipal BookstoreUserDetails loggedUser) {
+
+        if (loggedUser.hasRole("Salesperson")) {
+            productService.saveProductPrice(product);
+            redirectAttributes.addFlashAttribute("message", "The product has been saved successfully.");
+            return "redirect:/products";
+        }
+
         setProductDetails(detailIDs, detailNames, detailValues, product);
         productService.save(product);
         redirectAttributes.addFlashAttribute("message", "The product has been saved successfully.");
