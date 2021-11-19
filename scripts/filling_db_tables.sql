@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.25, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: bookstore_db
+-- Host: localhost    Database: bookstore_db
 -- ------------------------------------------------------
--- Server version	8.0.27
+-- Server version	8.0.11
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -23,17 +23,17 @@ DROP TABLE IF EXISTS `categories`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `categories` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(128) NOT NULL,
   `alias` varchar(64) NOT NULL,
-  `enabled` int NOT NULL,
-  `parent_id` int DEFAULT NULL,
+  `enabled` int(11) NOT NULL,
+  `parent_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_jx1ptm0r46dop8v0o7nmgfbeq` (`alias`),
   UNIQUE KEY `UK_t8o6pivur7nn124jehx7cygw5` (`name`),
   KEY `FKsaok720gsu4u2wrgbk10b5n8d` (`parent_id`),
   CONSTRAINT `FKsaok720gsu4u2wrgbk10b5n8d` FOREIGN KEY (`parent_id`) REFERENCES `categories` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -47,6 +47,31 @@ INSERT INTO `categories` VALUES (1,'Arts','Arts',1,NULL),(2,'Biographies','Biogr
 UNLOCK TABLES;
 
 --
+-- Table structure for table `countries`
+--
+
+DROP TABLE IF EXISTS `countries`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `countries` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  `code` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `countries`
+--
+
+LOCK TABLES `countries` WRITE;
+/*!40000 ALTER TABLE `countries` DISABLE KEYS */;
+INSERT INTO `countries` VALUES (1,'Republic of India','IN'),(2,'United States','US'),(3,'United Kingdom','UK'),(4,'Vietnam','VN'),(5,'Canada','CA'),(6,'Germany','DE');
+/*!40000 ALTER TABLE `countries` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `currencies`
 --
 
@@ -54,12 +79,12 @@ DROP TABLE IF EXISTS `currencies`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `currencies` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
   `symbol` varchar(3) NOT NULL,
   `code` varchar(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -73,32 +98,6 @@ INSERT INTO `currencies` VALUES (1,'United States Dollar','$','USD'),(2,'British
 UNLOCK TABLES;
 
 --
--- Table structure for table `product_images`
---
-
-DROP TABLE IF EXISTS `product_images`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `product_images` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `product_id` int DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FKqnq71xsohugpqwf3c9gxmsuy` (`product_id`),
-  CONSTRAINT `FKqnq71xsohugpqwf3c9gxmsuy` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `product_images`
---
-
-LOCK TABLES `product_images` WRITE;
-/*!40000 ALTER TABLE `product_images` DISABLE KEYS */;
-/*!40000 ALTER TABLE `product_images` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `products`
 --
 
@@ -106,7 +105,7 @@ DROP TABLE IF EXISTS `products`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `products` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `alias` varchar(256) NOT NULL,
   `author` varchar(256) NOT NULL,
   `cost` float NOT NULL,
@@ -115,19 +114,18 @@ CREATE TABLE `products` (
   `discount_percent` float DEFAULT NULL,
   `enabled` bit(1) DEFAULT NULL,
   `in_stock` bit(1) DEFAULT NULL,
-  `main_image` varchar(255) NOT NULL,
   `name` varchar(256) NOT NULL,
   `price` float NOT NULL,
   `updated_time` datetime DEFAULT NULL,
   `weight` float NOT NULL,
-  `category_id` int DEFAULT NULL,
+  `category_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_8qwq8q3hk7cxkp9gruxupnif5` (`alias`),
   UNIQUE KEY `UK_1fdslyxod6pgjv8bdnb4sgt8` (`author`),
   UNIQUE KEY `UK_o61fmio5yukmmiqgnxf8pnavn` (`name`),
   KEY `FKog2rp4qthbtt2lfyhfo32lsw9` (`category_id`),
   CONSTRAINT `FKog2rp4qthbtt2lfyhfo32lsw9` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -147,12 +145,12 @@ DROP TABLE IF EXISTS `roles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `roles` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(40) NOT NULL,
   `description` varchar(150) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_ofx66keruapi6vyqpv6f2or37` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -173,13 +171,10 @@ DROP TABLE IF EXISTS `roles_users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `roles_users` (
-  `user_id` int NOT NULL,
-  `role_id` int NOT NULL,
-  PRIMARY KEY (`user_id`,`role_id`),
-  KEY `FKsmos02hm32191ogexm2ljik9x` (`role_id`),
-  CONSTRAINT `FKlkcn1l0gnfshcn4rnmak73ta` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  CONSTRAINT `FKsmos02hm32191ogexm2ljik9x` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+  `role_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`role_id`,`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -201,10 +196,10 @@ DROP TABLE IF EXISTS `settings`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `settings` (
   `key` varchar(128) NOT NULL,
-  `value` varchar(1024) NOT NULL,
   `category` varchar(45) NOT NULL,
+  `value` varchar(1024) NOT NULL,
   PRIMARY KEY (`key`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -213,8 +208,35 @@ CREATE TABLE `settings` (
 
 LOCK TABLES `settings` WRITE;
 /*!40000 ALTER TABLE `settings` DISABLE KEYS */;
-INSERT INTO `settings` VALUES ('COPYRIGHT','Copyright (C) 2021 Bookstore Ltd.','GENERAL'),('CURRENCY_ID','1','CURRENCY'),('CURRENCY_SYMBOL','$','CURRENCY'),('CURRENCY_SYMBOL_POSITION','before','CURRENCY'),('DECIMAL_DIGITS','2','CURRENCY'),('DECIMAL_POINT_TYPE','POINT','CURRENCY'),('SITE_LOGO','Bookstore.png','GENERAL'),('SITE_NAME','Bookstore','GENERAL'),('THOUSANDS_POINT_TYPE','COMMA','CURRENCY');
+INSERT INTO `settings` VALUES ('COPYRIGHT','GENERAL','Copyright (C) 2021 ShopMe Ltd.'),('CURRENCY_ID','CURRENCY','5'),('CURRENCY_SYMBOL','CURRENCY','₽'),('CURRENCY_SYMBOL_POSITION','CURRENCY','Before price'),('DECIMAL_DIGITS','CURRENCY','2'),('DECIMAL_POINT_TYPE','CURRENCY','POINT'),('SITE_LOGO','GENERAL','Bookstore.png'),('SITE_NAME','GENERAL','MyShop'),('THOUSANDS_POINT_TYPE','CURRENCY','COMMA');
 /*!40000 ALTER TABLE `settings` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `states`
+--
+
+DROP TABLE IF EXISTS `states`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `states` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  `country_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKskkdphjml9vjlrqn4m5hi251y` (`country_id`),
+  CONSTRAINT `FKskkdphjml9vjlrqn4m5hi251y` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `states`
+--
+
+LOCK TABLES `states` WRITE;
+/*!40000 ALTER TABLE `states` DISABLE KEYS */;
+INSERT INTO `states` VALUES (1,'Karnataka',1),(2,'Panjab',1),(3,'Uttar Pradesh',1),(4,'West Bengal',1),(5,'California',2),(6,'Texas',2),(7,'New York',2),(8,'Washington',2);
+/*!40000 ALTER TABLE `states` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -225,15 +247,15 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(128) NOT NULL,
   `first_name` varchar(45) NOT NULL,
   `last_name` varchar(45) NOT NULL,
-  `enabled` int NOT NULL,
+  `enabled` int(11) NOT NULL,
   `password` varchar(64) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_6dotkott2kjsp8vw4d0m25fb7` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -255,4 +277,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-11-13 23:15:34
+-- Dump completed on 2021-11-19  3:51:42
