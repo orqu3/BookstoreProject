@@ -2,6 +2,7 @@ package com.bookstore.shopping.service;
 
 
 import com.bookstore.common.entity.Product;
+import com.bookstore.common.exception.ProductNotFoundException;
 import com.bookstore.shopping.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,6 +23,14 @@ public class ProductService {
         Pageable pageable = PageRequest.of(pageNum - 1, PRODUCTS_PER_PAGE);
 
         return repo.listByCategory(categoryId,categoryIdMatch,pageable);
+    }
+
+    public Product getProduct(String alias) throws ProductNotFoundException{
+        Product product = repo.findByAlias(alias);
+        if (product == null) {
+            throw new ProductNotFoundException("Could not find any products with alias" + alias);
+        }
+        return product;
     }
 
 
