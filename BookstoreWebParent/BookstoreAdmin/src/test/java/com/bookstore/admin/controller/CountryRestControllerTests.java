@@ -1,4 +1,4 @@
-package com.bookstore.admin.repository;
+package com.bookstore.admin.controller;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -9,6 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.bookstore.admin.repository.CountryRepository;
 import com.bookstore.common.entity.Country;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -31,7 +32,8 @@ public class CountryRestControllerTests {
 
     @Autowired ObjectMapper objectMapper;
 
-    @Autowired CountryRepository repo;
+    @Autowired
+    CountryRepository repo;
 
     @Test
     @WithMockUser(username = "admin@mail.com", password = "something", roles = "Admin")
