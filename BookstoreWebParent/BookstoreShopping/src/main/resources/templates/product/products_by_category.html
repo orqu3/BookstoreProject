@@ -4,7 +4,7 @@
 <body>
 <div class="container-fluid">
     <div th:replace="navigation :: header_menu"></div>
-
+    <div th:replace="navigation :: search_nav"></div>
     <div th:replace="breadcrumb :: content"></div>
 
 
@@ -21,25 +21,11 @@
     <div class="row">&nbsp;</div>
     <div class="row">
         <th:block th:each = "product : ${listProducts}">
-            <div class="col">
-                <a th:href="@{'/p/' + @{product.alias}}">
-                  <div>
-                    <b>[[${product.shortName}]]</b>
-                  </div>
-                </a>
-                <div th:if="${product.discountPercent <= 0 } ">
-                    <span>Руб. [[${product.price}]]</span>
-                </div>
-
-                <div th:if="${product.discountPercent > 0 } ">
-                    <span style="font-size: large; color: darkred">Руб. [[${product.discountPrice}]]</span>
-                    <del><span>Руб. [[${product.price}]]</span></del>
-                </div>
-            </div>
+        <div th:replace="product/product_fragment :: content"></div>
         </th:block>
     </div>
 
-    <div th:replace="fragments :: pagination('/c/' + ${category.alias}, 'product')"></div>
+    <div th:replace="fragments :: pagination('/search, 'product')"></div>
 
 
 
