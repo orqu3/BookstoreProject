@@ -33,6 +33,7 @@ public class Category {
     private Category parent;
 
     @OneToMany(mappedBy = "parent")
+    @OrderBy("name asc")
     private Set<Category> children = new HashSet<>();
 
     public Category(String name) {
@@ -72,6 +73,7 @@ public class Category {
 
         return copyCategory;
     }
+
 
     public static Category copyFull(Category category) {
         Category copyCategory = new Category();
@@ -170,4 +172,6 @@ public class Category {
                 ", name='" + name + '\'' +
                 '}';
     }
+
+
 }
