@@ -1,6 +1,10 @@
 package com.bookstore.shopping.controller;
 
 import com.bookstore.common.entity.Category;
+
+import com.bookstore.shopping.service.CategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.bookstore.common.entity.Product;
 import com.bookstore.common.exception.CategoryNotFoundException;
 import com.bookstore.common.exception.ProductNotFoundException;
@@ -9,6 +13,7 @@ import com.bookstore.shopping.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +25,21 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
+    private CategoryService categoryService;
+
+    @GetMapping("/c/{category_alias}")
+    public String viewCategory (@PathVariable("category_alias") String alias, Model model) {
+        Category category = categoryService.getCategory(alias);
+        if (category == null) {
+            return "error/404";
+        }
+
+        List<Category> listCategoryParents =  categoryService.getCategoryParents(category);
+
+        model.addAttribute("pageTitle", category.getName());
+        model.addAttribute("listCategoryParents", listCategoryParents);
+        return "products_by_category";
+
     private ProductService productService;
 
     @Autowired
@@ -33,9 +53,6 @@ public class ProductController {
 
 
     }
-
-
-
 
     @GetMapping("/c/{category_alias}/page/{pageNum}")
     public String viewCategoryByPage (@PathVariable("category_alias") String alias,

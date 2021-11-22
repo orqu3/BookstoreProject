@@ -37,6 +37,7 @@
     </nav>
 </div>
 
+
 <div th:fragment="search_nav" class="row">
     <div class="col-md">
         <nav class="navbar navbar-expand-lg bg-light navbar-light">
@@ -50,9 +51,6 @@
         </nav>
     </div>
 </div>
-
-
-
 
 <div th:fragment="footer_menu">
     <div>
@@ -77,9 +75,7 @@
         </nav>
     </div>
     <div th:fragment="footer" class="text-center m-3">
-        <p>Bookstore - Copyright &copy; Bookstore</p>
-    </div>
-
+        <p>[[${COPYRIGHT}]]</p>
 </div>
 
 </body>

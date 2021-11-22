@@ -2,7 +2,9 @@ package com.bookstore.shopping.service;
 
 
 import com.bookstore.common.entity.Category;
+
 import com.bookstore.common.exception.CategoryNotFoundException;
+
 import com.bookstore.shopping.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +41,7 @@ public class CategoryService {
             throw new CategoryNotFoundException("Could not find any categories with alias" + alias);
         }
         return category;
+
     }
 
     public List<Category> getCategoryParents(Category child) {

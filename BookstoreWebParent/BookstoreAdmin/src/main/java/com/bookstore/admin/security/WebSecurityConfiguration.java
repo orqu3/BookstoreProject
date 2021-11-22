@@ -43,7 +43,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/categories/**", "/products", "/products/", "/products/detail/**", "/products/page/**", "/products/edit/**", "/products/save", "/products/check_unique")
                     .hasAnyAuthority("Admin", "Salesperson")
-                .antMatchers("/users/**", "/products/**")
+                .antMatchers("/users/**", "/products/**", "/settings/**", "/countries/**", "/states/**")
                     .hasAuthority("Admin")
                 .anyRequest()
                 .authenticated()
@@ -61,4 +61,5 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/images/**", "/js/**", "/webjars/**", "/styles.css", "/richtext/**");
     }
+
 }
