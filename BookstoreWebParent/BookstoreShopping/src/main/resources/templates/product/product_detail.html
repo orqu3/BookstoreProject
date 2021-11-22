@@ -8,57 +8,40 @@
     <div th:replace="breadcrumb :: content"></div>
 
     <div class="row">
-        <div class="col-sm">
-            <div>
 
-            </div>
-        </div>
-
-        <div class="col-sm">
+        <div class="col-sm m-3">
             <div>
                 <h2>[[${product.name}]]</h2>
             </div>
             <div>
                 List Price:
-                <span th:if="${product.discountPercent <= 0 } ">Руб. [[${product.price}]]</span>
-                <del th:if="${product.discountPercent > 0 } "><span>Руб. [[${product.price}]]</span></del>
+                <span th:if="${product.discountPercent <= 0 } "> $ [[${product.price}]]</span>
+                <del th:if="${product.discountPercent > 0 } "><span>$ [[${product.price}]]</span></del>
 
             </div>
 
             <div th:if="${product.discountPercent > 0 } ">
                 Price:
-                <span style="font-size: large; color: darkred">Руб. [[${product.discountPrice}]]</span>
+                <span style="font-size: large; color: darkred">$ [[${product.discountPrice}]]</span>
                 ([[${product.discountPercent}]] % off)
             </div>
             <div>&nbsp;</div>
             <div th:utext="${product.description}"></div>
+            <div>&nbsp;</div>
         </div>
-        <div class="col-sm-2">
-            <div>
+        <div class="col-sm-4">
+            <div class="pt-5 mb-3 text-center">
                 <span th:if="${product.inStock}" class="text-success"><b>In Stock</b></span>
                 <span th:unless="${product.inStock}" class="text-danger"><b>Out of Stock</b></span>
             </div>
-            <div class="mt-2">
-                <input type="text" size="5" value="1" />
+            <div class="text-center mb-3">
+                <input type="text" size="5" value="1"/>
             </div>
-            <div class="mt-3">
-                <input type="button" value="Add to Cart" class="btn btn-primary" />
+            <div class="mb-5 text-center">
+                <input type="button" value="Add to Cart" class="btn btn-primary"/>
             </div>
         </div>
     </div>
-
-
-    <div class="row">
-        <div class="col-12">
-            <div><hr/></div>
-            <div>
-                <h3>Product Description:</h3>
-            </div>
-            <div th:utext="${product.description}"></div>
-        </div>
-    </div>
-
-
 
     <div th:replace="navigation :: footer_menu"></div>
 </div>

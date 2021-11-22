@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
 <body>
 
 <div th:fragment="header_menu">
@@ -15,22 +16,22 @@
         <div class="collapse navbar-collapse" id="topNavbar">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/users}">Careers</a>
+                    <a class="nav-link" th:href="@{/careers}">Careers</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/users}">Payment</a>
+                    <a class="nav-link" th:href="@{/payment}">Payment</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/users}">Shipping &amp; Delivery</a>
+                    <a class="nav-link" th:href="@{/shipping}">Shipping &amp; Delivery</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/users}">Login</a>
+                    <a class="nav-link" th:href="@{/login}">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/users}">Registration</a>
+                    <a class="nav-link" th:href="@{/registration}">Registration</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/users}">Contact</a>
+                    <a class="nav-link" th:href="@{/contact}">Contact</a>
                 </li>
             </ul>
         </div>
@@ -61,13 +62,13 @@
             <div class="collapse navbar-collapse" id="bottomNavbar">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/users}">About Us</a>
+                        <a class="nav-link" th:href="@{/about}">About Us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/users}">Privace Notce</a>
+                        <a class="nav-link" th:href="@{/privacy}">Privacy Notice</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/users}">Returns &amp; Refunds</a>
+                        <a class="nav-link" th:href="@{/returns}">Returns &amp; Refunds</a>
                     </li>
 
                 </ul>
@@ -77,6 +78,7 @@
     <div th:fragment="footer" class="text-center m-3">
         <p>[[${COPYRIGHT}]]</p>
 </div>
+    </div>
 
 </body>
 </html>

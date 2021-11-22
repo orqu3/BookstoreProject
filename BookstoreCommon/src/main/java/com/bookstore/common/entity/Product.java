@@ -85,7 +85,7 @@ public class Product {
     @Transient
     public String getShortName() {
         if (name.length() > 70) {
-            return name.substring(0,70).concat("...");
+            return name.substring(0, 70).concat("...");
         }
         return name;
     }
