@@ -1,14 +1,11 @@
 package com.bookstore.admin.controller;
 
-import com.bookstore.admin.exception.ProductNotFoundException;
 import com.bookstore.admin.security.BookstoreUserDetails;
-import com.bookstore.admin.service.CategoryPageInfo;
 import com.bookstore.admin.service.CategoryService;
 import com.bookstore.admin.service.ProductService;
-import com.bookstore.admin.service.UserService;
 import com.bookstore.common.entity.Category;
 import com.bookstore.common.entity.Product;
-import com.bookstore.common.entity.User;
+import com.bookstore.common.exception.ProductNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;

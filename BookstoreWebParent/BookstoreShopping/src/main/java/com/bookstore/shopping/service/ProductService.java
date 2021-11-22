@@ -28,7 +28,7 @@ public class ProductService {
     public Product getProduct(String alias) throws ProductNotFoundException {
         Product product = productRepository.findByAlias(alias);
         if (product == null) {
-            throw new ProductNotFoundException("Could not find any products with alias" + alias);
+            throw new ProductNotFoundException("Could not find any products with alias " + alias);
         }
         return product;
     }

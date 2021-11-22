@@ -35,10 +35,9 @@ public class CategoryService {
     public Category getCategory(String alias) throws CategoryNotFoundException {
         Category category = categoryRepository.findByAliasEnabled(alias);
         if (category == null) {
-            throw new CategoryNotFoundException("Could not find any categories with alias" + alias);
+            throw new CategoryNotFoundException("Could not find any categories with alias " + alias);
         }
         return category;
-
     }
 
     public List<Category> getCategoryParents(Category child) {

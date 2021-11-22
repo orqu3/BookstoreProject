@@ -1,0 +1,42 @@
+.nav-link {
+    margin-right: 60px;
+}
+
+*.icon-white {
+    color: white;
+}
+
+*.icon-silver {
+    color: silver;
+}
+
+*.icon-green {
+    color: darkseagreen;
+}
+
+*.icon-dark {
+    color: darkgray;
+}
+
+.btn-primary {
+
+    background-color: cornflowerblue;
+    border-color: cornflowerblue;
+}
+
+.btn-secondary {
+
+    background-color: darkgray;
+    border-color: darkgray;
+}
+
+.page-link {
+    color: cornflowerblue;
+}
+
+.page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: cornflowerblue;
+    border-color: cornflowerblue;
+}

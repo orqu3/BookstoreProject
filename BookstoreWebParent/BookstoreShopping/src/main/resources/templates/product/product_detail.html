@@ -4,11 +4,12 @@
 <body>
 <div class="container-fluid">
     <div th:replace="navigation :: header_menu"></div>
+    <div>&nbsp;</div>
     <div th:replace="navigation :: search_nav"></div>
+    <div>&nbsp;</div>
     <div th:replace="breadcrumb :: content"></div>
 
     <div class="row">
-
         <div class="col-sm m-3">
             <div>
                 <h2>[[${product.name}]]</h2>
@@ -17,7 +18,6 @@
                 List Price:
                 <span th:if="${product.discountPercent <= 0 } "> $ [[${product.price}]]</span>
                 <del th:if="${product.discountPercent > 0 } "><span>$ [[${product.price}]]</span></del>
-
             </div>
 
             <div th:if="${product.discountPercent > 0 } ">
@@ -27,6 +27,17 @@
             </div>
             <div>&nbsp;</div>
             <div th:utext="${product.description}"></div>
+            <div>&nbsp;</div>
+            <hr/>
+            <div>
+                <h4>Book Details:</h4>
+            </div>
+            <th:block th:each="detail : ${product.details}">
+                <div>
+                    <b>[[${detail.name}]]:</b>
+                    <span>[[${detail.value}]]</span>
+                </div>
+            </th:block>
             <div>&nbsp;</div>
         </div>
         <div class="col-sm-4">
@@ -44,6 +55,7 @@
     </div>
 
     <div th:replace="navigation :: footer_menu"></div>
+
 </div>
 </body>
 </html>

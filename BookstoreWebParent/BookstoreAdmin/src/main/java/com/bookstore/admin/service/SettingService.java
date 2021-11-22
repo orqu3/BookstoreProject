@@ -1,6 +1,6 @@
 package com.bookstore.admin.service;
 
-import com.bookstore.admin.other_classes.setting.GeneralSettingBag;
+import com.bookstore.admin.util.GeneralSettingBag;
 import com.bookstore.admin.repository.SettingRepository;
 import com.bookstore.common.entity.Setting;
 import com.bookstore.common.entity.SettingCategory;
@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class SettingService {
