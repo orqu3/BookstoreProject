@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head th:replace="fragments :: page_head('Products - Bookstore Admin', 'none')"></head>
 <body>
 <div class="container-fluid">
@@ -8,39 +9,88 @@
 
     <div class="p-3">
         <h2>Manage Products</h2>
-        <a class="fas fa-folder-plus icon-green fa-2x" th:href="@{/products/new}" title="Create New Product"></a>
+        <th:block sec:authorize="hasAuthority('Admin')">
+            <a class="fas fa-folder-plus icon-green fa-2x" th:href="@{/products/new}" title="Create New Product"></a>
+        </th:block>
     </div>
 
-    <div th:replace="fragments :: search_form_and_message('/products/page/1')"></div>
+    <div>
+        <form th:action="@{/products/page/1}" class="form-inline m-3" id="searchForm">
+            <input type="hidden" name="sortField" th:value="${sortField}"/>
+            <input type="hidden" name="sortDir" th:value="${sortDir}"/>
+
+            Category:&nbsp;
+            <select class="form-control" name="categoryId" id="dropdownCategory">
+                <option value="0">All Categories</option>
+                <th:block th:each="category : ${categories}">
+                    <option th:value="${category.id}" th:selected="(${categoryId} == ${category.id})">
+                        [[${category.name}]]
+                    </option>
+                </th:block>
+            </select>
+
+            &nbsp;&nbsp;
+            Filter:&nbsp;
+            <input type="search" name="keyword" th:value="${keyword}" class="form-control" required/>
+            &nbsp;&nbsp;
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-search"></i>
+            </button>
+            &nbsp;&nbsp;
+            <button type="button" class="btn btn-secondary" onclick="clearFilter()">
+                <i class="fas fa-eraser"></i>
+            </button>
+        </form>
+        <div th:if="${message != null}" class="alert alert-success text-center">
+            [[${message}]]
+        </div>
+    </div>
 
     <div class="full-details">
         <table class="table table-bordered table-striped table-hover table-responsive-xl text-center">
             <thead class="thead-dark">
             <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Author</th>
-                <th>Category</th>
-                <th>Enabled</th>
-                <th></th>
+                <th th:replace="fragments :: column_link('/products', 'id', 'ID')"></th>
+                <th th:replace="fragments :: column_link('/products', 'name', 'Name')"></th>
+                <th th:replace="fragments :: column_link('/products', 'author', 'Author')"></th>
+                <th th:replace="fragments :: column_link('/products', 'category.name', 'Category')"></th>
+
+                <th:block sec:authorize="hasAuthority('Admin')">
+                    <th>Enabled</th>
+                </th:block>
+
+                <th>Action</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="product : ${products}">
                 <td>[[${product.id}]]</td>
-                <td>[[${product.name}]]</td>
+                <td>
+                    <a class="link-detail" th:href="@{'/products/detail/' + ${product.id}}"
+                       title="View details of this product">
+                        [[${product.name}]]
+                    </a>
+                </td>
                 <td>[[${product.author}]]</td>
                 <td>[[${product.category.name}]]</td>
+
+                <th:block sec:authorize="hasAuthority('Admin')">
+                    <td>
+                        <div th:replace="fragments :: status(${product.enabled}, 'product', '/products/' + ${product.id})"></div>
+                    </td>
+                </th:block>
+
                 <td>
-                    <div th:replace="fragments :: status(${product.enabled}, 'product', '/products/' + ${product.id})"></div>
-                </td>
-                <td>
-                    <a class="fas fa-file-alt fa-2x icon-green" th:href="@{'/products/detail/' + ${product.id}}"
+                    <a class="fas fa-file-alt fa-2x icon-green link-detail"
+                       th:href="@{'/products/detail/' + ${product.id}}"
                        title="View details of this product"></a>
                     &nbsp;&nbsp;
                     <div th:replace="fragments :: edit('product', '/products/edit/' + ${product.id})"></div>
-                    &nbsp;&nbsp;
-                    <div th:replace="fragments :: delete('product', ${product.id}, '/products/delete/' + ${product.id}, true)"></div>
+
+                    <th:block sec:authorize="hasAuthority('Admin')">
+                        &nbsp;&nbsp;
+                        <div th:replace="fragments :: delete('product', ${product.id}, '/products/delete/' + ${product.id}, true)"></div>
+                    </th:block>
                 </td>
             </tr>
             </tbody>
@@ -48,6 +98,16 @@
     </div>
 
     <div th:replace="modal_fragments :: confirm_modal"></div>
+
+    <div class="modal fade" id="detailModal">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="fragments :: pagination('/products', 'products')"></div>
 
     <div th:replace="fragments :: footer"></div>
 </div>
@@ -60,6 +120,16 @@
         $(".link-delete").on("click", function (e) {
             e.preventDefault();
             showDeleteConfirmModal($(this), 'product');
+        });
+
+        $(".link-detail").on("click", function (e) {
+            e.preventDefault();
+            linkDetailURL = $(this).attr("href");
+            $("#detailModal").modal("show").find(".modal-content").load(linkDetailURL);
+        });
+
+        $("#dropdownCategory").on("change", function () {
+            $("#searchForm").submit();
         });
     });
 </script>

@@ -27,7 +27,7 @@ public class ProductRepositoryTests {
 
     @Test
     public void testCreateFirstProduct() {
-        Category category = entityManager.find(Category.class, 36);
+        Category category = entityManager.find(Category.class, 12);
 
         Product product = new Product();
         product.setName("Doctor Zhivago");
@@ -55,7 +55,7 @@ public class ProductRepositoryTests {
 
     @Test
     public void testCreateSecondProduct() {
-        Category category = entityManager.find(Category.class, 37);
+        Category category = entityManager.find(Category.class, 12);
 
         Product product = new Product();
         product.setName("The Incorrigible Optimists Club");
@@ -114,5 +114,14 @@ public class ProductRepositoryTests {
         productRepository.deleteById(id);
         Optional<Product> result = productRepository.findById(id);
         assertThat(result.isEmpty());
+    }
+
+    @Test
+    public void testSaveProductWithDetails() {
+        Integer productId = 1;
+        Product product = productRepository.findById(productId).get();
+        product.addDetail("detail name", "detail value");
+        Product savedProduct = productRepository.save(product);
+        assertThat(savedProduct.getDetails()).isNotEmpty();
     }
 }

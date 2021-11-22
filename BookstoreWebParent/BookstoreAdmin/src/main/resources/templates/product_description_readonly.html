@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="content" th:remove="tag">
+    <div th:utext="${product.description}" class="border p-2 m-2"></div>
+</div>
+</body>
+</html>
