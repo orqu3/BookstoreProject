@@ -23,7 +23,7 @@ public class SettingRepositoryTests {
     @Test
     public void testCreateGeneralSettings() {
         Setting siteName = new Setting("SITE_NAME", "Bookstore", SettingCategory.GENERAL);
-        Setting copyright = new Setting("COPYRIGHT", "Copyright (C) 2021 Bookstore Ltd.", SettingCategory.GENERAL);
+        Setting copyright = new Setting("COPYRIGHT", "Copyright © 2021 Bookstore Ltd.", SettingCategory.GENERAL);
 
         repo.saveAll(List.of(siteName, copyright));
 

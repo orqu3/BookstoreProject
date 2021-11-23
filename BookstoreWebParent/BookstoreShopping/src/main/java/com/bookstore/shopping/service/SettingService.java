@@ -14,8 +14,7 @@ public class SettingService {
 
     private final SettingRepository settingRepository;
 
-    public List<Setting> getGeneralSettings(){
+    public List<Setting> getGeneralSettings() {
         return settingRepository.findByTwoCategories(SettingCategory.GENERAL, SettingCategory.CURRENCY);
-
     }
 }

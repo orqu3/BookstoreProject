@@ -13,7 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SettingFilter implements Filter {
 
-    private final SettingService service;
+    private final SettingService settingService;
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -26,10 +26,9 @@ public class SettingFilter implements Filter {
             return;
         }
 
-        List<Setting> generalSettings = service.getGeneralSettings();
+        List<Setting> generalSettings = settingService.getGeneralSettings();
 
         generalSettings.forEach(setting -> {
-            System.out.println(setting);
             request.setAttribute(setting.getKey(), setting.getValue());
         });
 
