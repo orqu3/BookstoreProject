@@ -5,7 +5,7 @@ import com.bookstore.admin.repository.CurrencyRepository;
 import com.bookstore.admin.service.SettingService;
 import com.bookstore.common.entity.Currency;
 import com.bookstore.common.entity.Setting;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,27 +17,27 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
+@RequiredArgsConstructor
 public class SettingController {
 
-    @Autowired private SettingService service;
-
-    @Autowired private CurrencyRepository currencyRepo;
+    private final SettingService settingService;
+    private final CurrencyRepository currencyRepository;
 
     @GetMapping("/settings")
-    public String listAll(Model model){
-        List<Setting> listSetting = service.listAllSettings();
-        List<Currency> listCurrencies = currencyRepo.findAllByOrderByNameAsc();
+    public String listAll(Model model) {
+        List<Setting> listSettings = settingService.listAllSettings();
+        List<Currency> listCurrencies = currencyRepository.findAllByOrderByNameAsc();
 
-        for(Setting setting: listSetting){
+        for (Setting setting : listSettings) {
             model.addAttribute(setting.getKey(), setting.getValue());
         }
         model.addAttribute("listCurrencies", listCurrencies);
-        return"settings/settings";
+        return "settings/settings";
     }
 
     @PostMapping("/settings/save_general")
-    public String saveGeneralSettings(HttpServletRequest request, RedirectAttributes ra){
-        GeneralSettingBag settingBag = service.getGeneralSettings();
+    public String saveGeneralSettings(HttpServletRequest request, RedirectAttributes ra) {
+        GeneralSettingBag settingBag = settingService.getGeneralSettings();
 
         saveCurrencySymbol(request, settingBag);
 
@@ -48,23 +48,23 @@ public class SettingController {
 
     }
 
-    private void saveCurrencySymbol(HttpServletRequest request, GeneralSettingBag settingBag){
+    private void saveCurrencySymbol(HttpServletRequest request, GeneralSettingBag settingBag) {
         Integer currencyId = Integer.parseInt(request.getParameter("CURRENCY_ID"));
-        Optional<Currency> findByIdResult = currencyRepo.findById(currencyId);
+        Optional<Currency> findByIdResult = currencyRepository.findById(currencyId);
 
-        if(findByIdResult.isPresent()){
+        if (findByIdResult.isPresent()) {
             Currency currency = findByIdResult.get();
             settingBag.updateCurrencySymbol(currency.getSymbol());
         }
     }
 
-    private void updateSettingValuesFromForm(HttpServletRequest request, List<Setting> listSettings){
-        for(Setting setting : listSettings){
+    private void updateSettingValuesFromForm(HttpServletRequest request, List<Setting> listSettings) {
+        for (Setting setting : listSettings) {
             String value = request.getParameter(setting.getKey());
-            if(value != null){
+            if (value != null) {
                 setting.setValue(value);
             }
         }
-        service.saveAll(listSettings);
+        settingService.saveAll(listSettings);
     }
 }

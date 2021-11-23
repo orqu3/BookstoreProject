@@ -357,7 +357,6 @@ VALUES ('COPYRIGHT', 'Copyright (C) 2021 Bookstore Ltd. ', 'GENERAL'),
        ('CURRENCY_SYMBOL_POSITION', 'Before price', 'CURRENCY'),
        ('DECIMAL_DIGITS', '2', 'CURRENCY'),
        ('DECIMAL_POINT_TYPE', 'POINT', 'CURRENCY'),
-       ('SITE_LOGO', 'Bookstore.png', 'GENERAL'),
        ('SITE_NAME', 'Bookstore', 'GENERAL'),
        ('THOUSANDS_POINT_TYPE', 'COMMA', 'CURRENCY');
 

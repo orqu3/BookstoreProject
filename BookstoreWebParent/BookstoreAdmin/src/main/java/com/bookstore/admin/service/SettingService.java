@@ -4,34 +4,35 @@ import com.bookstore.admin.util.GeneralSettingBag;
 import com.bookstore.admin.repository.SettingRepository;
 import com.bookstore.common.entity.Setting;
 import com.bookstore.common.entity.SettingCategory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class SettingService {
-    @Autowired private SettingRepository repo;
 
-    public List<Setting> listAllSettings(){
-        return  (List<Setting>) repo.findAll();
+    private final SettingRepository settingRepository;
+
+    public List<Setting> listAllSettings() {
+        return (List<Setting>) settingRepository.findAll();
     }
 
-    public GeneralSettingBag getGeneralSettings(){
+    public GeneralSettingBag getGeneralSettings() {
         List<Setting> settings = new ArrayList<>();
 
-        List<Setting> generalSettings = repo.findByCategory(SettingCategory.GENERAL);
-        List<Setting> currencySettings = repo.findByCategory(SettingCategory.CURRENCY);
+        List<Setting> generalSettings = settingRepository.findByCategory(SettingCategory.GENERAL);
+        List<Setting> currencySettings = settingRepository.findByCategory(SettingCategory.CURRENCY);
 
         settings.addAll(generalSettings);
         settings.addAll(currencySettings);
 
         return new GeneralSettingBag(settings);
-
     }
 
-    public void saveAll(Iterable<Setting> settings){
-        repo.saveAll(settings);
+    public void saveAll(Iterable<Setting> settings) {
+        settingRepository.saveAll(settings);
     }
 }

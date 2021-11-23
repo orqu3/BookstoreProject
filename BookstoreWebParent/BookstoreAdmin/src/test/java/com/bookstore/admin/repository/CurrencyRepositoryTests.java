@@ -22,16 +22,16 @@ public class CurrencyRepositoryTests {
     private CurrencyRepository repo;
 
     @Test
-    public void tesCreateCurrencies(){
+    public void tesCreateCurrencies() {
         List<Currency> listCurrencies = Arrays.asList(
                 new Currency("United States Dollar", "$", "USD"),
                 new Currency("British Pound", "£", "GPB"),
                 new Currency("Japanese Yen", "¥", "JPY"),
                 new Currency("Euro", "€", "EUR"),
-                new Currency("Russian Ruble", "\u20BD", "RUB"),
+                new Currency("Russian Ruble", "₽", "RUB"),
                 new Currency("South Korean Won", "₩", "KRW"),
                 new Currency("Chinese Yuan", "¥", "CNY"),
-                new Currency("Brazilian Real", "B$", "BRL"),
+                new Currency("Brazilian Real", "R$", "BRL"),
                 new Currency("Australian Dollar", "$", "AUD"),
                 new Currency("Canadian Dollar", "$", "CAD"),
                 new Currency("Vietnamese dong", "₫", "VND"),
@@ -48,7 +48,7 @@ public class CurrencyRepositoryTests {
     }
 
     @Test
-    public void testListAllOrderByNameAsc(){
+    public void testListAllOrderByNameAsc() {
         List<Currency> currencies = repo.findAllByOrderByNameAsc();
         currencies.forEach(System.out::println);
         assertThat(currencies.size()).isGreaterThan(0);

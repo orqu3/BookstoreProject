@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <head th:replace="fragments :: page_head('Settings - Bookstore Admin', 'tag')"></head>
+    <head th:replace="fragments :: page_head('Admin - Settings', 'tag')"></head>
     <link rel="stylesheet" type="text/css" th:href="@{/richtext/richtext.min.css}"/>
     <script type="text/javascript" th:src="@{/richtext/jquery.richtext.min.js}"></script>
 </head>
@@ -13,57 +13,58 @@
     <div class="p-3">
         <h2>Site Settings</h2>
     </div>
-    <div th:if = "${message !=null}" class="alert alert-success text-center">
+    <div th:if="${message !=null}" class="alert alert-success text-center">
         [[${message}]]
     </div>
-        <div>
-            <ul class="nav nav-tabs" id="settingTab" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#general" role="tab">General</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#countries" role="tab">Countries</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#states" role="tab">States</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#mailServer" role="tab">Mail Server</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#mailTemplates" role="tab">Mail Templates</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#payment" role="tab">Payment</a>
-                </li>
-            </ul>
+    <div>
+        <ul class="nav nav-tabs" id="settingTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#general" role="tab">General</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#countries" role="tab">Countries</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#states" role="tab">States</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#mailServer" role="tab">Mail Server</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#mailTemplates" role="tab">Mail Templates</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#payment" role="tab">Payment</a>
+            </li>
+        </ul>
 
-            <div class="tab-content">
-                <div class="tab-pane active p-3" id="general" role="tabpanel">
-                    <div th:replace="settings/general :: content"></div>
-                </div>
-                <div class="tab-pane p-3" id="countries" role="tabpanel">
-                    <div th:replace="settings/countries :: content"></div>
-                </div>
-                <div class="tab-pane p-3" id="states" role="tabpanel">
-                    <div th:replace="settings/states :: content"></div>
-                </div>
-                <div class="tab-pane p-3" id="mailServer" role="tabpanel">
-                    <h2>Mail Server</h2>
-                </div>
-                <div class="tab-pane p-3" id="mailTemplates" role="tabpanel">
-                    Mail Templates
-                </div>
-                <div class="tab-pane p-3" id="mailTemplates" role="tabpanel">
-                    Mail Templates
-                </div>
+        <div class="tab-content">
+            <div class="tab-pane active p-3" id="general" role="tabpanel">
+                <div th:replace="settings/general :: content"></div>
+            </div>
+            <div class="tab-pane p-3" id="countries" role="tabpanel">
+                <div th:replace="settings/countries :: content"></div>
+            </div>
+            <div class="tab-pane p-3" id="states" role="tabpanel">
+                <div th:replace="settings/states :: content"></div>
+            </div>
+            <div class="tab-pane p-3" id="mailServer" role="tabpanel">
+                <h2>Mail Server</h2>
+            </div>
+            <div class="tab-pane p-3" id="mailTemplates" role="tabpanel">
+                Mail Templates
+            </div>
+            <div class="tab-pane p-3" id="payment" role="tabpanel">
+                Payment
             </div>
         </div>
+    </div>
 
-    <div class="toast justify-content-center d-flex" role="alert" aria-live="polite" aria-atomic="true" data-delay="3000">
+    <div class="toast justify-content-center d-flex" role="alert" aria-live="polite" aria-atomic="true"
+         data-delay="3000">
         <div role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-body">
-                <spah id="toastMessage"></spah>
+                <span id="toastMessage"></span>
             </div>
         </div>
     </div>
@@ -71,7 +72,6 @@
     <div th:replace="fragments :: footer"></div>
 </div>
 <script type="text/javascript">
-    MAX_FILE_SIZE = 102400; //100KB
     contextPath = "[[@{/}]]";
     var csrfHeaderName = "[[${_csrf.headerName}]]";
     var csrfValue = "[[${_csrf.token}]]"

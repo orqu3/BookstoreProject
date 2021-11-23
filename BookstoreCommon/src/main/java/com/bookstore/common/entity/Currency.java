@@ -1,9 +1,16 @@
 package com.bookstore.common.entity;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 
 @Entity
+@NoArgsConstructor
+@Getter
+@Setter
 @Table(name = "currencies")
 public class Currency {
     @Id
@@ -19,45 +26,10 @@ public class Currency {
     @Column(nullable = false, length = 4)
     private String code;
 
-    public Currency() {
-    }
 
     public Currency(String name, String symbol, String code) {
-        super();
         this.name = name;
         this.symbol = symbol;
-        this.code = code;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSymbol() {
-        return symbol;
-    }
-
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
         this.code = code;
     }
 

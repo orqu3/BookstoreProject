@@ -13,7 +13,7 @@
         <th:block th:each="cat : ${category.children}">
             <div class="col" th:if="${cat.enabled == true}">
                 <a th:href="@{'/c/' + ${cat.alias}}">
-                    <b>[[${cat.name}]]</b>
+                    <b style="font-size: large">[[${cat.name}]]</b>
                 </a>
             </div>
         </th:block>

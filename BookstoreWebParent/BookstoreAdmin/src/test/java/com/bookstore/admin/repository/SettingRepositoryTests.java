@@ -21,12 +21,11 @@ public class SettingRepositoryTests {
     SettingRepository repo;
 
     @Test
-    public void testCreateGeneralSettings(){
+    public void testCreateGeneralSettings() {
         Setting siteName = new Setting("SITE_NAME", "Bookstore", SettingCategory.GENERAL);
-        Setting siteLogo = new Setting("SITE_LOGO", "Bookstore.png", SettingCategory.GENERAL);
         Setting copyright = new Setting("COPYRIGHT", "Copyright (C) 2021 Bookstore Ltd.", SettingCategory.GENERAL);
 
-        repo.saveAll(List.of(siteName, siteLogo, copyright));
+        repo.saveAll(List.of(siteName, copyright));
 
         Iterable<Setting> iterable = repo.findAll();
 
@@ -34,10 +33,10 @@ public class SettingRepositoryTests {
     }
 
     @Test
-    public void testCreateCurrencySettings(){
+    public void testCreateCurrencySettings() {
         Setting currencyId = new Setting("CURRENCY_ID", "1", SettingCategory.CURRENCY);
         Setting symbol = new Setting("CURRENCY_SYMBOL", "$", SettingCategory.CURRENCY);
-        Setting decimalPointType = new Setting("CURRENCY_SYMBOL_POSITION", "before", SettingCategory.CURRENCY);
+        Setting decimalPointType = new Setting("CURRENCY_SYMBOL_POSITION", "Before price", SettingCategory.CURRENCY);
         Setting symbolPosition = new Setting("DECIMAL_POINT_TYPE", "POINT", SettingCategory.CURRENCY);
         Setting decimalDigits = new Setting("DECIMAL_DIGITS", "2", SettingCategory.CURRENCY);
         Setting thousandsPointType = new Setting("THOUSANDS_POINT_TYPE", "COMMA", SettingCategory.CURRENCY);
@@ -46,7 +45,7 @@ public class SettingRepositoryTests {
     }
 
     @Test
-    public void testListSettingsByCategory(){
+    public void testListSettingsByCategory() {
         List<Setting> settings = repo.findByCategory(SettingCategory.GENERAL);
         settings.forEach(System.out::println);
     }
