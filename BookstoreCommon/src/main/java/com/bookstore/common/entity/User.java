@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 @Data
@@ -70,5 +71,17 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", roles=" + roles +
                 '}';
+    }
+
+    public boolean hasRole(String roleName) {
+        Iterator<Role> iterator = roles.iterator();
+
+        while (iterator.hasNext()) {
+            Role role = iterator.next();
+            if (role.getName().equals(roleName)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

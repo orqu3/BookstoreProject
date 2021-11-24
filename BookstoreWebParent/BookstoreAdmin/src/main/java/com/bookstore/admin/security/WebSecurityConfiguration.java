@@ -41,8 +41,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/users/**").hasAuthority("Admin")
-                .antMatchers("/categories/**", "/products/**").hasAnyAuthority("Admin", "Salesperson")
+                .antMatchers("/categories/**", "/products", "/products/", "/products/detail/**", "/products/page/**", "/products/edit/**", "/products/save", "/products/check_unique")
+                    .hasAnyAuthority("Admin", "Salesperson")
+                .antMatchers("/users/**", "/products/**", "/settings/**", "/countries/**", "/states/**")
+                    .hasAuthority("Admin")
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -59,4 +61,5 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/images/**", "/js/**", "/webjars/**", "/styles.css", "/richtext/**");
     }
+
 }

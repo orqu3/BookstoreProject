@@ -1,10 +1,9 @@
 package com.bookstore.admin.controller;
 
-import com.bookstore.admin.exception.CategoryNotFoundException;
 import com.bookstore.admin.service.CategoryPageInfo;
 import com.bookstore.admin.service.CategoryService;
-import com.bookstore.admin.service.UserService;
 import com.bookstore.common.entity.Category;
+import com.bookstore.common.exception.CategoryNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;

@@ -25,11 +25,15 @@ public class Category {
     @Column(name = "enabled", nullable = false)
     private Boolean enabled;
 
+    @Column(name = "all_parent_ids", length = 256, nullable = true)
+    private String allParentIDs;
+
     @ManyToOne
     @JoinColumn(name = "parent_id")
     private Category parent;
 
     @OneToMany(mappedBy = "parent")
+    @OrderBy("name asc")
     private Set<Category> children = new HashSet<>();
 
     public Category(String name) {
@@ -69,6 +73,7 @@ public class Category {
 
         return copyCategory;
     }
+
 
     public static Category copyFull(Category category) {
         Category copyCategory = new Category();
@@ -136,6 +141,14 @@ public class Category {
         this.children = children;
     }
 
+    public String getAllParentIDs() {
+        return allParentIDs;
+    }
+
+    public void setAllParentIDs(String allParentIDs) {
+        this.allParentIDs = allParentIDs;
+    }
+
     @Transient
     private Boolean hasChildren;
 
@@ -159,4 +172,6 @@ public class Category {
                 ", name='" + name + '\'' +
                 '}';
     }
+
+
 }

@@ -1,8 +1,8 @@
 package com.bookstore.admin.service;
 
-import com.bookstore.admin.exception.CategoryNotFoundException;
 import com.bookstore.admin.repository.CategoryRepository;
 import com.bookstore.common.entity.Category;
+import com.bookstore.common.exception.CategoryNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -130,6 +130,12 @@ public class CategoryService {
     }
 
     public void save(Category category) {
+        Category parent = category.getParent();
+        if (parent != null) {
+            String allParentIDs = parent.getAllParentIDs() == null ? "-" : parent.getAllParentIDs();
+            allParentIDs += String.valueOf(parent.getId()) + "-";
+            category.setAllParentIDs(allParentIDs);
+        }
         categoryRepository.save(category);
     }
 

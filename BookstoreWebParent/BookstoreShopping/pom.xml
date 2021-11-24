@@ -11,7 +11,7 @@
     <name>BookstoreShopping</name>
     <description>Bookstore Shopping Web Application</description>
     <properties>
-        <java.version>16</java.version>
+        <java.version>15</java.version>
     </properties>
     <dependencies>
     </dependencies>
