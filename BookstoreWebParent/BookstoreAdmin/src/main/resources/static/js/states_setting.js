@@ -22,15 +22,15 @@ $(document).ready(function () {
     });
 
     dropDownCountry4States.on("change", function () {
-       loadStates4Country();
+        loadStates4Country();
     });
 
     dropDownStates.on("change", function () {
-       changeFormStateToSelectedState();
+        changeFormStateToSelectedState();
     });
 
     buttonAddState.click(function () {
-        if(buttonAddState.val() == "Add"){
+        if (buttonAddState.val() == "Add") {
             addState();
         } else {
             changeFormStateToNew();
@@ -56,6 +56,7 @@ function changeFormStateToNew() {
     fieldStateName.val("").focus();
 
 }
+
 function changeFormStateToSelectedState() {
     buttonAddState.prop("value", "New");
     buttonUpdateState.prop("disabled", false);
@@ -66,6 +67,7 @@ function changeFormStateToSelectedState() {
     selectedStateName = $("#dropDownStates option:selected").text();
     fieldStateName.val(selectedStateName);
 }
+
 function loadStates4Country() {
     selectedCountry = $("#dropDownCountriesForStates option:selected");
     countryId = selectedCountry.val();
@@ -83,6 +85,7 @@ function loadStates4Country() {
         showToastMessage("ERROR: Could not connect to sever or server encountered an error");
     });
 }
+
 function loadCountries4States() {
     url = contextPath + "countries/list";
     $.get(url, function (rensponseJSON) {
@@ -97,13 +100,14 @@ function loadCountries4States() {
         showToastMessage("ERROR: Could not connect to sever or server encountered an error");
     });
 }
+
 function deleteState() {
     stateId = dropDownStates.val();
     url = contextPath + "states/delete/" + stateId;
     $.ajax({
         type: 'DELETE',
         url: url,
-        beforeSend: function(xhr) {
+        beforeSend: function (xhr) {
             xhr.setRequestHeader(csrfHeaderName, csrfValue);
         },
     }).done(function () {

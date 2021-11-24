@@ -1,11 +1,15 @@
 package com.bookstore.common.entity;
 
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@NoArgsConstructor
 @Table(name = "countries")
 public class Country {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -19,8 +23,6 @@ public class Country {
     @OneToMany(mappedBy = "country")
     private Set<State> states;
 
-    public Country() {
-    }
 
     public Country(Integer id) {
         this.id = id;
@@ -41,9 +43,6 @@ public class Country {
         this.name = name;
         this.code = code;
     }
-
-
-
 
 
     public Integer getId() {

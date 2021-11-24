@@ -1,21 +1,10 @@
 package com.bookstore.admin.controller;
 
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.assertj.core.api.Assertions.assertThat;
-
 import com.bookstore.admin.repository.CountryRepository;
 import com.bookstore.common.entity.Country;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -24,16 +13,26 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 @SpringBootTest
 @AutoConfigureMockMvc
 public class CountryRestControllerTests {
 
-    @Autowired MockMvc mockMvc;
-
-    @Autowired ObjectMapper objectMapper;
+    @Autowired
+    MockMvc mockMvc;
 
     @Autowired
-    CountryRepository repo;
+    ObjectMapper objectMapper;
+
+    @Autowired
+    CountryRepository countryRepository;
 
     @Test
     @WithMockUser(username = "admin@mail.com", password = "something", roles = "Admin")
@@ -60,15 +59,15 @@ public class CountryRestControllerTests {
         Country country = new Country(countryName, countryCode);
 
         MvcResult result = mockMvc.perform(post(url).contentType("application/json")
-                .content(objectMapper.writeValueAsString(country))
-                .with(csrf()))
+                        .content(objectMapper.writeValueAsString(country))
+                        .with(csrf()))
                 .andDo(print())
                 .andExpect(status().isOk())
-        .andReturn();
+                .andReturn();
 
         String response = result.getResponse().getContentAsString();
         Integer countryId = Integer.parseInt(response);
-        Optional<Country> findById = repo.findById(countryId);
+        Optional<Country> findById = countryRepository.findById(countryId);
         assertThat(findById.isPresent());
 
         Country savedCountry = findById.get();
@@ -86,13 +85,13 @@ public class CountryRestControllerTests {
         Country country = new Country(countryId, countryName, countryCode);
 
         mockMvc.perform(post(url).contentType("application/json")
-                .content(objectMapper.writeValueAsString(country))
-                .with(csrf()))
+                        .content(objectMapper.writeValueAsString(country))
+                        .with(csrf()))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string(String.valueOf(countryId)));
 
-        Optional<Country> findById = repo.findById(countryId);
+        Optional<Country> findById = countryRepository.findById(countryId);
         assertThat(findById.isPresent());
 
         Country savedCountry = findById.get();
@@ -107,7 +106,7 @@ public class CountryRestControllerTests {
         String url = "/countries/delete/" + countryId;
         mockMvc.perform(get(url)).andExpect(status().isOk());
 
-        Optional<Country> findById = repo.findById(countryId);
+        Optional<Country> findById = countryRepository.findById(countryId);
 
         assertThat(findById).isNotPresent();
     }

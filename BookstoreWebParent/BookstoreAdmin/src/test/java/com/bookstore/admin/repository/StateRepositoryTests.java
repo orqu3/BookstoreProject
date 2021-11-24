@@ -18,42 +18,44 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Rollback(value = false)
 public class StateRepositoryTests {
 
-    @Autowired private StateRepository repo;
-    @Autowired private TestEntityManager entityManager;
+    @Autowired
+    private StateRepository stateRepository;
+    @Autowired
+    private TestEntityManager entityManager;
 
     @Test
-    public void testCreateStatesInIndia(){
+    public void testCreateStatesInIndia() {
         Integer countryId = 1;
         Country country = entityManager.find(Country.class, countryId);
 
 //        State state = repo.save(new State("Karnataka", country));
 //        State state = repo.save(new State("Panjab", country));
 //        State state = repo.save(new State("Uttar Pradesh", country));
-        State state = repo.save(new State("West Bengal", country));
+        State state = stateRepository.save(new State("West Bengal", country));
 
         assertThat(state).isNotNull();
         assertThat(state.getId()).isGreaterThan(0);
     }
 
     @Test
-    public void testCreateStatesInUs(){
+    public void testCreateStatesInUs() {
         Integer countryId = 2;
         Country country = entityManager.find(Country.class, countryId);
 
 //        State state = repo.save(new State("California", country));
 //        State state = repo.save(new State("Texas", country));
 //        State state = repo.save(new State("New York", country));
-        State state = repo.save(new State("Washington", country));
+        State state = stateRepository.save(new State("Washington", country));
 
         assertThat(state).isNotNull();
         assertThat(state.getId()).isGreaterThan(0);
     }
 
     @Test
-    public void testListStatesByCountry(){
+    public void testListStatesByCountry() {
         Integer countryId = 2;
         Country country = entityManager.find(Country.class, countryId);
-        List<State> listStates = repo.findByCountryOrderByNameAsc(country);
+        List<State> listStates = stateRepository.findByCountryOrderByNameAsc(country);
 
         listStates.forEach(System.out::println);
 

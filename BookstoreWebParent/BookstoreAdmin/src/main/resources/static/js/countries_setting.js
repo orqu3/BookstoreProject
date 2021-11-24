@@ -7,7 +7,7 @@ var labelCountryName;
 var fieldCountryName;
 var fieldCountryCode;
 
-$(document).ready(function(){
+$(document).ready(function () {
     buttonLoad = $("#buttonLoadCountries");
     dropDownCountry = $("#dropDownCountries");
     buttonAddCountry = $("#buttonAddCountry");
@@ -17,7 +17,7 @@ $(document).ready(function(){
     fieldCountryName = $("#fieldCountryName");
     fieldCountryCode = $("#fieldCountryCode");
 
-    buttonLoad.click(function() {
+    buttonLoad.click(function () {
         loadCountries();
     });
 
@@ -26,9 +26,9 @@ $(document).ready(function(){
     });
 
     buttonAddCountry.click(function () {
-        if(buttonAddCountry.val() == "Add"){
+        if (buttonAddCountry.val() == "Add") {
             addCountry();
-        } else{
+        } else {
             changeFormStateToNewCountry();
         }
     });
@@ -50,7 +50,7 @@ function deleteCountry() {
     $.ajax({
         type: 'DELETE',
         url: url,
-        beforeSend: function(xhr) {
+        beforeSend: function (xhr) {
             xhr.setRequestHeader(csrfHeaderName, csrfValue);
         }
     }).done(function () {
@@ -74,7 +74,7 @@ function updateCountry() {
     $.ajax({
         type: 'POST',
         url: url,
-        beforeSend: function(xhr) {
+        beforeSend: function (xhr) {
             xhr.setRequestHeader(csrfHeaderName, csrfValue);
         },
         data: JSON.stringify(jsonData),
@@ -88,6 +88,7 @@ function updateCountry() {
         showToastMessage("ERROR: Could not connect to server  or server encountered an error");
     });
 }
+
 function addCountry() {
     url = contextPath + "countries/save";
     countryName = fieldCountryName.val();
@@ -97,7 +98,7 @@ function addCountry() {
     $.ajax({
         type: 'POST',
         url: url,
-        beforeSend: function(xhr) {
+        beforeSend: function (xhr) {
             xhr.setRequestHeader(csrfHeaderName, csrfValue);
         },
         data: JSON.stringify(jsonData),
@@ -118,6 +119,7 @@ function selectNewlyAddedCountry(countryId, countryCode, countryName) {
     fieldCountryCode.val("");
     fieldCountryName.val("").focus;
 }
+
 function changeFormStateToNewCountry() {
     buttonAddCountry.val("Add");
     labelCountryName.text("Country Name:");
@@ -142,11 +144,11 @@ function changeFormStateToSelectedCountry() {
     fieldCountryCode.val(countryCode);
 }
 
-function loadCountries(){
+function loadCountries() {
     url = contextPath + "countries/list";
-    $.get(url, function(responseJSON) {
+    $.get(url, function (responseJSON) {
         dropDownCountry.empty();
-        $.each(responseJSON, function(index, country) {
+        $.each(responseJSON, function (index, country) {
             optionValue = country.id + "-" + country.code;
             $("<option>").val(optionValue).text(country.name).appendTo(dropDownCountry);
         });

@@ -3,7 +3,7 @@ $(document).ready(function () {
         e.preventDefault();
         document.logoutForm.submit();
     });
-    //customizeDropDownMenu();
+    // customizeDropDownMenu();
     customizeTabs();
 });
 
@@ -24,7 +24,7 @@ function customizeDropDownMenu() {
 
 function customizeTabs() {
     var url = document.location.toString();
-    if(url.match('#')){
+    if (url.match('#')) {
         $('.nav-tabs a[href="#' + url.split('#')[1] + '"]').tab('show');
     }
 

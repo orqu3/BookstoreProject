@@ -1,9 +1,11 @@
 package com.bookstore.common.entity;
 
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
 
 @Entity
+@NoArgsConstructor
 @Table(name = "states")
 public class State {
 
@@ -17,9 +19,6 @@ public class State {
     @ManyToOne
     @JoinColumn(name = "country_id")
     private Country country;
-
-    public State() {
-    }
 
     public State(String name, Country country) {
         this.name = name;

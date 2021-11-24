@@ -13,32 +13,34 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-import javax.persistence.criteria.CriteriaBuilder;
-
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 public class StateRestControllerTest {
 
-    @Autowired MockMvc mockMvc;
+    @Autowired
+    MockMvc mockMvc;
 
-    @Autowired ObjectMapper objectMapper;
+    @Autowired
+    ObjectMapper objectMapper;
 
-    @Autowired CountryRepository countryRepo;
+    @Autowired
+    CountryRepository countryRepository;
 
-    @Autowired StateRepository stateRepo;
+    @Autowired
+    StateRepository stateRepository;
 
     @Test
-    @WithMockUser(username = "nam", password = "something", roles = "Admin")
-    public void testListByCountries() throws Exception{
+    @WithMockUser(username = "admin", password = "something", roles = "Admin")
+    public void testListByCountries() throws Exception {
         Integer countryId = 2;
         String url = "/states/list_by_country/" + countryId;
 
@@ -53,36 +55,36 @@ public class StateRestControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "nam", password = "something", roles = "Admin")
-    public void testCreateState() throws Exception{
+    @WithMockUser(username = "admin", password = "something", roles = "Admin")
+    public void testCreateState() throws Exception {
         String url = "/states/save";
         Integer countryId = 2;
-        Country country = countryRepo.findById(countryId).get();
+        Country country = countryRepository.findById(countryId).get();
         State state = new State("Arizona", country);
 
         MvcResult result = mockMvc.perform(post(url).contentType("application/json")
-        .content(objectMapper.writeValueAsString(state))
-                .with(csrf()))
+                        .content(objectMapper.writeValueAsString(state))
+                        .with(csrf()))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();
 
         String response = result.getResponse().getContentAsString();
         Integer stateId = Integer.parseInt(response);
-        Optional<State> findById = stateRepo.findById(stateId);
+        Optional<State> findById = stateRepository.findById(stateId);
 
         assertThat(findById.isPresent());
     }
 
     @Test
-    @WithMockUser(username = "nam", password = "something", roles = "Admin")
-    public void testDeleteState() throws Exception{
+    @WithMockUser(username = "admin", password = "something", roles = "Admin")
+    public void testDeleteState() throws Exception {
         Integer stateId = 6;
         String url = "/states/delete/" + stateId;
 
         mockMvc.perform(get(url)).andExpect(status().isOk());
 
-        Optional<State> findById = stateRepo.findById(stateId);
+        Optional<State> findById = stateRepository.findById(stateId);
 
         assertThat(findById).isNotPresent();
     }
