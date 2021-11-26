@@ -40,3 +40,7 @@
 .nav-link {
     margin-right: 60px;
 }
+
+.table .thead-dark th#email{
+    visibility: hidden;
+}
