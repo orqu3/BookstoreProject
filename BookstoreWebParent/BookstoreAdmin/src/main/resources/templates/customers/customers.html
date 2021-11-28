@@ -53,7 +53,59 @@
         </table>
 
     </div>
-</div>
 
+    <div class="less-details">
+        <div th:each="customer : ${listCustomers}" class="row m-1">
+            <div class="col-4">
+                <span><b>[[${customer.firstName}]]</b></span>
+            </div>
+            <div class="col-8">
+                <div class="mb-1">
+                    <span>[[${customer.country.name}]]</span>
+                </div>
+                <div>
+                    <div th:replace="fragments :: status(${customer.enabled}, 'customer', '/customers/' + ${customer.id})"/>
+                    &nbsp;
+                    <a class="fas fa-file-alt fa-2x icon-green link-detail"
+                       th:href="@{'/customers/detail/' + ${customer.id}}"
+                       title = "View details of this customer"
+                    ></a>
+                    <div th:replace="fragments :: edit('customer', '/customers/edit/' + ${customer.id})"></div>
+                    &nbsp;
+                    <div th:replace="fragments :: delete('customer', ${customer.id}, '/customers/delete/'+ ${customer.id}, true)"></div>
+                </div>
+            </div>
+            <div>&nbsp;</div>
+        </div>
+    </div>
+
+    <div th:replace="fragments :: pagination('/customers', 'customers')"></div>
+    <div th:replace="modal_fragments :: confirm_modal"></div>
+
+    <div class="modal fade" id = "detailModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content"></div>
+        </div>
+    </div>
+
+    <div th:replace="fragments :: footer"></div>
+</div>
+<script th:src="@{/js/common_list.js}"></script>
+<script type="text/javascript">
+    moduleURL = "[[@{/customers}]]";
+
+    $(document).ready(function () {
+        $(".link-delete").on("click", function(e){
+           e.preventDefault();
+           showDeleteConfirmModal($(this), 'customer')
+        });
+
+        $(".link-detail").on("click", function (e) {
+            e.preventDefault();
+            linkDetailURL = $(this).attr("href");
+            $("#detailModal").modal("show").find(".modal-content").load(linkDetailURL);
+        });
+    });
+</script>
 </body>
 </html>
