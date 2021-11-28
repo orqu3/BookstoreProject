@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments :: page_head('Customers - MyShop admin', 'none')" />
+<head th:replace="fragments :: page_head('Customers - MyShop Admin', 'none')" />
 <body>
 <div class="container-fluid">
     <div th:replace="navigation :: menu"></div>
@@ -57,24 +57,24 @@
     <div class="less-details">
         <div th:each="customer : ${listCustomers}" class="row m-1">
             <div class="col-4">
-                <span><b>[[${customer.firstName}]]</b></span>
+<!--                <span><b>[[${customer.firstName}]]</b></span>-->
             </div>
-            <div class="col-8">
-                <div class="mb-1">
-                    <span>[[${customer.country.name}]]</span>
-                </div>
-                <div>
-                    <div th:replace="fragments :: status(${customer.enabled}, 'customer', '/customers/' + ${customer.id})"/>
-                    &nbsp;
-                    <a class="fas fa-file-alt fa-2x icon-green link-detail"
-                       th:href="@{'/customers/detail/' + ${customer.id}}"
-                       title = "View details of this customer"
-                    ></a>
-                    <div th:replace="fragments :: edit('customer', '/customers/edit/' + ${customer.id})"></div>
-                    &nbsp;
-                    <div th:replace="fragments :: delete('customer', ${customer.id}, '/customers/delete/'+ ${customer.id}, true)"></div>
-                </div>
-            </div>
+<!--            <div class="col-8">-->
+<!--                <div class="mb-1">-->
+<!--                    <span>[[${customer.country.name}]]</span>-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                    <div th:replace="fragments :: status(${customer.enabled}, 'customer', '/customers/' + ${customer.id})"/>-->
+<!--                    &nbsp;-->
+<!--                    <a class="fas fa-file-alt fa-2x icon-green link-detail"-->
+<!--                       th:href="@{'/customers/detail/' + ${customer.id}}"-->
+<!--                       title = "View details of this customer"-->
+<!--                    ></a>-->
+<!--                    <div th:replace="fragments :: edit('customer', '/customers/edit/' + ${customer.id})"></div>-->
+<!--                    &nbsp;-->
+<!--                    <div th:replace="fragments :: delete('customer', ${customer.id}, '/customers/delete/'+ ${customer.id}, true)"></div>-->
+<!--                </div>-->
+<!--            </div>-->
             <div>&nbsp;</div>
         </div>
     </div>
