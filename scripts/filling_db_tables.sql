@@ -657,8 +657,7 @@ VALUES (1, 'Ha Noi', 242),
        (302, 'Van', 226),
        (303, 'Bayburt', 226),
        (304, 'Yalova', 226),
-       (305, 'Samsun', 226),
-       (306, 'Sakarya', 226);
+
 
 
 ALTER TABLE `products`
