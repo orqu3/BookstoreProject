@@ -660,31 +660,6 @@ VALUES (1, 'Ha Noi', 242),
        (305, 'Samsun', 226),
        (306, 'Sakarya', 226);
 
-CREATE TABLE customers
-(
-    id                INT AUTO_INCREMENT NOT NULL,
-    email             VARCHAR(45)        NOT NULL,
-    password          VARCHAR(64)        NOT NULL,
-    first_name        VARCHAR(45)        NOT NULL,
-    last_name         VARCHAR(45)        NOT NULL,
-    phone_number      VARCHAR(15)        NOT NULL,
-    address_line1     VARCHAR(64)        NOT NULL,
-    address_line_2    VARCHAR(64)        NULL,
-    city              VARCHAR(45)        NOT NULL,
-    state             VARCHAR(45)        NOT NULL,
-    postal_code       VARCHAR(10)        NOT NULL,
-    verification_code VARCHAR(64)        NULL,
-    enable            BIT(1)             NULL,
-    created_time      date               NULL,
-    country_id        INT                NULL,
-    CONSTRAINT pk_customers PRIMARY KEY (id)
-);
-
-ALTER TABLE customers
-    ADD CONSTRAINT uc_customers_email UNIQUE (email);
-
-ALTER TABLE customers
-    ADD CONSTRAINT FK_CUSTOMERS_ON_COUNTRY FOREIGN KEY (country_id) REFERENCES countries (id);
 
 ALTER TABLE `products`
     ADD FULLTEXT INDEX `products_FTS` (`name`, `description`) VISIBLE;
