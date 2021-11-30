@@ -2,15 +2,16 @@ package com.bookstore.shopping.security;
 
 import com.bookstore.common.entity.Customer;
 import com.bookstore.shopping.repository.CustomerRepository;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-@RequiredArgsConstructor
+
 public class CustomerUserDetailsService implements UserDetailsService {
 
-    private final CustomerRepository customerRepository;
+    @Autowired
+    private CustomerRepository customerRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
