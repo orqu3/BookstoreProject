@@ -23,6 +23,7 @@ public class CustomerController {
 
     @GetMapping("/customers")
     public String listFirstPage(Model model){
+
         return listByPage(model, 1, "firstName", "asc", null);
     }
 
