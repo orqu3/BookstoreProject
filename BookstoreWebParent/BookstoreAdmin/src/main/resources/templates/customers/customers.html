@@ -57,12 +57,12 @@
     <div class="less-details">
         <div th:each="customer : ${listCustomers}" class="row m-1">
             <div class="col-4">
-<!--                <span><b>[[${customer.firstName}]]</b></span>-->
+<!--                <span><b>[[${customer.firstName} + ' ' + ${customer.lastName}]]</b></span>-->
             </div>
-<!--            <div class="col-8">-->
-<!--                <div class="mb-1">-->
+            <div class="col-8">
+                <div class="mb-1">
 <!--                    <span>[[${customer.country.name}]]</span>-->
-<!--                </div>-->
+                </div>
 <!--                <div>-->
 <!--                    <div th:replace="fragments :: status(${customer.enabled}, 'customer', '/customers/' + ${customer.id})"/>-->
 <!--                    &nbsp;-->
@@ -74,7 +74,7 @@
 <!--                    &nbsp;-->
 <!--                    <div th:replace="fragments :: delete('customer', ${customer.id}, '/customers/delete/'+ ${customer.id}, true)"></div>-->
 <!--                </div>-->
-<!--            </div>-->
+            </div>
             <div>&nbsp;</div>
         </div>
     </div>
