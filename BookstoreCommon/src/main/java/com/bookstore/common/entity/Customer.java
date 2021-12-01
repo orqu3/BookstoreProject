@@ -64,6 +64,14 @@ public class Customer {
     @Column(name = "authentication_type", length = 10)
     private AuthenticationType authenticationType;
 
+    public AuthenticationType getAuthenticationType() {
+        return authenticationType;
+    }
+
+    public void setAuthenticationType(AuthenticationType authenticationType) {
+        this.authenticationType = authenticationType;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +
