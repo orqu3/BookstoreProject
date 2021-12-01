@@ -84,9 +84,7 @@
                 <label for="state" class="col-sm-4 col-form-label">State/Province:</label>
                 <div class="col-sm-8">
                     <input type="text" class="form-control" th:field="*{state}" minlength="3" maxlength="64">
-                    <datalist id="listStates">
-
-                    </datalist>
+                    <datalist id="listStates"></datalist>
                 </div>
             </div>
 
@@ -110,10 +108,12 @@
 <script type="text/javascript">
     var dropdownCountries;
     var dropdownStates;
+    var state;
 
     $(document).ready(function () {
         dropdownCountries = $("#country");
         dropdownStates = $("#listStates");
+        state = $("#state");
 
         dropdownCountries.on("change", function () {
             loadStates4Country();
@@ -131,6 +131,8 @@
         selectedCountry = $("#country option:selected");
         countryId = selectedCountry.val();
 
+
+
         url = "[[@{/states/list_by_country/}]]" + countryId;
 
         $.get(url, function (responseJson) {
@@ -145,7 +147,7 @@
     }
 
     function checkEmailUnique(form) {
-        customerId = $("id").val();
+        customerId = $("#id").val();
         customerEmail = $("#email").val();
         csrfValue = $("input[name='_csrf'").val();
 
