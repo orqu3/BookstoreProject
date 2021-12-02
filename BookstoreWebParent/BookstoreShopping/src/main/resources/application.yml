@@ -10,6 +10,12 @@ spring:
             scope:
               - email
               - profile
+          facebook:
+            client-id: 485042586191257
+            client-secret: 63166b95d1ec9713c514ddb1ec022591
+            scope:
+              - email
+              - public_profile
 
   datasource:
     username: root
@@ -23,7 +29,7 @@ spring:
         format_sql: 'true'
     hibernate:
       ddl-auto: update
-    show-sql: 'true'
+    show-sql: 'false'
 
   thymeleaf:
     encoding: UTF-8
