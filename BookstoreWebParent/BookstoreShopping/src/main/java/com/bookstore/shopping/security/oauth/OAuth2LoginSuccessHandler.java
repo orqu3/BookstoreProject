@@ -4,6 +4,8 @@ import com.bookstore.common.entity.AuthenticationType;
 import com.bookstore.common.entity.Customer;
 import com.bookstore.shopping.service.CustomerService;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -34,6 +36,7 @@ public class OAuth2LoginSuccessHandler extends SavedRequestAwareAuthenticationSu
         if (customer == null) {
             customerService.addNewCustomerUponOAuthLogin(name, email, countryCode, authenticationType);
         } else {
+            oAuth2User.setFullName(customer.getFullName());
             customerService.updateAuthenticationType(customer, authenticationType);
         }
         super.onAuthenticationSuccess(request, response, authentication);

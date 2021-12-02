@@ -4,6 +4,8 @@ package com.bookstore.shopping.security;
 import com.bookstore.shopping.security.oauth.CustomerOAuth2UserService;
 import com.bookstore.shopping.security.oauth.OAuth2LoginSuccessHandler;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -34,27 +36,27 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/customer").authenticated()
+                .antMatchers("/account_details", "/update_account_details").authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
-                    .loginPage("/login")
-                    .usernameParameter("email")
-                    .successHandler(databaseLoginSuccessHandler)
-                    .permitAll()
+                .loginPage("/login")
+                .usernameParameter("email")
+                .successHandler(databaseLoginSuccessHandler)
+                .permitAll()
                 .and()
                 .oauth2Login()
-                    .loginPage("/login")
-                    .userInfoEndpoint()
-                    .userService(oAuth2UserService)
-                    .and()
-                    .successHandler(oAuth2LoginSuccessHandler)
+                .loginPage("/login")
+                .userInfoEndpoint()
+                .userService(oAuth2UserService)
+                .and()
+                .successHandler(oAuth2LoginSuccessHandler)
                 .and()
                 .logout().permitAll()
                 .and()
                 .rememberMe()
-                    .key("1234567890_aBcDeFgHiJkLmNoPqRsTuVwXyZ")
-                    .tokenValiditySeconds(14 * 24 * 60 * 60);
+                .key("1234567890_aBcDeFgHiJkLmNoPqRsTuVwXyZ")
+                .tokenValiditySeconds(14 * 24 * 60 * 60);
     }
 
     @Override

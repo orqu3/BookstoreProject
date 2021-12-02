@@ -5,18 +5,24 @@ import com.bookstore.common.entity.Country;
 import com.bookstore.common.entity.Customer;
 import com.bookstore.shopping.repository.CountryRepository;
 import com.bookstore.shopping.repository.CustomerRepository;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class CustomerService {
 
-    private final CountryRepository countryRepository;
-    private final CustomerRepository customerRepository;
+    @Autowired
+    private CountryRepository countryRepository;
+
+    @Autowired
+    private CustomerRepository customerRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
     public List<Country> listAllCountries() {
@@ -69,6 +75,27 @@ public class CustomerService {
             String lastName = name.replaceFirst(firstName + " ", "");
             customer.setLastName(lastName);
         }
+    }
+
+    public void update(Customer customerInForm) {
+        Customer customerInDB = customerRepository.findById(customerInForm.getId()).get();
+
+        if (customerInDB.getAuthenticationType().equals(AuthenticationType.DATABASE)) {
+            if (!customerInForm.getPassword().isEmpty()) {
+                String encodedPassword = passwordEncoder.encode(customerInForm.getPassword());
+                customerInForm.setPassword(encodedPassword);
+            } else {
+                customerInForm.setPassword(customerInDB.getPassword());
+            }
+        } else {
+            customerInForm.setPassword(customerInDB.getPassword());
+        }
+        customerInForm.setEnabled(customerInDB.isEnabled());
+        customerInForm.setCreatedTime(customerInDB.getCreatedTime());
+        customerInForm.setVerificationCode(customerInDB.getVerificationCode());
+        customerInForm.setAuthenticationType(customerInDB.getAuthenticationType());
+
+        customerRepository.save(customerInForm);
     }
 
 }
