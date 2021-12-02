@@ -358,7 +358,18 @@ VALUES ('COPYRIGHT', 'Copyright (C) 2021 Bookstore Ltd. ', 'GENERAL'),
        ('DECIMAL_DIGITS', '2', 'CURRENCY'),
        ('DECIMAL_POINT_TYPE', 'POINT', 'CURRENCY'),
        ('SITE_NAME', 'Bookstore', 'GENERAL'),
-       ('THOUSANDS_POINT_TYPE', 'COMMA', 'CURRENCY');
+       ('THOUSANDS_POINT_TYPE', 'COMMA', 'CURRENCY'),
+       ('MAIL_HOST','smtp.gmail.com', 'MAIL_SERVER'),
+       ('MAIL_PORT', '123', 'MAIL_SERVER'),
+       ('MAIL_USERNAME', 'root', 'MAIL_SERVER'),
+       ('MAIL_PASSWORD', 'root', 'MAIL_SERVER'),
+       ('MAIL_FROM', 'mystorepetproject@gmail.com', 'MAIL_SERVER'),
+       ('SMTP_AUTH', 'true', 'MAIL_SERVER'),
+       ('SMTP_SECURED', 'true', 'MAIL_SERVER'),
+       ('MAIL_SENDER_NAME', 'Bookstore', 'MAIL_SERVER'),
+       ('CUSTOMER_VERIFY_SUBJECT', 'Email subject', 'MAIL_TEMPLATES'),
+       ('CUSTOMER_VERIFY_CONTENT', 'email content', 'MAIL_TEMPLATES');
+
 
 INSERT INTO `states`
 VALUES (1, 'Ha Noi', 242),
