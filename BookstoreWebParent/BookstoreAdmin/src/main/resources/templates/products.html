@@ -50,10 +50,10 @@
         <table class="table table-bordered table-striped table-hover table-responsive-xl text-center">
             <thead class="thead-dark">
             <tr>
-                <th th:replace="fragments :: column_link('/products', 'id', 'ID')"></th>
-                <th th:replace="fragments :: column_link('/products', 'name', 'Name')"></th>
-                <th th:replace="fragments :: column_link('/products', 'author', 'Author')"></th>
-                <th th:replace="fragments :: column_link('/products', 'category.name', 'Category')"></th>
+                <th th:replace="fragments :: column_link('id', 'ID')"></th>
+                <th th:replace="fragments :: column_link('name', 'Name')"></th>
+                <th th:replace="fragments :: column_link('author', 'Author')"></th>
+                <th th:replace="fragments :: column_link('category.name', 'Category')"></th>
 
                 <th:block sec:authorize="hasAuthority('Admin')">
                     <th>Enabled</th>
@@ -107,7 +107,7 @@
         </div>
     </div>
 
-    <div th:replace="fragments :: pagination('/products', 'products')"></div>
+    <div th:replace="fragments :: pagination('products')"></div>
 
     <div th:replace="fragments :: footer"></div>
 </div>

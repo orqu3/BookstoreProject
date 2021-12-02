@@ -83,7 +83,7 @@
             <div class="form-group row">
                 <label for="state" class="col-sm-4 col-form-label">State/Province:</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" th:field="*{state}" minlength="3" maxlength="64">
+                    <input list="listStates" type="text" class="form-control" th:field="*{state}" minlength="3" maxlength="64">
                     <datalist id="listStates"></datalist>
                 </div>
             </div>

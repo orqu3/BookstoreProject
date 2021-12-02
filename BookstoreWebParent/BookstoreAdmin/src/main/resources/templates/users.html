@@ -13,18 +13,18 @@
         <a class="fas fa-user-plus icon-green fa-2x" th:href="@{/users/new}" title="Create New User"></a>
     </div>
 
-    <div th:replace="fragments :: search_form_and_message('/users/page/1')"></div>
+    <div th:replace="fragments :: search_form_and_message"></div>
 
     <div>
         <table class="table table-bordered table-striped table-hover table-responsive-xl text-center">
             <thead class="thead-dark">
             <tr>
-                <th th:replace="fragments :: column_link('/users', 'id', 'ID')"></th>
-                <th th:replace="fragments :: column_link('/users', 'email', 'E-mail')"></th>
-                <th th:replace="fragments :: column_link('/users', 'firstName', 'First Name')"></th>
-                <th th:replace="fragments :: column_link('/users', 'lastName', 'Last Name')"></th>
+                <th th:replace="fragments :: column_link('id', 'ID')"></th>
+                <th th:replace="fragments :: column_link('email', 'E-mail')"></th>
+                <th th:replace="fragments :: column_link('firstName', 'First Name')"></th>
+                <th th:replace="fragments :: column_link('lastName', 'Last Name')"></th>
                 <th>Roles</th>
-                <th th:replace="fragments :: column_link('/users', 'enabled', 'Enabled')"></th>
+                <th th:replace="fragments :: column_link('enabled', 'Enabled')"></th>
                 <th>Action</th>
             </tr>
             </thead>
@@ -48,7 +48,7 @@
         </table>
     </div>
 
-    <div th:replace="fragments :: pagination('/users', 'users')"></div>
+    <div th:replace="fragments :: pagination('users')"></div>
 
     <div th:replace="modal_fragments :: confirm_modal"></div>
 
