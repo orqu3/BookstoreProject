@@ -40,22 +40,26 @@
 
                 <div class="tab-pane p-3" id="description-container" role="tabpanel">
 
-                    <th:block sec:authorize="hasAuthority('Salesperson')">
-                        <div th:replace="product_description_readonly :: content"></div>
+                    <th:block th:if="${!#authorization.expression('hasAuthority(''Admin'')')}">
+                        <th:block th:if="${#authorization.expression('hasAuthority(''Salesperson'')')}">
+                            <div th:replace="product_description_readonly :: content"></div>
+                        </th:block>
                     </th:block>
 
-                    <th:block sec:authorize="hasAuthority('Admin')">
+                    <th:block th:if="${#authorization.expression('hasAuthority(''Admin'')')}">
                         <div th:replace="product_description :: content"></div>
                     </th:block>
 
                 </div>
                 <div class="tab-pane p-3" id="details" role="tabpanel">
 
-                    <th:block sec:authorize="hasAuthority('Salesperson')">
-                        <div th:replace="product_details_readonly :: content"></div>
+                    <th:block th:if="${!#authorization.expression('hasAuthority(''Admin'')')}">
+                        <th:block th:if="${#authorization.expression('hasAuthority(''Salesperson'')')}">
+                            <div th:replace="product_details_readonly :: content"></div>
+                        </th:block>
                     </th:block>
 
-                    <th:block sec:authorize="hasAuthority('Admin')">
+                    <th:block th:if="${#authorization.expression('hasAuthority(''Admin'')')}">
                         <div th:replace="product_details :: content"></div>
                         <div>
                             <input type="button" class="btn btn-secondary" value="Add More Detail"
@@ -66,11 +70,13 @@
                 </div>
                 <div class="tab-pane p-3" id="shipping" role="tabpanel">
 
-                    <th:block sec:authorize="hasAuthority('Salesperson')">
-                        <div th:replace="product_shipping_readonly :: content"></div>
+                    <th:block th:if="${!#authorization.expression('hasAuthority(''Admin'')')}">
+                        <th:block th:if="${#authorization.expression('hasAuthority(''Salesperson'')')}">
+                            <div th:replace="product_shipping_readonly :: content"></div>
+                        </th:block>
                     </th:block>
 
-                    <th:block sec:authorize="hasAuthority('Admin')">
+                    <th:block th:if="${#authorization.expression('hasAuthority(''Admin'')')}">
                         <div th:replace="product_shipping :: content"></div>
                     </th:block>
 
