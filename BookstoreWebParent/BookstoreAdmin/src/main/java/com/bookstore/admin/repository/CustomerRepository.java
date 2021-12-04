@@ -1,5 +1,6 @@
 package com.bookstore.admin.repository;
 
+import com.bookstore.admin.pagin.SearchRepository;
 import com.bookstore.common.entity.Customer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,7 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface CustomerRepository extends JpaRepository<Customer, Integer> {
+public interface CustomerRepository extends SearchRepository<Customer, Integer> {
 
     @Query("SELECT c FROM Customer c WHERE concat(c.email, ' ', c.firstName, ' ', c.lastName, ' ', "
     +"c.addressLine1, ' ', c.addressLine2, ' ', c.city, ' ', c.state, "

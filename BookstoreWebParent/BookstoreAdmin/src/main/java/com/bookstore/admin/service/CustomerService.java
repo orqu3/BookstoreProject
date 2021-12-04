@@ -1,6 +1,7 @@
 package com.bookstore.admin.service;
 
 import com.bookstore.admin.exception.CustomerNotFoundException;
+import com.bookstore.admin.pagin.PagingAndSortingHelper;
 import com.bookstore.admin.repository.CountryRepository;
 import com.bookstore.admin.repository.CustomerRepository;
 import com.bookstore.common.entity.Country;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,17 +29,8 @@ public class CustomerService {
     private final CountryRepository countryRepo;
     private final PasswordEncoder passwordEncoder;
 
-    public Page<Customer> listByPage(int pageNum, String sortField, String sortDir, String keyword){
-        Sort sort = Sort.by(sortField);
-        sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
-
-        Pageable pageable = PageRequest.of(pageNum - 1, CUSTOMER_PER_PAGE, sort);
-
-        if(keyword != null){
-            return customerRepo.findAll(keyword, pageable);
-        }
-
-        return customerRepo.findAll(pageable);
+    public void listByPage(int pageNum, PagingAndSortingHelper helper){
+        helper.listEntities(pageNum, CUSTOMER_PER_PAGE, customerRepo);
     }
 
     public void updateCustomerEnabledStatus(Integer id, boolean enabled){
