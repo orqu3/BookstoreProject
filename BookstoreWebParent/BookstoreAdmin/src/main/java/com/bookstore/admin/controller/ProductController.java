@@ -35,16 +35,40 @@ public class ProductController {
     }
 
     @GetMapping("/products/page/{pageNum}")
-    public String listByPage(
-            @PagingAndSortingParam(listName = "products", moduleURL = "/products") PagingAndSortingHelper helper,
-                             @PathVariable(name = "pageNum") int pageNum, Model model,
+    public String listByPage(@PathVariable(name = "pageNum") int pageNum,
+                             Model model,
+                             @Param("sortField") String sortField,
+                             @Param("sortDir") String sortDir,
+                             @Param("keyword") String keyword,
                              @Param("categoryId") Integer categoryId) {
-        productService.listByPage(pageNum, helper,categoryId);
+        Page<Product> page = productService.listByPage(pageNum, sortField, sortDir, keyword, categoryId);
+        List<Product> products = page.getContent();
 
-        List<Category> listCategories = categoryService.listCategoriesUsedInForm();
+        List<Category> categories = categoryService.listCategoriesUsedInForm();
 
-        if(categoryId != null) model.addAttribute("categoryId", categoryId);
-        model.addAttribute("listCategories", listCategories);
+        long startCount = (pageNum - 1) * ProductService.PRODUCTS_PER_PAGE + 1;
+        long endCount = startCount + ProductService.PRODUCTS_PER_PAGE - 1;
+
+        if (endCount > page.getTotalElements()) {
+            endCount = page.getTotalElements();
+        }
+
+        String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
+
+        if (categoryId != null) model.addAttribute("categoryId", categoryId);
+
+        model.addAttribute("currentPage", pageNum);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("startCount", startCount);
+        model.addAttribute("endCount", endCount);
+        model.addAttribute("totalItems", page.getTotalElements());
+        model.addAttribute("products", products);
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", reverseSortDir);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("categories", categories);
+
         return "products";
     }
 
