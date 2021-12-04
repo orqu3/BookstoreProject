@@ -1,7 +1,5 @@
 package com.bookstore.admin.controller;
 
-import com.bookstore.admin.pagin.PagingAndSortingHelper;
-import com.bookstore.admin.pagin.PagingAndSortingParam;
 import com.bookstore.admin.security.BookstoreUserDetails;
 import com.bookstore.admin.service.CategoryService;
 import com.bookstore.admin.service.ProductService;
@@ -31,9 +29,7 @@ public class ProductController {
 
     @GetMapping("/products")
     public String listFirstPage(Model model) {
-        public String listFirstPage(Model model) {
-            return listByPage(1, model, "name", "asc", null, 0);
-        }
+        return listByPage(1, model, "name", "asc", null, 0);
     }
 
     @GetMapping("/products/page/{pageNum}")
