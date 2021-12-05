@@ -6,6 +6,7 @@ import com.bookstore.common.entity.SettingBag;
 import java.util.List;
 
 public class EmailSettingBag extends SettingBag {
+
     public EmailSettingBag(List<Setting> listSettings) {
         super(listSettings);
     }
@@ -14,12 +15,12 @@ public class EmailSettingBag extends SettingBag {
         return super.getValue("MAIL_HOST");
     }
 
-    public String getUserName() {
+    public String getUsername() {
         return super.getValue("MAIL_USERNAME");
     }
 
     public int getPort() {
-        return Integer.parseInt (super.getValue("MAIL_PORT"));
+        return Integer.parseInt(super.getValue("MAIL_PORT"));
     }
 
     public String getPassword() {
@@ -34,8 +35,12 @@ public class EmailSettingBag extends SettingBag {
         return super.getValue("SMTP_SECURED");
     }
 
-    public String getFromAddress() {
+    public String getSenderName() {
         return super.getValue("MAIL_SENDER_NAME");
+    }
+
+    public String getFromAddress() {
+        return super.getValue("MAIL_FROM");
     }
 
     public String getCustomerVerifySubject() {
