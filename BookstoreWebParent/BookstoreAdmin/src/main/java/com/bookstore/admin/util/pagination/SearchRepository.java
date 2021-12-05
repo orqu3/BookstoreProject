@@ -1,4 +1,4 @@
-package com.bookstore.admin.pagin;
+package com.bookstore.admin.util.pagination;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

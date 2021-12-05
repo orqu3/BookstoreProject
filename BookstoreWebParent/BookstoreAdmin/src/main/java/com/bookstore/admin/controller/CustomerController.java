@@ -1,8 +1,8 @@
 package com.bookstore.admin.controller;
 
 import com.bookstore.admin.exception.CustomerNotFoundException;
-import com.bookstore.admin.pagin.PagingAndSortingHelper;
-import com.bookstore.admin.pagin.PagingAndSortingParam;
+import com.bookstore.admin.util.pagination.PagingAndSortingHelper;
+import com.bookstore.admin.util.pagination.PagingAndSortingParam;
 import com.bookstore.admin.repository.StateRepository;
 import com.bookstore.admin.service.CustomerService;
 import com.bookstore.common.entity.Country;

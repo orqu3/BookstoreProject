@@ -1,16 +1,12 @@
 package com.bookstore.admin.service;
 
 import com.bookstore.admin.exception.UserNotFoundException;
-import com.bookstore.admin.pagin.PagingAndSortingHelper;
+import com.bookstore.admin.util.pagination.PagingAndSortingHelper;
 import com.bookstore.admin.repository.RoleRepository;
 import com.bookstore.admin.repository.UserRepository;
 import com.bookstore.common.entity.Role;
 import com.bookstore.common.entity.User;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

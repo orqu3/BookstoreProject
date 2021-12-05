@@ -1,12 +1,11 @@
 package com.bookstore.admin.repository;
 
-import com.bookstore.admin.pagin.SearchRepository;
+import com.bookstore.admin.util.pagination.SearchRepository;
 import com.bookstore.common.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface UserRepository extends SearchRepository<User, Integer> {
 

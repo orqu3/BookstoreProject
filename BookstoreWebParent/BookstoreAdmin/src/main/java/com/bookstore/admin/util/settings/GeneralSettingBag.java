@@ -1,4 +1,4 @@
-package com.bookstore.admin.util;
+package com.bookstore.admin.util.settings;
 
 import com.bookstore.common.entity.Setting;
 import com.bookstore.common.entity.SettingBag;
