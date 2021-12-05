@@ -1,6 +1,6 @@
 package com.bookstore.admin.controller;
 
-import com.bookstore.admin.dto.StateDTO;
+import com.bookstore.common.dto.StateDTO;
 import com.bookstore.admin.repository.StateRepository;
 import com.bookstore.common.entity.Country;
 import com.bookstore.common.entity.State;

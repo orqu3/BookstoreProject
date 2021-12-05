@@ -359,16 +359,22 @@ VALUES ('COPYRIGHT', 'Copyright (C) 2021 Bookstore Ltd. ', 'GENERAL'),
        ('DECIMAL_POINT_TYPE', 'POINT', 'CURRENCY'),
        ('SITE_NAME', 'Bookstore', 'GENERAL'),
        ('THOUSANDS_POINT_TYPE', 'COMMA', 'CURRENCY'),
-       ('MAIL_HOST','smtp.gmail.com', 'MAIL_SERVER'),
-       ('MAIL_PORT', '123', 'MAIL_SERVER'),
-       ('MAIL_USERNAME', 'root', 'MAIL_SERVER'),
-       ('MAIL_PASSWORD', 'root', 'MAIL_SERVER'),
+       ('MAIL_HOST', 'smtp.gmail.com', 'MAIL_SERVER'),
+       ('MAIL_PORT', '587', 'MAIL_SERVER'),
+       ('MAIL_USERNAME', 'myStorePetProject@gmail.com', 'MAIL_SERVER'),
+       ('MAIL_PASSWORD', 'bbaqshfdfghkgtfm', 'MAIL_SERVER'),
        ('MAIL_FROM', 'mystorepetproject@gmail.com', 'MAIL_SERVER'),
        ('SMTP_AUTH', 'true', 'MAIL_SERVER'),
        ('SMTP_SECURED', 'true', 'MAIL_SERVER'),
-       ('MAIL_SENDER_NAME', 'Bookstore', 'MAIL_SERVER'),
-       ('CUSTOMER_VERIFY_SUBJECT', 'Email subject', 'MAIL_TEMPLATES'),
-       ('CUSTOMER_VERIFY_CONTENT', 'email content', 'MAIL_TEMPLATES');
+       ('MAIL_SENDER_NAME', 'Bookstore Team', 'MAIL_SERVER'),
+       ('CUSTOMER_VERIFY_SUBJECT', 'Please verify your registration to continue shopping.', 'MAIL_TEMPLATES'),
+       ('CUSTOMER_VERIFY_CONTENT', '<span style="font-size:18px;">Dear [[name]],&nbsp;</span><div><span style="font-size:18px;"><br>
+ Click the link below to verify your registration.<br>
+ <br><b>
+ <a href="[[URL]]" target="_self">VERIFY</a><h3 style=""><font color="#000000"></font></h3></b><br>
+ Thank you,&nbsp;<br>
+ The Bookstore Team.</span><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div></div>',
+        'MAIL_TEMPLATES');
 
 
 INSERT INTO `states`
