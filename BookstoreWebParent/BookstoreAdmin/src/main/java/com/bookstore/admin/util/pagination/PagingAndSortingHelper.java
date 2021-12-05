@@ -1,10 +1,7 @@
-package com.bookstore.admin.pagin;
+package com.bookstore.admin.util.pagination;
 
-import com.bookstore.admin.service.UserService;
-import com.bookstore.common.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,7 +20,7 @@ public class PagingAndSortingHelper {
     private String sortDir;
     private String keyword;
 
-    public void updateModelAttributes(int pageNum, Page<?> page){
+    public void updateModelAttributes(int pageNum, Page<?> page) {
         List<?> listItems = page.getContent();
         int pageSize = page.getSize();
 
@@ -53,7 +50,7 @@ public class PagingAndSortingHelper {
 
         if (keyword != null) {
             page = repo.findAll(keyword, pageable);
-        } else{
+        } else {
             page = repo.findAll(pageable);
         }
 

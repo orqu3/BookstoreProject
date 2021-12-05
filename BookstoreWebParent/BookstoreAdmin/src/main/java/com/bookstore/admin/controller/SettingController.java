@@ -1,6 +1,6 @@
 package com.bookstore.admin.controller;
 
-import com.bookstore.admin.util.GeneralSettingBag;
+import com.bookstore.admin.util.settings.GeneralSettingBag;
 import com.bookstore.admin.repository.CurrencyRepository;
 import com.bookstore.admin.service.SettingService;
 import com.bookstore.common.entity.Currency;

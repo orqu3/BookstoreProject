@@ -1,6 +1,6 @@
 package com.bookstore.admin.config;
 
-import com.bookstore.admin.pagin.PagingAndSortingArgumentResolver;
+import com.bookstore.admin.util.pagination.PagingAndSortingArgumentResolver;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;

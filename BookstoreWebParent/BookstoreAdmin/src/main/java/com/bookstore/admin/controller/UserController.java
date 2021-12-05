@@ -1,14 +1,12 @@
 package com.bookstore.admin.controller;
 
 import com.bookstore.admin.exception.UserNotFoundException;
-import com.bookstore.admin.pagin.PagingAndSortingHelper;
-import com.bookstore.admin.pagin.PagingAndSortingParam;
+import com.bookstore.admin.util.pagination.PagingAndSortingHelper;
+import com.bookstore.admin.util.pagination.PagingAndSortingParam;
 import com.bookstore.admin.service.UserService;
 import com.bookstore.common.entity.Role;
 import com.bookstore.common.entity.User;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

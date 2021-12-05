@@ -1,4 +1,4 @@
-package com.bookstore.admin.pagin;
+package com.bookstore.admin.util.pagination;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -25,7 +25,7 @@ public class PagingAndSortingArgumentResolver implements HandlerMethodArgumentRe
         model.addAttribute("reverseSortDir", reverseSortDir);
         model.addAttribute("keyword", keyword);
 
-       PagingAndSortingParam annotation = parameter.getParameterAnnotation(PagingAndSortingParam.class);
+        PagingAndSortingParam annotation = parameter.getParameterAnnotation(PagingAndSortingParam.class);
         return new PagingAndSortingHelper(model, annotation.moduleURL(), annotation.listName(), sortField, sortDir, keyword);
     }
 }
