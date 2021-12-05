@@ -180,6 +180,10 @@ public class Customer {
         this.country = country;
     }
 
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +
@@ -190,6 +194,9 @@ public class Customer {
                 '}';
     }
 
+
+    public void setCreatedTime(java.util.Date date) {
+    }
 
 
 }

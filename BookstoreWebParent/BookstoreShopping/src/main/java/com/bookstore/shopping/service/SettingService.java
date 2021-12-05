@@ -3,6 +3,7 @@ package com.bookstore.shopping.service;
 import com.bookstore.common.entity.Setting;
 import com.bookstore.common.entity.SettingCategory;
 import com.bookstore.shopping.repository.SettingRepository;
+import com.bookstore.shopping.util.EmailSettingBag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,5 +17,12 @@ public class SettingService {
 
     public List<Setting> getGeneralSettings() {
         return settingRepository.findByTwoCategories(SettingCategory.GENERAL, SettingCategory.CURRENCY);
+    }
+
+    public EmailSettingBag getEmailSettings() {
+       List<Setting> settings =  settingRepository.findByCategory(SettingCategory.MAIL_SERVER);
+       settings.addAll(settingRepository.findByCategory(SettingCategory.MAIL_TEMPLATES));
+
+       return new EmailSettingBag(settings);
     }
 }
