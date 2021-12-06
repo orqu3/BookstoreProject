@@ -51,7 +51,7 @@ public class CustomerService {
     public boolean verify(String verificationCode) {
         Customer customer = customerRepository.findByVerificationCode(verificationCode);
 
-        if (customer == null || customer.isEnable()) {
+        if (customer == null || customer.getEnabled()) {
             return false;
         } else {
             customerRepository.enable(customer.getId());

@@ -60,9 +60,6 @@ public class Customer {
     @JoinColumn(name = "country_id")
     private Country country;
 
-    public boolean isEnable() {
-        return enabled;
-    }
 
     public String getFullName() {
         return firstName + " " + lastName;
