@@ -16,13 +16,10 @@ public interface CustomerRepository extends SearchRepository<Customer, Integer> 
 
     @Query("UPDATE Customer c SET c.enabled = ?2 WHERE c.id = ?1")
     @Modifying
-    void updateEnabledStatus(Integer id, boolean enabled);
+    void updateEnabledStatus(Integer id, Boolean enabled);
 
     @Query("SELECT c FROM Customer c WHERE c.email = ?1")
     Customer findByEmail(String email);
 
     Long countById(Integer id);
-
-    @Query("SELECT c FROM Customer c WHERE c.verificationCode = ?1")
-    Customer findByVerificationCode(String code);
 }

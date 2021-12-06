@@ -9,11 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 public class CustomerRestController {
-    private final CustomerService service;
+
+    private final CustomerService customerService;
 
     @PostMapping("/customers/check_email")
     public String checkDuplicateEmail(@Param("id") Integer id, @Param("email") String email){
-        if(service.isEmailUnique(id, email)){
+        if(customerService.isEmailUnique(id, email)){
             return "OK";
         } else {
             return "Duplicated";
