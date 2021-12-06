@@ -1,6 +1,6 @@
 package com.bookstore.admin.controller;
 
-import com.bookstore.admin.exception.CustomerNotFoundException;
+import com.bookstore.common.exception.CustomerNotFoundException;
 import com.bookstore.admin.util.pagination.PagingAndSortingHelper;
 import com.bookstore.admin.util.pagination.PagingAndSortingParam;
 import com.bookstore.admin.repository.StateRepository;
@@ -21,8 +21,9 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 public class CustomerController {
-    private final CustomerService service;
-    private final StateRepository stateRepo;
+
+    private final CustomerService customerService;
+    private final StateRepository stateRepository;
 
     @GetMapping("/customers")
     public String listFirstPage(){
@@ -34,7 +35,7 @@ public class CustomerController {
             @PagingAndSortingParam(listName = "listCustomers", moduleURL = "/customers") PagingAndSortingHelper helper,
                              @PathVariable(name = "pageNum") int pageNum, Model model
     ){
-        service.listByPage(pageNum, helper);
+        customerService.listByPage(pageNum, helper);
         return "customers/customers";
     }
 
@@ -42,7 +43,7 @@ public class CustomerController {
     public String updateCustomerEnableStatus(@PathVariable("id") Integer id,
                                              @PathVariable("status") boolean enabled,
                                              RedirectAttributes redirectAttributes){
-        service.updateCustomerEnabledStatus(id, enabled);
+        customerService.updateCustomerEnabledStatus(id, enabled);
         String status = enabled ? "enabled" : "disabled";
         String message = "The Customer ID " + id + " has been " + status;
         redirectAttributes.addFlashAttribute("message", message);
@@ -53,7 +54,7 @@ public class CustomerController {
     @GetMapping("/customers/detail/{id}")
     public String viewCustomer(@PathVariable("id") Integer id, Model model, RedirectAttributes ra){
         try{
-            Customer customer = service.get(id);
+            Customer customer = customerService.get(id);
             model.addAttribute("customer", customer);
 
             return "customers/customer_detail_modal";
@@ -66,9 +67,9 @@ public class CustomerController {
     @GetMapping("/customers/edit/{id}")
     public String editCustomer(@PathVariable("id") Integer id, Model model, RedirectAttributes ra){
         try{
-            Customer customer = service.get(id);
-            List<Country> countries = service.listAllCountries();
-            List<State> states = stateRepo.findByCountryOrderByNameAsc(customer.getCountry());
+            Customer customer = customerService.get(id);
+            List<Country> countries = customerService.listAllCountries();
+            List<State> states = stateRepository.findByCountryOrderByNameAsc(customer.getCountry());
 
             model.addAttribute("listStates", states);
             model.addAttribute("listCountries", countries);
@@ -84,7 +85,7 @@ public class CustomerController {
 
     @PostMapping("/customers/save")
     public String saveCustomer(Customer customer, Model model, RedirectAttributes ra){
-        service.save(customer);
+        customerService.save(customer);
         ra.addFlashAttribute("message", "The customer ID " + customer.getId() + " has been update successfully");
         return "redirect:/customers";
     }
@@ -92,7 +93,7 @@ public class CustomerController {
     @GetMapping("/customers/delete/{id}")
     public String deleteCustomer(@PathVariable Integer id, RedirectAttributes ra){
         try{
-            service.delete(id);
+            customerService.delete(id);
             ra.addFlashAttribute("message", "The customer ID " + id + " has been update successfully");
         } catch (CustomerNotFoundException ex){
             ra.addFlashAttribute("message", ex.getMessage());
