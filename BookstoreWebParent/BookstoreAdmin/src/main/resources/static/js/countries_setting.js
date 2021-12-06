@@ -63,7 +63,7 @@ function deleteCountry() {
 }
 
 function updateCountry() {
-    if(!validateFormCountry()) return;
+    if (!validateFormCountry()) return;
 
     url = contextPath + "countries/save";
     countryName = fieldCountryName.val();
@@ -101,7 +101,7 @@ function validateFormCountry() {
 }
 
 function addCountry() {
-    if(!validateFormCountry()) return;
+    if (!validateFormCountry()) return;
 
     url = contextPath + "countries/save";
     countryName = fieldCountryName.val();

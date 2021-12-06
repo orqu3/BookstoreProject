@@ -65,6 +65,10 @@ public class Customer {
         return firstName + " " + lastName;
     }
 
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +

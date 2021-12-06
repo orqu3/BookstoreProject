@@ -119,9 +119,9 @@ function deleteState() {
     });
 }
 
-function validateFormState(){
+function validateFormState() {
     formState = document.getElementById("formState");
-    if(!formState.checkValidity()) {
+    if (!formState.checkValidity()) {
         formState.reportValidity();
         return false;
     }
@@ -129,7 +129,7 @@ function validateFormState(){
 }
 
 function updateState() {
-    if(!validateFormState()) return;
+    if (!validateFormState()) return;
 
     url = contextPath + "states/save";
     stateId = dropDownStates.val();
@@ -158,7 +158,7 @@ function updateState() {
 }
 
 function addState() {
-    if(!validateFormState()) return;
+    if (!validateFormState()) return;
 
     url = contextPath + "states/save";
     stateName = fieldStateName.val();

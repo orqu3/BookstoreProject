@@ -57,6 +57,5 @@ public class CustomerService {
             customerRepository.enable(customer.getId());
             return true;
         }
-
     }
 }
