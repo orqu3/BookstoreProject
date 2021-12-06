@@ -8,12 +8,14 @@ import lombok.RequiredArgsConstructor;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
 
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class CustomerService {
 
@@ -44,5 +46,17 @@ public class CustomerService {
     private void encodePassword(Customer customer) {
         String encodedPassword = passwordEncoder.encode(customer.getPassword());
         customer.setPassword(encodedPassword);
+    }
+
+    public boolean verify(String verificationCode) {
+        Customer customer = customerRepository.findByVerificationCode(verificationCode);
+
+        if (customer == null || customer.isEnable()) {
+            return false;
+        } else {
+            customerRepository.enable(customer.getId());
+            return true;
+        }
+
     }
 }
