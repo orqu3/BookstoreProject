@@ -46,6 +46,11 @@ public class CustomerService {
         return customerRepository.findByEmail(email);
     }
 
+    private void encodePassword(Customer customer) {
+        String encodedPassword = passwordEncoder.encode(customer.getPassword());
+        customer.setPassword(encodedPassword);
+    }
+
 
     public void addNewCustomerUponOAuthLogin(String name, String email, String countryCode, AuthenticationType authenticationType) {
         Customer customer = new Customer();
@@ -103,7 +108,7 @@ public class CustomerService {
 
     public String updateResetPasswordToken(String email) throws CustomerNotFoundException {
         Customer customer = customerRepository.findByEmail(email);
-        if(customer != null) {
+        if (customer != null) {
             String token = RandomString.make(30);
             customer.setResetPasswordToken(token);
             customerRepository.save(customer);
@@ -112,5 +117,21 @@ public class CustomerService {
         } else {
             throw new CustomerNotFoundException("Could not find any customer with email " + email);
         }
+    }
+
+    public Customer getByResetPasswordToken(String token) {
+        return customerRepository.findByResetPasswordToken(token);
+    }
+
+    public void updatePassword(String token, String newPassword) throws CustomerNotFoundException {
+        Customer customer = customerRepository.findByResetPasswordToken(token);
+        if (customer == null) {
+            throw new CustomerNotFoundException("No customer found: invalid token");
+        }
+        customer.setPassword(newPassword);
+        customer.setResetPasswordToken(null);
+        encodePassword(customer);
+
+        customerRepository.save(customer);
     }
 }

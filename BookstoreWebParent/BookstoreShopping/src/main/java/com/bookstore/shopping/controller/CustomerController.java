@@ -7,8 +7,6 @@ import com.bookstore.shopping.security.CustomerUserDetails;
 import com.bookstore.shopping.security.oauth.CustomerOAuth2User;
 import com.bookstore.shopping.service.CustomerService;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.RememberMeAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
@@ -27,7 +25,7 @@ public class CustomerController {
 
     private final CustomerService customerService;
 
-    @GetMapping("/registration")
+    @GetMapping("/register")
     public String showRegisterForm(Model model) {
         List<Country> listCountries = customerService.listAllCountries();
 
