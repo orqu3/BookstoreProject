@@ -376,7 +376,6 @@ VALUES ('COPYRIGHT', 'Copyright (C) 2021 Bookstore Ltd. ', 'GENERAL'),
  The Bookstore Team.</span><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div></div>',
         'MAIL_TEMPLATES');
 
-
 INSERT INTO `states`
 VALUES (1, 'Ha Noi', 242),
        (2, 'Da Nang', 242),
@@ -675,9 +674,5 @@ VALUES (1, 'Ha Noi', 242),
        (303, 'Bayburt', 226),
        (304, 'Yalova', 226);
 
-
-
 ALTER TABLE `products`
     ADD FULLTEXT INDEX `products_FTS` (`name`, `description`) VISIBLE;
-
-

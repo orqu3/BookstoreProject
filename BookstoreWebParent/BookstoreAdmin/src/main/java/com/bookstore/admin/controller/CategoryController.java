@@ -49,12 +49,13 @@ public class CategoryController {
 
         model.addAttribute("totalPages", pageInfo.getTotalPages());
         model.addAttribute("totalItems", pageInfo.getTotalElements());
-        model.addAttribute("startCount", startCount);
-        model.addAttribute("endCount", endCount);
         model.addAttribute("currentPage", pageNum);
         model.addAttribute("sortField", "name");
         model.addAttribute("sortDir", sortDir);
         model.addAttribute("keyword", keyword);
+        model.addAttribute("startCount", startCount);
+        model.addAttribute("endCount", endCount);
+
         model.addAttribute("categories", categories);
         model.addAttribute("reverseSortDir", reverseSortDir);
         return "categories";

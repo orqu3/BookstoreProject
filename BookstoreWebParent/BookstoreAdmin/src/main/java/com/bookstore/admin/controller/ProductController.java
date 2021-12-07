@@ -90,11 +90,12 @@ public class ProductController {
                               @RequestParam(name = "detailNames", required = false) String[] detailNames,
                               @RequestParam(name = "detailValues", required = false) String[] detailValues,
                               @AuthenticationPrincipal BookstoreUserDetails loggedUser) {
-
-        if (loggedUser.hasRole("Salesperson")) {
-            productService.saveProductPrice(product);
-            redirectAttributes.addFlashAttribute("message", "The product has been saved successfully.");
-            return "redirect:/products";
+        if (!loggedUser.hasRole("Admin")) {
+            if (loggedUser.hasRole("Salesperson")) {
+                productService.saveProductPrice(product);
+                redirectAttributes.addFlashAttribute("message", "The product has been saved successfully.");
+                return "redirect:/products";
+            }
         }
 
         setProductDetails(detailIDs, detailNames, detailValues, product);
@@ -146,16 +147,27 @@ public class ProductController {
     }
 
     @GetMapping("/products/edit/{id}")
-    public String editProduct(@PathVariable("id") Integer id, Model model, RedirectAttributes redirectAttributes) {
+    public String editProduct(@PathVariable("id") Integer id, Model model, RedirectAttributes redirectAttributes,
+                              @AuthenticationPrincipal BookstoreUserDetails loggedUser) {
         try {
             List<Category> categories = categoryService.listAll();
             Product product = productService.get(id);
 
+            boolean isReadOnlyForSalesperson = false;
+
+            if (!loggedUser.hasRole("Admin")) {
+                if (loggedUser.hasRole("Salesperson")) {
+                    isReadOnlyForSalesperson = true;
+                }
+            }
+
+            model.addAttribute("isReadOnlyForSalesperson", isReadOnlyForSalesperson);
             model.addAttribute("product", product);
             model.addAttribute("categories", categories);
             model.addAttribute("pageTitle", "Edit Product (ID: " + id + ")");
 
             return "product_form";
+
         } catch (ProductNotFoundException e) {
             redirectAttributes.addFlashAttribute("message", e.getMessage());
 

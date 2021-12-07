@@ -12,6 +12,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @Setter
+
 public class Customer {
 
     @Id
@@ -60,7 +61,6 @@ public class Customer {
     @JoinColumn(name = "country_id")
     private Country country;
 
-
     public String getFullName() {
         return firstName + " " + lastName;
     }
@@ -74,6 +74,7 @@ public class Customer {
         return "Customer{" +
                 "id=" + id +
                 ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 '}';
