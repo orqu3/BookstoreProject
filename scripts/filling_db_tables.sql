@@ -376,26 +376,3 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2021-12-02 18:03:27
-
-
-
-Pageable pageable = helper.createPageable(PRODUCTS_PER_PAGE, pageNum);
-        String keyword = helper.getKeyword();
-        Page<Product> page = null;
-
-        if (keyword != null && !keyword.isEmpty()) {
-            if (categoryId != null && categoryId > 0) {
-                String categoryIdMatch = "-" + String.valueOf(categoryId) + "-";
-                page = productRepository.searchInCategory(categoryId, categoryIdMatch, keyword, pageable);
-            } else {
-                page = productRepository.findAll(keyword, pageable);}
-        } else {
-            if (categoryId != null && categoryId > 0) {
-                String categoryIdMatch = "-" + String.valueOf(categoryId) + "-";
-                page = productRepository.findAllInCategory(categoryId, categoryIdMatch, pageable);
-            } else {
-                page = productRepository.findAll(pageable);
-            }
-        }
-
-        helper.updateModelAttributes(pageNum, page);

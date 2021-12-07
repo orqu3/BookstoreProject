@@ -1,6 +1,5 @@
 package com.bookstore.admin.service;
 
-import com.bookstore.admin.pagin.PagingAndSortingHelper;
 import com.bookstore.admin.repository.ProductRepository;
 import com.bookstore.common.entity.Product;
 import com.bookstore.common.exception.ProductNotFoundException;
@@ -28,9 +27,10 @@ public class ProductService {
         return (List<Product>) productRepository.findAll();
     }
 
-    public Page<Product> listByPage(int pageNum, PagingAndSortingHelper helper, Integer categoryId) {
-        Pageable pageable = helper.createPageable(PRODUCTS_PER_PAGE, pageNum);
-        String keyword = helper
+    public Page<Product> listByPage(int pageNum, String sortField, String sortDir, String keyword, Integer categoryId) {
+        Sort sort = Sort.by(sortField);
+        sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+        Pageable pageable = PageRequest.of(pageNum - 1, PRODUCTS_PER_PAGE, sort);
 
         if (keyword != null && !keyword.isEmpty()) {
             if (categoryId != null && categoryId > 0) {

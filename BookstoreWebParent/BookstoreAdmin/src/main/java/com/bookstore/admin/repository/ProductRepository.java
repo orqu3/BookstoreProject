@@ -1,7 +1,5 @@
 package com.bookstore.admin.repository;
 
-import com.bookstore.admin.pagin.SearchRepository;
-import com.bookstore.common.entity.Customer;
 import com.bookstore.common.entity.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,7 +7,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface ProductRepository extends SearchRepository<Product, Integer> {
+public interface ProductRepository extends PagingAndSortingRepository<Product, Integer> {
 
     Product findByName(String name);
 
