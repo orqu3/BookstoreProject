@@ -9,9 +9,10 @@ import java.util.Date;
 
 @Entity
 @Table(name = "customers")
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
+
 public class Customer {
 
     @Id
@@ -30,13 +31,13 @@ public class Customer {
     @Column(name = "last_name", nullable = false, length = 45)
     private String lastName;
 
-    @Column(name = "phone_number", nullable = false, length = 45)
+    @Column(name = "phone_number", nullable = false, length = 15)
     private String phoneNumber;
 
-    @Column(nullable = false, length = 245)
+    @Column(nullable = false, length = 64)
     private String addressLine1;
 
-    @Column(name = "address_line_2", length = 245)
+    @Column(name = "address_line_2", length = 64)
     private String addressLine2;
 
     @Column(nullable = false, length = 45)
@@ -59,6 +60,14 @@ public class Customer {
     @ManyToOne
     @JoinColumn(name = "country_id")
     private Country country;
+
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
 
     @Override
     public String toString() {
