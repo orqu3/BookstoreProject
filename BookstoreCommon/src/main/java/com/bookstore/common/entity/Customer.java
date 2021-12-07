@@ -52,10 +52,10 @@ public class Customer {
     @Column(name = "verification_code", length = 64)
     private String verificationCode;
 
+    private boolean enabled;
+
     @Column(name = "created_time")
     private Date createdTime;
-
-    private boolean enabled;
 
     @ManyToOne
     @JoinColumn(name = "country_id")
