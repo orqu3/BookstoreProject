@@ -51,7 +51,7 @@ public class Customer {
     @Column(name = "verification_code", length = 64)
     private String verificationCode;
 
-    private boolean enabled;
+    private Boolean enabled;
 
     @Column(name = "created_time")
     private Date createdTime;

@@ -91,10 +91,12 @@ public class ProductController {
                               @RequestParam(name = "detailValues", required = false) String[] detailValues,
                               @AuthenticationPrincipal BookstoreUserDetails loggedUser) {
 
-        if (loggedUser.hasRole("Salesperson")) {
-            productService.saveProductPrice(product);
-            redirectAttributes.addFlashAttribute("message", "The product has been saved successfully.");
-            return "redirect:/products";
+        if (!loggedUser.hasRole("Admin")) {
+            if (loggedUser.hasRole("Salesperson")) {
+                productService.saveProductPrice(product);
+                redirectAttributes.addFlashAttribute("message", "The product has been saved successfully.");
+                return "redirect:/products";
+            }
         }
 
         setProductDetails(detailIDs, detailNames, detailValues, product);

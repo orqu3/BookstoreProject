@@ -1,10 +1,8 @@
 package com.bookstore.admin.controller;
 
-import com.bookstore.admin.repository.StateRepository;
 import com.bookstore.admin.service.CustomerService;
 import com.bookstore.common.entity.Country;
 import com.bookstore.common.entity.Customer;
-import com.bookstore.common.entity.State;
 import com.bookstore.common.exception.CustomerNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -23,7 +21,6 @@ import java.util.List;
 public class CustomerController {
 
     private final CustomerService customerService;
-    private final StateRepository stateRepository;
 
     @GetMapping("/customers")
     public String listFirstPage(Model model) {
@@ -92,9 +89,7 @@ public class CustomerController {
         try {
             Customer customer = customerService.get(id);
             List<Country> countries = customerService.listAllCountries();
-            List<State> states = stateRepository.findByCountryOrderByNameAsc(customer.getCountry());
 
-            model.addAttribute("listStates", states);
             model.addAttribute("listCountries", countries);
             model.addAttribute("customer", customer);
             model.addAttribute("pageTitle", String.format("Edit Customer (ID: %d)", id));

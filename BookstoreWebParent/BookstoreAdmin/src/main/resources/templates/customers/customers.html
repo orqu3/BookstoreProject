@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments :: page_head('Customers - MyShop Admin', 'none')"></head>
+<head th:replace="fragments :: page_head('Admin - Customers', 'none')"></head>
 <body>
 <div class="container-fluid">
     <div th:replace="navigation :: menu"></div>
@@ -8,7 +8,7 @@
         <h2>Manage Customers</h2>
     </div>
 
-    <div th:replace="fragments :: search_form_and_message('customers/page/1')"></div>
+    <div th:replace="fragments :: search_form_and_message('/customers/page/1')"></div>
 
     <div class="full-details">
         <table class="table table-bordered table-striped table-hover table-responsive-xl">
