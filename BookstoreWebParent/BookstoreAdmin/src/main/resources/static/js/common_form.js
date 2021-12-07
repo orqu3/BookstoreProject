@@ -1,3 +1,9 @@
+$(document).ready(function() {
+    $("#buttonCancel").on("click", function() {
+        window.location = moduleURL;
+    });
+});
+
 function showModalDialog(title, message) {
     $("#modalTitle").text(title);
     $("#modalBody").text(message);

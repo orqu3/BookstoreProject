@@ -1,0 +1,42 @@
+spring:
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 988251106316-u8hfofqtl2k528e49jfqrv2p8s97jouc.apps.googleusercontent.com
+            client-secret: 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
+            scope:
+              - email
+              - profile
+          facebook:
+            client-id: 485042586191257
+            client-secret: 63166b95d1ec9713c514ddb1ec022591
+            scope:
+              - email
+              - public_profile
+
+  datasource:
+    username: root
+    url: jdbc:mysql://localhost:3306/bookstore_db?serverTimezone=Europe/Moscow
+    password: root
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        format_sql: 'true'
+    hibernate:
+      ddl-auto: update
+    show-sql: 'true'
+
+  thymeleaf:
+    encoding: UTF-8
+
+server:
+  servlet:
+    context-path: /Bookstore
+  port: '80'
+
+

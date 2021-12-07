@@ -1,6 +1,6 @@
 package com.bookstore.admin.controller;
 
-import com.bookstore.admin.util.GeneralSettingBag;
+import com.bookstore.admin.util.settings.GeneralSettingBag;
 import com.bookstore.admin.repository.CurrencyRepository;
 import com.bookstore.admin.service.SettingService;
 import com.bookstore.common.entity.Currency;
@@ -66,5 +66,25 @@ public class SettingController {
             }
         }
         settingService.saveAll(listSettings);
+    }
+
+    @PostMapping("/settings/save_mail_server")
+    public String saveMailServerSettings(HttpServletRequest request, RedirectAttributes ra) {
+        List<Setting> mailServerSettings = settingService.getMailServerSetting();
+        updateSettingValuesFromForm(request, mailServerSettings);
+
+        ra.addFlashAttribute("message", "Mail server settings have been saved");
+
+        return "redirect:/settings";
+    }
+
+    @PostMapping("/settings/save_mail_templates")
+    public String saveMailTemplateSettings(HttpServletRequest request, RedirectAttributes ra) {
+        List<Setting> mailTemplateSetting = settingService.getMailTemplateSetting();
+        updateSettingValuesFromForm(request, mailTemplateSetting);
+
+        ra.addFlashAttribute("message", "Mail template settings have been saved");
+
+        return "redirect:/settings";
     }
 }

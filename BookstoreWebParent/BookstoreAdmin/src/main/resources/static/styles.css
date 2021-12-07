@@ -40,3 +40,7 @@
 .nav-link {
     margin-right: 60px;
 }
+
+.nav-link.customer-detail{
+    margin-right: 0;
+}
