@@ -45,11 +45,13 @@ public class CustomerService {
 
     public Customer getCustomerByEmail(String email) {
         return customerRepository.findByEmail(email);
+    }
 
     public void registerCustomer(Customer customer) {
         encodePassword(customer);
         customer.setEnabled(false);
         customer.setCreatedTime(new Date());
+        customer.setAuthenticationType(AuthenticationType.DATABASE);
 
         String randomCode = RandomString.make(64);
         customer.setVerificationCode(randomCode);
@@ -107,7 +109,7 @@ public class CustomerService {
         } else {
             customerInForm.setPassword(customerInDB.getPassword());
         }
-        customerInForm.setEnabled(customerInDB.isEnabled());
+        customerInForm.setEnabled(customerInDB.getEnabled());
         customerInForm.setCreatedTime(customerInDB.getCreatedTime());
         customerInForm.setVerificationCode(customerInDB.getVerificationCode());
         customerInForm.setAuthenticationType(customerInDB.getAuthenticationType());

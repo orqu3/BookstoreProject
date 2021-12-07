@@ -104,11 +104,12 @@ public class CustomerController {
         if (principal instanceof UsernamePasswordAuthenticationToken) {
             UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) principal;
             userDetails = (CustomerUserDetails) token.getPrincipal();
-        } else if(principal instanceof RememberMeAuthenticationToken) {
+        } else if (principal instanceof RememberMeAuthenticationToken) {
             RememberMeAuthenticationToken token = (RememberMeAuthenticationToken) principal;
             userDetails = (CustomerUserDetails) token.getPrincipal();
         }
         return userDetails;
+    }
 
     @PostMapping("/create_customer")
     public String createCustomer(Customer customer, Model model, HttpServletRequest request)
@@ -148,7 +149,6 @@ public class CustomerController {
         helper.setText(content, true);
 
         mailSender.send(message);
-
     }
 
     @GetMapping("/verify")
@@ -157,5 +157,4 @@ public class CustomerController {
 
         return "/register/" + (verified ? "verify_success" : "verify_fail");
     }
-
 }
