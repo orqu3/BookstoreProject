@@ -31,7 +31,7 @@ public class UserController {
 
     @GetMapping("/users/page/{pageNum}")
     public String listByPage(
-            @PagingAndSortingParam(listName = "users", moduleURL = "/users") PagingAndSortingHelper helper,
+            @PagingAndSortingParam(listName = "listUsers", moduleURL = "/users") PagingAndSortingHelper helper,
                              @PathVariable(name = "pageNum") int pageNum, Model model,
                              @Param("sortField") String sortField,
                              @Param("sortDir") String sortDir,

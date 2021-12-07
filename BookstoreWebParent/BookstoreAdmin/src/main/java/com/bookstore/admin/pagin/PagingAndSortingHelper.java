@@ -9,11 +9,16 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 
 import java.util.List;
 
-@AllArgsConstructor
 public class PagingAndSortingHelper {
     private ModelAndViewContainer model;
     private String moduleURL;
     private String listName;
+
+    public PagingAndSortingHelper(ModelAndViewContainer model, String moduleURL, String listName) {
+        this.model = model;
+        this.moduleURL = moduleURL;
+        this.listName = listName;
+    }
 
     public void updateModelAttributes(int pageNum, Page<?> page){
         List<?> listItems = page.getContent();
