@@ -1,6 +1,7 @@
 package com.bookstore.admin.service;
 
 import com.bookstore.admin.exception.UserNotFoundException;
+import com.bookstore.admin.pagin.PagingAndSortingHelper;
 import com.bookstore.admin.repository.RoleRepository;
 import com.bookstore.admin.repository.UserRepository;
 import com.bookstore.common.entity.Role;
@@ -32,15 +33,8 @@ public class UserService {
         return (List<User>) userRepository.findAll();
     }
 
-    public Page<User> listByPage(int pageNum, String sortField, String sortDir, String keyword) {
-        Sort sort = Sort.by(sortField);
-        sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
-        Pageable pageable = PageRequest.of(pageNum - 1, USERS_PER_PAGE, sort);
-
-        if (keyword != null) {
-            return userRepository.findAll(keyword, pageable);
-        }
-        return userRepository.findAll(pageable);
+    public void listByPage(int pageNum, PagingAndSortingHelper helper) {
+        helper.listEntities(pageNum, USERS_PER_PAGE, userRepository);
     }
 
     public List<Role> listRoles() {
