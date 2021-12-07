@@ -21,10 +21,11 @@ import java.util.NoSuchElementException;
 @Transactional
 @RequiredArgsConstructor
 public class CustomerService {
+
     public static final int CUSTOMER_PER_PAGE = 10;
 
-    private final CustomerRepository customerRepo;
-    private final CountryRepository countryRepo;
+    private final CustomerRepository customerRepository;
+    private final CountryRepository countryRepository;
     private final PasswordEncoder passwordEncoder;
 
     public Page<Customer> listByPage(int pageNum, String sortField, String sortDir, String keyword) {
@@ -34,30 +35,30 @@ public class CustomerService {
         Pageable pageable = PageRequest.of(pageNum - 1, CUSTOMER_PER_PAGE, sort);
 
         if (keyword != null) {
-            return customerRepo.findAll(keyword, pageable);
+            return customerRepository.findAll(keyword, pageable);
         }
 
-        return customerRepo.findAll(pageable);
+        return customerRepository.findAll(pageable);
     }
 
-    public void updateCustomerEnabledStatus(Integer id, boolean enabled) {
-        customerRepo.updateEnabledStatus(id, enabled);
+    public void updateCustomerEnabledStatus(Integer id, Boolean enabled) {
+        customerRepository.updateEnabledStatus(id, enabled);
     }
 
     public Customer get(Integer id) throws CustomerNotFoundException {
         try {
-            return customerRepo.findById(id).get();
+            return customerRepository.findById(id).get();
         } catch (NoSuchElementException ex) {
             throw new CustomerNotFoundException("Could not find any customers with ID " + id);
         }
     }
 
     public List<Country> listAllCountries() {
-        return countryRepo.findAllByOrderByNameAsc();
+        return countryRepository.findAllByOrderByNameAsc();
     }
 
     public boolean isEmailUnique(Integer id, String email) {
-        Customer existCustomer = customerRepo.findByEmail(email);
+        Customer existCustomer = customerRepository.findByEmail(email);
 
         if (existCustomer != null && existCustomer.getId() != id) {
             return false;
@@ -70,17 +71,17 @@ public class CustomerService {
             String encodePassword = passwordEncoder.encode(customerInForm.getPassword());
             customerInForm.setPassword(encodePassword);
         } else {
-            Customer customerInDB = customerRepo.findById(customerInForm.getId()).get();
+            Customer customerInDB = customerRepository.findById(customerInForm.getId()).get();
             customerInDB.setPassword(customerInDB.getPassword());
         }
-        customerRepo.save(customerInForm);
+        customerRepository.save(customerInForm);
     }
 
     public void delete(Integer id) throws CustomerNotFoundException {
-        Long count = customerRepo.countById(id);
+        Long count = customerRepository.countById(id);
         if (count == null || count == 0) {
             throw new CustomerNotFoundException("Could not find any customers with ID " + id);
         }
-        customerRepo.deleteById(id);
+        customerRepository.deleteById(id);
     }
 }
