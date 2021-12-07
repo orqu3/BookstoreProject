@@ -80,7 +80,7 @@ function loadStates4Country() {
         });
     }).done(function () {
         changeFormStateToNew();
-        showToastMessage("All sates have been loaded for country " + selectedCountry.text());
+        showToastMessage("All states have been loaded for country " + selectedCountry.text());
     }).fail(function () {
         showToastMessage("ERROR: Could not connect to sever or server encountered an error");
     });
@@ -119,7 +119,18 @@ function deleteState() {
     });
 }
 
+function validateFormState() {
+    formState = document.getElementById("formState");
+    if (!formState.checkValidity()) {
+        formState.reportValidity();
+        return false;
+    }
+    return true;
+}
+
 function updateState() {
+    if (!validateFormState()) return;
+
     url = contextPath + "states/save";
     stateId = dropDownStates.val();
     stateName = fieldStateName.val();
@@ -147,6 +158,8 @@ function updateState() {
 }
 
 function addState() {
+    if (!validateFormState()) return;
+
     url = contextPath + "states/save";
     stateName = fieldStateName.val();
 

@@ -22,7 +22,4 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     Customer findByEmail(String email);
 
     Long countById(Integer id);
-
-    @Query("SELECT c FROM Customer c WHERE c.verificationCode = ?1")
-    Customer findByVerificationCode(String code);
 }

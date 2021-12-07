@@ -1,10 +1,10 @@
 package com.bookstore.admin.service;
 
-import com.bookstore.admin.exception.CustomerNotFoundException;
 import com.bookstore.admin.repository.CountryRepository;
 import com.bookstore.admin.repository.CustomerRepository;
 import com.bookstore.common.entity.Country;
 import com.bookstore.common.entity.Customer;
+import com.bookstore.common.exception.CustomerNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,6 +21,7 @@ import java.util.NoSuchElementException;
 @Transactional
 @RequiredArgsConstructor
 public class CustomerService {
+
     public static final int CUSTOMER_PER_PAGE = 10;
 
     private final CustomerRepository customerRepository;
@@ -40,7 +41,7 @@ public class CustomerService {
         return customerRepository.findAll(pageable);
     }
 
-    public void updateCustomerEnabledStatus(Integer id, boolean enabled) {
+    public void updateCustomerEnabledStatus(Integer id, Boolean enabled) {
         customerRepository.updateEnabledStatus(id, enabled);
     }
 

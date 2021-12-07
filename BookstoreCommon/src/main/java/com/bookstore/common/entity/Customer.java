@@ -12,6 +12,7 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
+
 public class Customer {
 
     @Id
@@ -30,13 +31,13 @@ public class Customer {
     @Column(name = "last_name", nullable = false, length = 45)
     private String lastName;
 
-    @Column(name = "phone_number", nullable = false, length = 45)
+    @Column(name = "phone_number", nullable = false, length = 15)
     private String phoneNumber;
 
-    @Column(nullable = false, length = 245)
+    @Column(nullable = false, length = 64)
     private String addressLine1;
 
-    @Column(name = "address_line_2", length = 245)
+    @Column(name = "address_line_2", length = 64)
     private String addressLine2;
 
     @Column(nullable = false, length = 45)
@@ -51,7 +52,7 @@ public class Customer {
     @Column(name = "verification_code", length = 64)
     private String verificationCode;
 
-    private boolean enabled;
+    private Boolean enabled;
 
     @Column(name = "created_time")
     private Date createdTime;
@@ -81,6 +82,14 @@ public class Customer {
 
     public void setResetPasswordToken(String resetPasswordToken) {
         this.resetPasswordToken = resetPasswordToken;
+
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+
     }
 
     @Override
@@ -93,9 +102,4 @@ public class Customer {
                 ", lastName='" + lastName + '\'' +
                 '}';
     }
-
-    public String getFullName() {
-        return firstName + " " + lastName;
-    }
-
 }

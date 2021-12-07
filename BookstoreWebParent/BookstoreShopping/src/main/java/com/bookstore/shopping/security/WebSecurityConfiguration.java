@@ -1,6 +1,5 @@
 package com.bookstore.shopping.security;
 
-
 import com.bookstore.shopping.security.oauth.CustomerOAuth2UserService;
 import com.bookstore.shopping.security.oauth.OAuth2LoginSuccessHandler;
 import lombok.RequiredArgsConstructor;

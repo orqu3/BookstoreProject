@@ -1,11 +1,9 @@
 package com.bookstore.admin.controller;
 
-import com.bookstore.admin.exception.CustomerNotFoundException;
-import com.bookstore.admin.repository.StateRepository;
 import com.bookstore.admin.service.CustomerService;
 import com.bookstore.common.entity.Country;
 import com.bookstore.common.entity.Customer;
-import com.bookstore.common.entity.State;
+import com.bookstore.common.exception.CustomerNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
@@ -21,12 +19,11 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 public class CustomerController {
-    private final CustomerService service;
-    private final StateRepository stateRepo;
+
+    private final CustomerService customerService;
 
     @GetMapping("/customers")
-    public String listFirstPage(Model model){
-
+    public String listFirstPage(Model model) {
         return listByPage(model, 1, "firstName", "asc", null);
     }
 
@@ -36,15 +33,16 @@ public class CustomerController {
                              @Param("sortField") String sortField,
                              @Param("sortDir") String sortDir,
                              @Param("keyword") String keyword
-    ){
-        Page<Customer> page = service.listByPage(pageNum, sortField, sortDir, keyword);
+    ) {
+        Page<Customer> page = customerService.listByPage(pageNum, sortField, sortDir, keyword);
         List<Customer> listCustomers = page.getContent();
 
         long startCount = (pageNum - 1) * CustomerService.CUSTOMER_PER_PAGE + 1;
         model.addAttribute("startCount", startCount);
 
         long endCount = startCount + CustomerService.CUSTOMER_PER_PAGE - 1;
-        if(endCount > page.getTotalElements()){
+
+        if (endCount > page.getTotalElements()) {
             endCount = page.getTotalElements();
         }
 
@@ -63,9 +61,9 @@ public class CustomerController {
 
     @GetMapping("/customers/{id}/enabled/{status}")
     public String updateCustomerEnableStatus(@PathVariable("id") Integer id,
-                                             @PathVariable("status") boolean enabled,
-                                             RedirectAttributes redirectAttributes){
-        service.updateCustomerEnabledStatus(id, enabled);
+                                             @PathVariable("status") Boolean enabled,
+                                             RedirectAttributes redirectAttributes) {
+        customerService.updateCustomerEnabledStatus(id, enabled);
         String status = enabled ? "enabled" : "disabled";
         String message = "The Customer ID " + id + " has been " + status;
         redirectAttributes.addFlashAttribute("message", message);
@@ -74,50 +72,48 @@ public class CustomerController {
     }
 
     @GetMapping("/customers/detail/{id}")
-    public String viewCustomer(@PathVariable("id") Integer id, Model model, RedirectAttributes ra){
-        try{
-            Customer customer = service.get(id);
+    public String viewCustomer(@PathVariable("id") Integer id, Model model, RedirectAttributes ra) {
+        try {
+            Customer customer = customerService.get(id);
             model.addAttribute("customer", customer);
 
             return "customers/customer_detail_modal";
-        }catch (CustomerNotFoundException ex){
+        } catch (CustomerNotFoundException ex) {
             ra.addFlashAttribute("message", ex.getMessage());
             return "redirect:/customers";
         }
     }
 
     @GetMapping("/customers/edit/{id}")
-    public String editCustomer(@PathVariable("id") Integer id, Model model, RedirectAttributes ra){
-        try{
-            Customer customer = service.get(id);
-            List<Country> countries = service.listAllCountries();
-            List<State> states = stateRepo.findByCountryOrderByNameAsc(customer.getCountry());
+    public String editCustomer(@PathVariable("id") Integer id, Model model, RedirectAttributes ra) {
+        try {
+            Customer customer = customerService.get(id);
+            List<Country> countries = customerService.listAllCountries();
 
-            model.addAttribute("listStates", states);
             model.addAttribute("listCountries", countries);
             model.addAttribute("customer", customer);
             model.addAttribute("pageTitle", String.format("Edit Customer (ID: %d)", id));
 
             return "customers/customer_form";
-        } catch (CustomerNotFoundException ex){
+        } catch (CustomerNotFoundException ex) {
             ra.addFlashAttribute("message", ex.getMessage());
             return "redirect:/customers";
         }
     }
 
     @PostMapping("/customers/save")
-    public String saveCustomer(Customer customer, Model model, RedirectAttributes ra){
-        service.save(customer);
+    public String saveCustomer(Customer customer, Model model, RedirectAttributes ra) {
+        customerService.save(customer);
         ra.addFlashAttribute("message", "The customer ID " + customer.getId() + " has been update successfully");
         return "redirect:/customers";
     }
 
     @GetMapping("/customers/delete/{id}")
-    public String deleteCustomer(@PathVariable Integer id, RedirectAttributes ra){
-        try{
-            service.delete(id);
+    public String deleteCustomer(@PathVariable Integer id, RedirectAttributes ra) {
+        try {
+            customerService.delete(id);
             ra.addFlashAttribute("message", "The customer ID " + id + " has been update successfully");
-        } catch (CustomerNotFoundException ex){
+        } catch (CustomerNotFoundException ex) {
             ra.addFlashAttribute("message", ex.getMessage());
         }
 

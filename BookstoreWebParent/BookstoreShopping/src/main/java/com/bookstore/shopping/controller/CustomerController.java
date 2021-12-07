@@ -10,13 +10,22 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.RememberMeAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import com.bookstore.shopping.service.SettingService;
+import com.bookstore.shopping.util.EmailSettingBag;
+import com.bookstore.shopping.util.Utility;
+import org.springframework.data.repository.query.Param;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import javax.servlet.http.HttpServletRequest;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 @Controller
@@ -24,6 +33,7 @@ import java.util.List;
 public class CustomerController {
 
     private final CustomerService customerService;
+    private final SettingService settingService;
 
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
@@ -99,6 +109,53 @@ public class CustomerController {
             userDetails = (CustomerUserDetails) token.getPrincipal();
         }
         return userDetails;
+
+    @PostMapping("/create_customer")
+    public String createCustomer(Customer customer, Model model, HttpServletRequest request)
+            throws MessagingException, UnsupportedEncodingException {
+        customerService.registerCustomer(customer);
+        sendVerificationEmail(request, customer);
+
+        model.addAttribute("pageTitle", "Registration Succeeded!");
+
+        return "/register/register_success";
+
+    }
+
+    private void sendVerificationEmail(HttpServletRequest request, Customer customer)
+            throws MessagingException, UnsupportedEncodingException {
+
+        EmailSettingBag emailSettings = settingService.getEmailSettings();
+        JavaMailSenderImpl mailSender = Utility.prepareMailSender(emailSettings);
+
+        String toAddress = customer.getEmail();
+        String subject = emailSettings.getCustomerVerifySubject();
+        String content = emailSettings.getCustomerVerifyContent();
+
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        helper.setFrom(emailSettings.getFromAddress(), emailSettings.getSenderName());
+        helper.setTo(toAddress);
+        helper.setSubject(subject);
+
+        content = content.replace("[[name]]", customer.getFullName());
+
+        String verifyURL = Utility.getSiteURL(request) + "/verify?code=" + customer.getVerificationCode();
+
+        content = content.replace("[[URL]]", verifyURL);
+
+        helper.setText(content, true);
+
+        mailSender.send(message);
+
+    }
+
+    @GetMapping("/verify")
+    public String verifyAccount(@Param("code") String code, Model model) {
+        boolean verified = customerService.verify(code);
+
+        return "/register/" + (verified ? "verify_success" : "verify_fail");
     }
 
 }
