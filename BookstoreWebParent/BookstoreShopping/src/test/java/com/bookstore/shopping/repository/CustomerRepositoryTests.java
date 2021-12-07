@@ -1,5 +1,6 @@
 package com.bookstore.shopping.repository;
 
+import com.bookstore.common.entity.AuthenticationType;
 import com.bookstore.common.entity.Country;
 import com.bookstore.common.entity.Customer;
 import org.junit.jupiter.api.Test;
@@ -8,7 +9,6 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.Rollback;
-
 import java.util.Date;
 import java.util.Optional;
 
@@ -21,7 +21,7 @@ public class CustomerRepositoryTests {
 
     @Autowired
     private CustomerRepository customerRepository;
-
+  
     @Autowired
     private TestEntityManager entityManager;
 
@@ -116,5 +116,14 @@ public class CustomerRepositoryTests {
 
         assertThat(customer).isNotNull();
         System.out.println(customer);
+    }
+  
+    @Test
+    public void testUpdateAuthenticationType() {
+        Integer id = 1;
+        customerRepository.updateAuthenticationType(id, AuthenticationType.FACEBOOK);
+
+        Customer customer = customerRepository.findById(id).get();
+        assertThat(customer.getAuthenticationType()).isEqualTo(AuthenticationType.FACEBOOK);
     }
 }

@@ -9,9 +9,9 @@ import java.util.Date;
 
 @Entity
 @Table(name = "customers")
-@NoArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
 
 public class Customer {
 
@@ -61,12 +61,35 @@ public class Customer {
     @JoinColumn(name = "country_id")
     private Country country;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "authentication_type", length = 10)
+    private AuthenticationType authenticationType;
+
+    @Column(name = "reset_password_token", length = 30)
+    private String resetPasswordToken;
+
+    public AuthenticationType getAuthenticationType() {
+        return authenticationType;
+    }
+
+    public void setAuthenticationType(AuthenticationType authenticationType) {
+        this.authenticationType = authenticationType;
+    }
+
+    public String getResetPasswordToken() {
+        return resetPasswordToken;
+    }
+
+    public void setResetPasswordToken(String resetPasswordToken) {
+        this.resetPasswordToken = resetPasswordToken;
+
     public String getFullName() {
         return firstName + " " + lastName;
     }
 
     public Boolean getEnabled() {
         return enabled;
+
     }
 
     @Override

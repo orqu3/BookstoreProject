@@ -1,5 +1,6 @@
 package com.bookstore.shopping.repository;
 
+import com.bookstore.common.entity.AuthenticationType;
 import com.bookstore.common.entity.Customer;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -13,8 +14,13 @@ public interface CustomerRepository extends CrudRepository<Customer, Integer> {
     @Query("SELECT c FROM Customer c WHERE c.verificationCode = ?1")
     Customer findByVerificationCode(String code);
 
+    @Query("UPDATE Customer c SET c.authenticationType = ?2 WHERE c.id = ?1")
+    @Modifying
+    void updateAuthenticationType(Integer customerId, AuthenticationType type);
+
+    Customer findByResetPasswordToken(String token);
+
     @Query("UPDATE Customer c SET c.enabled = true, c.verificationCode = null WHERE c.id = ?1")
     @Modifying
     void enable(Integer id);
-
 }

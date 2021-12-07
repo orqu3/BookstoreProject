@@ -70,14 +70,16 @@ public class CustomerService {
         Customer customerInDB = customerRepository.findById(customerInForm.getId()).get();
 
         if (!customerInForm.getPassword().isEmpty()) {
-            String encodePassword = passwordEncoder.encode(customerInForm.getPassword());
-            customerInForm.setPassword(encodePassword);
+            String encodedPassword = passwordEncoder.encode(customerInForm.getPassword());
+            customerInForm.setPassword(encodedPassword);
         } else {
-            customerInDB.setPassword(customerInDB.getPassword());
+            customerInForm.setPassword(customerInDB.getPassword());
         }
-        customerInForm.setEnabled(customerInDB.getEnabled());
+        customerInForm.setEnabled(customerInDB.isEnabled());
         customerInForm.setCreatedTime(customerInDB.getCreatedTime());
         customerInForm.setVerificationCode(customerInDB.getVerificationCode());
+        customerInForm.setAuthenticationType(customerInDB.getAuthenticationType());
+        customerInForm.setResetPasswordToken(customerInDB.getResetPasswordToken());
 
         customerRepository.save(customerInForm);
     }

@@ -24,7 +24,6 @@ public class CustomerController {
 
     @GetMapping("/customers")
     public String listFirstPage(Model model) {
-
         return listByPage(model, 1, "firstName", "asc", null);
     }
 
@@ -42,6 +41,7 @@ public class CustomerController {
         model.addAttribute("startCount", startCount);
 
         long endCount = startCount + CustomerService.CUSTOMER_PER_PAGE - 1;
+
         if (endCount > page.getTotalElements()) {
             endCount = page.getTotalElements();
         }
