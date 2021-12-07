@@ -28,10 +28,9 @@ public class ProductService {
         return (List<Product>) productRepository.findAll();
     }
 
-    public Page<Product> listByPage(int pageNum, String sortField, String sortDir, String keyword, Integer categoryId) {
-        Sort sort = Sort.by(sortField);
-        sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
-        Pageable pageable = PageRequest.of(pageNum - 1, PRODUCTS_PER_PAGE, sort);
+    public Page<Product> listByPage(int pageNum, PagingAndSortingHelper helper, Integer categoryId) {
+        Pageable pageable = helper.createPageable(PRODUCTS_PER_PAGE, pageNum);
+        String keyword = helper
 
         if (keyword != null && !keyword.isEmpty()) {
             if (categoryId != null && categoryId > 0) {
