@@ -31,9 +31,7 @@ public class ProductController {
 
     @GetMapping("/products")
     public String listFirstPage(Model model) {
-        public String listFirstPage(Model model) {
-            return listByPage(1, model, "name", "asc", null, 0);
-        }
+        return "redirect:/products/page/1?sortField=name&sortDir=asc&categoryId=0";
     }
 
     @GetMapping("/products/page/{pageNum}")
