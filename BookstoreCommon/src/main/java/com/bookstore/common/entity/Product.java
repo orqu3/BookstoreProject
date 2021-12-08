@@ -1,6 +1,7 @@
 package com.bookstore.common.entity;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "products")
+@NoArgsConstructor
 public class Product {
 
     @Id
@@ -80,5 +82,9 @@ public class Product {
 
         }
         return this.price;
+    }
+
+    public Product(Integer id) {
+        this.id = id;
     }
 }
