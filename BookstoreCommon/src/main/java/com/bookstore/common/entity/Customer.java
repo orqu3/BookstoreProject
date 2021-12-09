@@ -31,6 +31,8 @@ public class Customer {
     @Column(name = "last_name", nullable = false, length = 45)
     private String lastName;
 
+    private String fullName = this.firstName + " " + this.getLastName();
+
     @Column(name = "phone_number", nullable = false, length = 15)
     private String phoneNumber;
 
