@@ -5,16 +5,20 @@ import com.bookstore.common.entity.Customer;
 import com.bookstore.common.entity.Product;
 import com.bookstore.shopping.exception.ShoppingCartException;
 import com.bookstore.shopping.repository.CartItemRepository;
+import com.bookstore.shopping.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ShoppingCartService {
 
     private final CartItemRepository cartItemRepository;
+    private final ProductRepository productRepository;
 
     public Integer addProduct(Integer productId, Integer quantity, Customer customer) throws ShoppingCartException {
         Integer updatedQuantity = quantity;
@@ -42,7 +46,14 @@ public class ShoppingCartService {
         return updatedQuantity;
     }
 
-    public List<CartItem> listCartItems (Customer customer) {
+    public List<CartItem> listCartItems(Customer customer) {
         return cartItemRepository.findByCustomer(customer);
+    }
+
+    public float updateQuantity(Integer productId, Integer quantity, Customer customer) {
+        cartItemRepository.updateQuantity(quantity, customer.getId(), productId);
+        Product product = productRepository.findById(productId).get();
+        float subtotal = product.getDiscountPrice() * quantity;
+        return subtotal;
     }
 }
