@@ -45,14 +45,14 @@
             <div>&nbsp;</div>
         </div>
         <div class="col-sm-4">
-            <div class="ml-5 mt-4">
+            <div class="mt-4">
                 <span th:if="${product.inStock}" class="text-success"><b>In Stock</b></span>
                 <span th:unless="${product.inStock}" class="text-danger"><b>Out of Stock</b></span>
             </div>
 
             <th:block th:if="${product.inStock}">
                 <div th:replace="cart/quantity_control :: quantity_control(1, ${product.id})"></div>
-                <div class="ml-5">
+                <div>
                     <input type="button" value="Add to Cart" id="buttonAdd2Cart" class="btn btn-primary"/>
                 </div>
             </th:block>

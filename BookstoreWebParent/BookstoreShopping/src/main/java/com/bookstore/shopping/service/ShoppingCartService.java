@@ -8,6 +8,8 @@ import com.bookstore.shopping.repository.CartItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ShoppingCartService {
@@ -38,5 +40,9 @@ public class ShoppingCartService {
         cartItemRepository.save(cartItem);
 
         return updatedQuantity;
+    }
+
+    public List<CartItem> listCartItems (Customer customer) {
+        return cartItemRepository.findByCustomer(customer);
     }
 }
