@@ -679,3 +679,9 @@ ALTER TABLE `products`
 
 ALTER TABLE `cart_items`
     CHANGE COLUMN `quantity` `quantity` INT NOT NULL AFTER `product_id`;
+
+ALTER TABLE `shipping_rates`
+    CHANGE COLUMN `country_id` `country_id` INT NULL DEFAULT NULL AFTER `id`,
+    CHANGE COLUMN `state` `state` VARCHAR(45) NOT NULL AFTER `country_id`,
+    CHANGE COLUMN `rate` `rate` FLOAT NOT NULL AFTER `state`,
+    CHANGE COLUMN `days` `days` INT NOT NULL AFTER `rate`;
