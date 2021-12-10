@@ -142,7 +142,7 @@ public class OrderRepositoryTests {
 
     @Test
     public void testDeleteOrder(){
-        Integer orderId = 5;
+        Integer orderId = 2;
         repo.deleteById(orderId);
 
         Optional<Order> result = repo.findById(orderId);
