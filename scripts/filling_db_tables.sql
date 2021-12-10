@@ -676,3 +676,6 @@ VALUES (1, 'Ha Noi', 242),
 
 ALTER TABLE `products`
     ADD FULLTEXT INDEX `products_FTS` (`name`, `description`) VISIBLE;
+
+ALTER TABLE `cart_items`
+    CHANGE COLUMN `quantity` `quantity` INT NOT NULL AFTER `product_id`;
