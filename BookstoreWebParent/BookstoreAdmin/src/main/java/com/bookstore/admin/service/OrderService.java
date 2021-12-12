@@ -1,10 +1,8 @@
 package com.bookstore.admin.service;
 
 import com.bookstore.admin.repository.OrderRepository;
-import com.bookstore.common.entity.Customer;
 import com.bookstore.common.entity.Order;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

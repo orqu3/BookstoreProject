@@ -1,5 +1,6 @@
 package com.bookstore.common.entity;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,10 +10,8 @@ import java.util.Date;
 
 @Entity
 @Table(name = "customers")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
-
 public class Customer {
 
     @Id
@@ -31,7 +30,7 @@ public class Customer {
     @Column(name = "last_name", nullable = false, length = 45)
     private String lastName;
 
-    private String fullName = this.firstName + " " + this.getLastName();
+    private String fullName;
 
     @Column(name = "phone_number", nullable = false, length = 15)
     private String phoneNumber;
@@ -86,6 +85,7 @@ public class Customer {
         this.resetPasswordToken = resetPasswordToken;
     }
 
+    @Transient
     public String getFullName() {
         return firstName + " " + lastName;
     }
@@ -105,4 +105,5 @@ public class Customer {
                 ", lastName='" + lastName + '\'' +
                 '}';
     }
+
 }
