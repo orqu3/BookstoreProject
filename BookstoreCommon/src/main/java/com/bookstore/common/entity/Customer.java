@@ -1,5 +1,6 @@
 package com.bookstore.common.entity;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,8 +10,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "customers")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 public class Customer {
 
@@ -30,7 +30,7 @@ public class Customer {
     @Column(name = "last_name", nullable = false, length = 45)
     private String lastName;
 
-    private String fullName = this.firstName + " " + this.getLastName();
+    private String fullName;
 
     @Column(name = "phone_number", nullable = false, length = 15)
     private String phoneNumber;
@@ -85,6 +85,7 @@ public class Customer {
         this.resetPasswordToken = resetPasswordToken;
     }
 
+    @Transient
     public String getFullName() {
         return firstName + " " + lastName;
     }
@@ -105,33 +106,4 @@ public class Customer {
                 '}';
     }
 
-    @Transient
-    public String getAddress() {
-        String address = firstName;
-        if(lastName != null && !lastName.isEmpty()) address += " " + lastName;
-
-        if (!addressLine1.isEmpty()) address += ", " + addressLine1;
-
-        if(addressLine2 != null && !addressLine2.isEmpty()) address += ", " + addressLine2;
-
-        if (!city.isEmpty()) address += ", " + city;
-
-        if(state != null && !state.isEmpty()) address += ", " + state;
-
-        address += ", " + country.getName();
-
-        if (!postalCode.isEmpty()) address += ". Postal Code: " + postalCode;
-        if (!phoneNumber.isEmpty()) address += ". Phone Number: " + phoneNumber;
-
-
-
-
-
-
-        return address;
-    }
-
-    public Customer(Integer id) {
-        this.id = id;
-    }
 }

@@ -61,9 +61,9 @@ public class OrderRepositoryTests {
 
     @Test
     public void testCreateNewOrderWithMultipleProducts(){
-        Customer customer = entityManager.find(Customer.class, 1);
-        Product product1 = entityManager.find(Product.class, 4);
-        Product product2 = entityManager.find(Product.class, 5);
+        Customer customer = entityManager.find(Customer.class, 3);
+        Product product1 = entityManager.find(Product.class, 1);
+        Product product2 = entityManager.find(Product.class, 6);
 
         Order mainOrder = new Order();
         mainOrder.setOrderTime(new Date());
@@ -83,23 +83,23 @@ public class OrderRepositoryTests {
         orderDetail2.setProduct(product2);
         orderDetail2.setOrder(mainOrder);
         orderDetail2.setProductCost(product1.getCost());
-        orderDetail2.setShippingCost(20);
-        orderDetail2.setQuantity(2);
+        orderDetail2.setShippingCost(200);
+        orderDetail2.setQuantity(20);
         orderDetail2.setSubtotal(product2.getPrice() * 2);
         orderDetail2.setUnitPrice(product2.getPrice());
 
         mainOrder.getOrderDetails().add(orderDetail1);
         mainOrder.getOrderDetails().add(orderDetail2);
 
-        mainOrder.setShippingCost(10);
+        mainOrder.setShippingCost(100);
         mainOrder.setProductCost(product1.getCost() + product2.getCost());
         mainOrder.setTax(0);
-        float subtotal = product1.getPrice() + product2.getPrice() * 2;
+        float subtotal = product1.getPrice() + product2.getPrice() * 20;
         mainOrder.setSubtotal(subtotal);
-        mainOrder.setTotal(subtotal + 30);
+        mainOrder.setTotal(subtotal + 300);
 
-        mainOrder.setPaymentMethod(PaymentMethod.COD);
-        mainOrder.setStatus(OrderStatus.PROCESSING);
+        mainOrder.setPaymentMethod(PaymentMethod.CREDIT_CARD);
+        mainOrder.setStatus(OrderStatus.SHIPPING);
         mainOrder.setDeliverDate(new Date());
         mainOrder.setDeliverDays(3);
 
