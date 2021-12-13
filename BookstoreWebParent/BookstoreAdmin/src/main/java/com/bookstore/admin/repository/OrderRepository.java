@@ -6,6 +6,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import javax.persistence.criteria.CriteriaBuilder;
+
 public interface OrderRepository extends PagingAndSortingRepository<Order, Integer> {
 
     @Query("SELECT o FROM Order  o WHERE o.firstName LIKE %?1% OR"
@@ -17,4 +19,6 @@ public interface OrderRepository extends PagingAndSortingRepository<Order, Integ
             + " o.customer.firstName LIKE %?1% OR"
             + " o.customer.lastName LIKE %?1%")
     Page<Order> findAll(String keyword, Pageable pageable);
+
+    Long countById(Integer id);
 }

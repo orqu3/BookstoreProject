@@ -61,7 +61,7 @@ public class OrderRepositoryTests {
 
     @Test
     public void testCreateNewOrderWithMultipleProducts(){
-        Customer customer = entityManager.find(Customer.class, 3);
+        Customer customer = entityManager.find(Customer.class, 1);
         Product product1 = entityManager.find(Product.class, 1);
         Product product2 = entityManager.find(Product.class, 6);
 
