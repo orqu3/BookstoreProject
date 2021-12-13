@@ -61,32 +61,34 @@
                     <th:block sec:authorize="isAuthenticated()">
 
                         <li class="nav-item pl-5">
-                            <b><a class="nav-link" th:href="@{/account_details}"
+                            <b><a class="nav-link userDetails" style="color: seagreen" th:href="@{/account_details}"
                                   sec:authentication="principal.fullName"></a></b>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="">Addresses</a>
+                            <a class="nav-link" style="color: seagreen" href="">Addresses</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="">Questions</a>
+                            <a class="nav-link" style="color: seagreen" href="">Questions</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="">Reviews</a>
+                            <a class="nav-link" style="color: seagreen" href="">Reviews</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="">Orders</a>
+                            <a class="nav-link" style="color: seagreen" href="">Orders</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="">Cart</a>
+                            <a class="nav-link fas fa-shopping-basket fa-2x" style="color: seagreen"
+                               th:href="@{/cart}"></a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="javascript: document.logoutForm.submit()">Logout</a>
+                            <a class="nav-link" style="color: darkred"
+                               href="javascript: document.logoutForm.submit()"><b>Logout</b></a>
                         </li>
                     </th:block>
                 </ul>

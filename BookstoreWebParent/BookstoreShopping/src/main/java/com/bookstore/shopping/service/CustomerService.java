@@ -3,7 +3,7 @@ package com.bookstore.shopping.service;
 import com.bookstore.common.entity.AuthenticationType;
 import com.bookstore.common.entity.Country;
 import com.bookstore.common.entity.Customer;
-import com.bookstore.shopping.exception.CustomerNotFoundException;
+import com.bookstore.common.exception.CustomerNotFoundException;
 import com.bookstore.shopping.repository.CountryRepository;
 import com.bookstore.shopping.repository.CustomerRepository;
 import net.bytebuddy.utility.RandomString;
