@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 public interface AddressRepository extends CrudRepository<Address, Integer> {
@@ -18,4 +19,13 @@ public interface AddressRepository extends CrudRepository<Address, Integer> {
     @Query("DELETE FROM Address a WHERE a.id = ?1 AND a.customer.id = ?2")
     @Modifying
     public void deleteByIdAndCustomer(Integer addressId, Integer customerId);
+
+    @Query("UPDATE Address a SET a.defaultForShipping = true WHERE a.id = ?1")
+    @Modifying
+    public void setDefaultAddress(Integer id);
+
+    @Query("UPDATE Address a SET a.defaultForShipping = false " + "WHERE a.id != ?1 AND a.customer.id = ?2")
+    @Modifying
+    public void setNonDefaultForOther(Integer defaultAddressId, Integer customerId);
+
 }
