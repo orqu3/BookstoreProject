@@ -1,12 +1,10 @@
 package com.bookstore.admin.repository;
 
-import com.bookstore.common.entity.Order;
+import com.bookstore.common.entity.order.Order;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
-
-import javax.persistence.criteria.CriteriaBuilder;
 
 public interface OrderRepository extends PagingAndSortingRepository<Order, Integer> {
 

@@ -1,7 +1,7 @@
 package com.bookstore.shopping.controller;
 
 import com.bookstore.common.entity.Category;
-import com.bookstore.common.entity.Product;
+import com.bookstore.common.entity.product.Product;
 import com.bookstore.common.exception.CategoryNotFoundException;
 import com.bookstore.common.exception.ProductNotFoundException;
 import com.bookstore.shopping.service.CategoryService;

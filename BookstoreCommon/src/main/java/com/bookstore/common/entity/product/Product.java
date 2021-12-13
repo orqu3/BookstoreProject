@@ -1,5 +1,7 @@
-package com.bookstore.common.entity;
+package com.bookstore.common.entity.product;
 
+import com.bookstore.common.entity.Category;
+import com.bookstore.common.entity.IdBasedEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,11 +14,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "products")
-public class Product {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Product extends IdBasedEntity {
 
     @Column(unique = true, length = 256, nullable = false)
     private String name;

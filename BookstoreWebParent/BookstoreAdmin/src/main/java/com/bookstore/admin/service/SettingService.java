@@ -2,8 +2,8 @@ package com.bookstore.admin.service;
 
 import com.bookstore.admin.util.settings.GeneralSettingBag;
 import com.bookstore.admin.repository.SettingRepository;
-import com.bookstore.common.entity.Setting;
-import com.bookstore.common.entity.SettingCategory;
+import com.bookstore.common.entity.setting.Setting;
+import com.bookstore.common.entity.setting.SettingCategory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

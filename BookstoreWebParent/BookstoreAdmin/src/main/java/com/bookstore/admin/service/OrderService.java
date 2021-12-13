@@ -2,7 +2,7 @@ package com.bookstore.admin.service;
 
 import com.bookstore.admin.exception.OrderNotFoundException;
 import com.bookstore.admin.repository.OrderRepository;
-import com.bookstore.common.entity.Order;
+import com.bookstore.common.entity.order.Order;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

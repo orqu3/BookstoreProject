@@ -1,6 +1,7 @@
-package com.bookstore.common.entity;
+package com.bookstore.common.entity.order;
 
-import lombok.Data;
+import com.bookstore.common.entity.IdBasedEntity;
+import com.bookstore.common.entity.product.Product;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,10 +11,7 @@ import javax.persistence.*;
 @Table(name = "order_details")
 @Getter
 @Setter
-public class OrderDetail {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class OrderDetail extends IdBasedEntity {
 
     private int quantity;
     private float productCost;

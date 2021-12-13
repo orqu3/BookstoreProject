@@ -1,6 +1,10 @@
 package com.bookstore.admin.repository;
 
 import com.bookstore.common.entity.*;
+import com.bookstore.common.entity.order.Order;
+import com.bookstore.common.entity.order.OrderDetail;
+import com.bookstore.common.entity.order.OrderStatus;
+import com.bookstore.common.entity.product.Product;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

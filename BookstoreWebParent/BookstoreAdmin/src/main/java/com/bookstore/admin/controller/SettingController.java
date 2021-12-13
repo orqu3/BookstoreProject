@@ -4,7 +4,7 @@ import com.bookstore.admin.util.settings.GeneralSettingBag;
 import com.bookstore.admin.repository.CurrencyRepository;
 import com.bookstore.admin.service.SettingService;
 import com.bookstore.common.entity.Currency;
-import com.bookstore.common.entity.Setting;
+import com.bookstore.common.entity.setting.Setting;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

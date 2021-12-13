@@ -8,11 +8,7 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @Table(name = "countries")
-public class Country {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Country extends IdBasedEntity {
 
     @Column(nullable = false, length = 45)
     private String name;

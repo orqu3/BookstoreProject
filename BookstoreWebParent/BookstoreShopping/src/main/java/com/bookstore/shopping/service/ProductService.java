@@ -1,6 +1,6 @@
 package com.bookstore.shopping.service;
 
-import com.bookstore.common.entity.Product;
+import com.bookstore.common.entity.product.Product;
 import com.bookstore.common.exception.ProductNotFoundException;
 import com.bookstore.shopping.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
