@@ -1,5 +1,6 @@
 package com.bookstore.admin.service;
 
+import com.bookstore.admin.exception.OrderNotFoundException;
 import com.bookstore.admin.repository.OrderRepository;
 import com.bookstore.common.entity.Order;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -37,6 +40,13 @@ public class OrderService {
         return repo.findAll(pageable);
     }
 
+    public Order get(Integer id) throws OrderNotFoundException{
+        try{
+            return repo.findById(id).get();
+        }catch (NoSuchElementException ex){
+            throw new OrderNotFoundException("Could not find any orders with ID " + id);
+        }
+    }
 
 
 }
