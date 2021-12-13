@@ -1,4 +1,4 @@
-package com.bookstore.common.entity;
+package com.bookstore.common.entity.setting;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -52,4 +52,5 @@ public class Setting {
                 ", value='" + value + '\'' +
                 '}';
     }
+
 }

@@ -1,5 +1,9 @@
-package com.bookstore.common.entity;
+package com.bookstore.common.entity.order;
 
+import com.bookstore.common.entity.AbstractAddress;
+import com.bookstore.common.entity.Customer;
+import com.bookstore.common.entity.IdBasedEntity;
+import com.bookstore.common.entity.PaymentMethod;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -10,34 +14,7 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "orders")
-public class Order {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
-    @Column(name = "first_name", nullable = false, length = 45)
-    private String firstName;
-
-    @Column(name = "last_name", nullable = false, length = 45)
-    private String lastName;
-
-    @Column(name = "phone_number", nullable = false, length = 15)
-    private String phoneNumber;
-
-    @Column(nullable = false, length = 64)
-    private String addressLine1;
-
-    @Column(name = "address_line_2", length = 64)
-    private String addressLine2;
-
-    @Column(nullable = false, length = 45)
-    private String city;
-
-    @Column(nullable = false, length = 45)
-    private String state;
-
-    @Column(name = "postal_code", nullable = false, length = 10)
-    private String postalCode;
+public class Order extends AbstractAddress {
 
     @Column(nullable = false, length = 45)
     private String country;

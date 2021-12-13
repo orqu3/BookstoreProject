@@ -1,12 +1,10 @@
 package com.bookstore.admin.controller;
 
 import com.bookstore.admin.exception.OrderNotFoundException;
-import com.bookstore.admin.service.CustomerService;
 import com.bookstore.admin.service.OrderService;
 import com.bookstore.admin.service.SettingService;
-import com.bookstore.common.entity.Customer;
-import com.bookstore.common.entity.Order;
-import com.bookstore.common.entity.Setting;
+import com.bookstore.common.entity.order.Order;
+import com.bookstore.common.entity.setting.Setting;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;

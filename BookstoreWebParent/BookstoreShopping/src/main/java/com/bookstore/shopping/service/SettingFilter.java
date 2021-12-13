@@ -1,6 +1,6 @@
 package com.bookstore.shopping.service;
 
-import com.bookstore.common.entity.Setting;
+import com.bookstore.common.entity.setting.Setting;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

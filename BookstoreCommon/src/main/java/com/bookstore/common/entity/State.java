@@ -7,11 +7,7 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @Table(name = "states")
-public class State {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class State extends IdBasedEntity {
 
     @Column(nullable = false, length = 45)
     private String name;

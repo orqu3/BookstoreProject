@@ -1,7 +1,7 @@
 package com.bookstore.shopping.service;
 
-import com.bookstore.common.entity.Setting;
-import com.bookstore.common.entity.SettingCategory;
+import com.bookstore.common.entity.setting.Setting;
+import com.bookstore.common.entity.setting.SettingCategory;
 import com.bookstore.shopping.repository.SettingRepository;
 import com.bookstore.shopping.util.EmailSettingBag;
 import lombok.RequiredArgsConstructor;
