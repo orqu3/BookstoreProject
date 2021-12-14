@@ -6,7 +6,7 @@ import com.bookstore.common.entity.Customer;
 import com.bookstore.shopping.service.AddressService;
 import com.bookstore.shopping.service.CustomerService;
 import com.bookstore.shopping.util.Utility;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,17 +18,11 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class AddressController {
 
     private final AddressService addressService;
-
     private final CustomerService customerService;
-
-
-    public AddressController(AddressService addressService, CustomerService customerService) {
-        this.addressService = addressService;
-        this.customerService = customerService;
-    }
 
     @GetMapping("/address_book")
     public String showAddressBook(Model model, HttpServletRequest request) {
@@ -37,20 +31,15 @@ public class AddressController {
 
         boolean usePrimaryAddressAsDefault = true;
         for (Address address : listAddresses) {
-            if(address.isDefaultForShipping()) {
+            if (address.isDefaultForShipping()) {
                 usePrimaryAddressAsDefault = false;
                 break;
             }
         }
 
-
-
-        model.addAttribute("listAddresses",listAddresses);
-        model.addAttribute("customer",customer);
-        model.addAttribute("usePrimaryAddressAsDefault",usePrimaryAddressAsDefault);
-
-
-
+        model.addAttribute("listAddresses", listAddresses);
+        model.addAttribute("customer", customer);
+        model.addAttribute("usePrimaryAddressAsDefault", usePrimaryAddressAsDefault);
 
         return "/address_book/addresses";
     }
@@ -85,7 +74,7 @@ public class AddressController {
 
     @GetMapping("/address_book/edit/{id}")
     public String editAddress(@PathVariable("id") Integer addressId, Model model,
-    HttpServletRequest request) {
+                              HttpServletRequest request) {
         Customer customer = getAuthenticatedCustomer(request);
         List<Country> listCountries = customerService.listAllCountries();
 
@@ -93,7 +82,7 @@ public class AddressController {
 
         model.addAttribute("address", address);
         model.addAttribute("listCountries", listCountries);
-        model.addAttribute("pageTitle", "Edit Address (ID: " + addressId + ")");
+        model.addAttribute("pageTitle", "Edit Address:");
 
         return "address_book/address_form";
     }
@@ -113,10 +102,8 @@ public class AddressController {
     public String setDefaultAddress(@PathVariable("id") Integer addressId,
                                     HttpServletRequest request) {
         Customer customer = getAuthenticatedCustomer(request);
-        addressService.setDefaultAddress(addressId,customer.getId());
+        addressService.setDefaultAddress(addressId, customer.getId());
 
         return "redirect:/address_book";
-
-
     }
 }
