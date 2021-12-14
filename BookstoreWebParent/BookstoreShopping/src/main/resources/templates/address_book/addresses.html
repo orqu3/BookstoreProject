@@ -31,7 +31,11 @@
                             </th:block>
 
                             <th:block th:unless="${usePrimaryAddressAsDefault}">
-                                <a th:href="@{'/address_book/default/0'}">[Set As Default]</a>
+                                <a th:unless="${param.redirect}" th:href="@{'/address_book/default/0'}">[Set As
+                                    Default]</a>
+                                <a th:if="${param.redirect}"
+                                   th:href="@{'/address_book/default/0?redirect=' + ${param.redirect}}">[Set As
+                                    Default]</a>
                             </th:block>
 
                         </div>
@@ -62,7 +66,11 @@
                                 </th:block>
 
                                 <th:block th:unless="${address.defaultForShipping}">
-                                    <a th:href="@{'/address_book/default/' + ${address.id}}">[Set As Default]</a>
+                                    <a th:unless="${param.redirect}"
+                                       th:href="@{'/address_book/default/' + ${address.id}}">[Set As Default]</a>
+                                    <a th:if="${param.redirect}"
+                                       th:href="@{'/address_book/default/' + ${address.id} + '?redirect=' + ${param.redirect}}">[Set
+                                        As Default]</a>
                                 </th:block>
                             </div>
                             <div class="col">

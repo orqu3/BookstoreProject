@@ -86,4 +86,32 @@ public class AddressRepositoryTests {
         Address address = addressRepository.findByIdAndCustomer(addressId, customerId);
         assertThat(address).isNull();
     }
+
+    @Test
+    public void testSetDefault() {
+        Integer addressId = 2;
+        addressRepository.setDefaultAddress(addressId);
+
+        Address address = addressRepository.findById(addressId).get();
+        assertThat(address.isDefaultForShipping()).isTrue();
+    }
+
+    @Test
+    public void testSetNonDefaultAddress() {
+        Integer addressId = 8;
+        Integer customerId = 2;
+        addressRepository.setNonDefaultForOthers(addressId, customerId);
+
+        Address address = addressRepository.findById(addressId).get();
+        assertThat(address.isDefaultForShipping()).isFalse();
+    }
+
+    @Test
+    public void testGetDefault() {
+        Integer customerId = 1;
+        Address address = addressRepository.findDefaultByCustomer(customerId);
+
+        assertThat(address).isNotNull();
+        System.out.println(address);
+    }
 }
