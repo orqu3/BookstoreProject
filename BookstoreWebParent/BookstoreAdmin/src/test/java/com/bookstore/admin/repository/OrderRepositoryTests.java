@@ -86,7 +86,7 @@ public class OrderRepositoryTests {
         OrderDetail orderDetail2 = new OrderDetail();
         orderDetail2.setProduct(product2);
         orderDetail2.setOrder(mainOrder);
-        orderDetail2.setProductCost(product1.getCost());
+        orderDetail2.setProductCost(product2.getCost());
         orderDetail2.setShippingCost(200);
         orderDetail2.setQuantity(20);
         orderDetail2.setSubtotal(product2.getPrice() * 2);

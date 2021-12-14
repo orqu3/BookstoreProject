@@ -101,7 +101,8 @@
                             <b>[[${product.name}]]</b>
                         </div>
                         <div>
-                            Product Cost: <div th:replace="fragments :: format_currency(${detail.productCost})"></div>
+                            Product Cost:
+                            <div th:replace="fragments :: format_currency(${detail.productCost})"></div>
                         </div>
                         <div>
                             Subtotal: [[${detail.quantity}]] X
@@ -110,7 +111,8 @@
                             <div th:replace="fragments :: format_currency(${detail.subtotal})"></div>
                         </div>
                         <div>
-                            Shipping Cost: <div th:replace="fragments :: format_currency(${detail.shippingCost})"></div>
+                            Shipping Cost:
+                            <div th:replace="fragments :: format_currency(${detail.shippingCost})"></div>
                         </div>
                     </div>
                 </div>

@@ -20,12 +20,13 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 public class OrderController {
-    private String defaultRedirectURL = "redirect:/orders/page/1?sortField=orderTime&sortDir=desc";
+
+    private final String defaultRedirectURL = "redirect:/orders/page/1?sortField=orderTime&sortDir=desc";
     private final OrderService orderService;
     private final SettingService settingService;
 
     @GetMapping("/orders")
-    public String listFirstPage(Model model){
+    public String listFirstPage(Model model) {
         return defaultRedirectURL;
     }
 
@@ -35,7 +36,7 @@ public class OrderController {
                              @Param("sortField") String sortField,
                              @Param("sortDir") String sortDir,
                              @Param("keyword") String keyword,
-                             HttpServletRequest request){
+                             HttpServletRequest request) {
         Page<Order> page = orderService.listByPage(pageNum, sortField, sortDir, keyword);
         List<Order> listOrders = page.getContent();
 
@@ -63,35 +64,35 @@ public class OrderController {
         return "orders/orders";
     }
 
-    private void loadCurrencySetting(HttpServletRequest request){
+    private void loadCurrencySetting(HttpServletRequest request) {
         List<Setting> currencySettings = settingService.getCurrencySettings();
 
-        for(Setting setting: currencySettings){
+        for (Setting setting : currencySettings) {
             request.setAttribute(setting.getKey(), setting.getValue());
         }
     }
 
     @GetMapping("/orders/detail/{id}")
     public String viewOrderDetails(@PathVariable("id") Integer id, Model model,
-                                   RedirectAttributes ra, HttpServletRequest request){
-        try{
+                                   RedirectAttributes ra, HttpServletRequest request) {
+        try {
             Order order = orderService.get(id);
             loadCurrencySetting(request);
             model.addAttribute("order", order);
 
             return "orders/order_details_modal";
-        } catch (OrderNotFoundException ex){
+        } catch (OrderNotFoundException ex) {
             ra.addFlashAttribute("message", ex.getMessage());
             return defaultRedirectURL;
         }
     }
 
     @GetMapping("/orders/delete/{id}")
-    public String deleteOrder(@PathVariable("id") Integer id, Model model, RedirectAttributes ra){
-        try{
+    public String deleteOrder(@PathVariable("id") Integer id, Model model, RedirectAttributes ra) {
+        try {
             orderService.delete(id);
             ra.addFlashAttribute("message", "The order ID " + id + " has been deleted.");
-        }catch (OrderNotFoundException ex){
+        } catch (OrderNotFoundException ex) {
             ra.addFlashAttribute("message", ex.getMessage());
         }
 
