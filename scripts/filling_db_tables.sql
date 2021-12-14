@@ -716,3 +716,33 @@ VALUES (2, 234, 'New York', 10, 7, 1),
        (29, 14, 'New South Wales', 4.57, 6, 1),
        (30, 234, 'Illinois', 13, 9, 1);
 
+ALTER TABLE `addresses`
+    CHANGE COLUMN `customer_id` `customer_id` INT NULL DEFAULT NULL AFTER `id`,
+    CHANGE COLUMN `country_id` `country_id` INT NULL DEFAULT NULL AFTER `customer_id`,
+    CHANGE COLUMN `first_name` `first_name` VARCHAR(45) NOT NULL AFTER `country_id`,
+    CHANGE COLUMN `last_name` `last_name` VARCHAR(45) NOT NULL AFTER `first_name`,
+    CHANGE COLUMN `phone_number` `phone_number` VARCHAR(15) NOT NULL AFTER `last_name`,
+    CHANGE COLUMN `state` `state` VARCHAR(45) NOT NULL AFTER `city`,
+    CHANGE COLUMN `postal_code` `postal_code` VARCHAR(10) NOT NULL AFTER `state`;
+
+ALTER TABLE `addresses`
+    CHANGE COLUMN `default_address` `default_address` BIT(1) NULL DEFAULT 0 ;
+
+INSERT INTO `addresses`
+VALUES (1, 1, 234, 'Tobie', 'Abel', '19094644166', '4213  Gordon Street', '', 'Chino', 'California', '91710', 1),
+       (2, 2, 106, 'Adri', 'Hora', '04426585493', '28, Ebenezer Street, Pudur, Ambattur', '', 'Chennai', 'Tamil Nadu',
+        '600053', 0),
+       (3, 3, 199, 'Chan', 'Yi', '068900012', '28 Ayer Rajah Cresent #05-01', 'Ayer Rajah Industrial Estate 1399',
+        'Singapore', '', '139959', 0),
+       (4, 4, 234, 'Robert', 'Martin', '703-325-3192', '92  Golf Course Drive', '', 'Alexandria', 'Virginia', '22303',
+        0),
+       (5, 5, 234, 'Juanita', 'Mason', '608-827-2230', '256  Irish Lane', '', 'Verona', 'Wisconsin', '53593', 0),
+       (6, 6, 199, 'Bao', 'Shao', '068601449', '30 Tuas Ave 2, 639461', '', 'Singapore', '', '639461', 0),
+       (7, 7, 106, 'Hastimukha', 'Krishna', '02224033183', '44 New Nehru Nagar Hsg Society Gr Floor',
+        'Feet Road, Opp Santac', 'Mumbai', 'Maharashtra', '400017', 1),
+       (8, 8, 106, 'Varun', 'Ramkissoon', '01126910573', 'B 9, Lajpat Nagar', '', ' Bangalore', 'Karnataka', '110024',
+        0),
+       (9, 9, 242, 'Diep', 'Ngoc Hao', '0909102509', '56 Cu Lao St., Ward 2', 'Phu Nhuan District', 'Ho Chi Minh city',
+        '', '71011', 0),
+       (10, 10, 39, 'Bryan', 'Rodriquez', '905-513-6645', '1331  Harvest Moon Dr', '', 'Unionville', 'Ontario',
+        'L3R 0L', 0);
