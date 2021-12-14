@@ -12,10 +12,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(name = "currencies")
-public class Currency {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Currency extends IdBasedEntity {
 
     @Column(nullable = false, length = 64)
     private String name;

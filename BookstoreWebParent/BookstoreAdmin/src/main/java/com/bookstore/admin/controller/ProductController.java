@@ -4,7 +4,7 @@ import com.bookstore.admin.security.BookstoreUserDetails;
 import com.bookstore.admin.service.CategoryService;
 import com.bookstore.admin.service.ProductService;
 import com.bookstore.common.entity.Category;
-import com.bookstore.common.entity.Product;
+import com.bookstore.common.entity.product.Product;
 import com.bookstore.common.exception.ProductNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

@@ -1,7 +1,7 @@
 package com.bookstore.shopping.util;
 
-import com.bookstore.common.entity.Setting;
-import com.bookstore.common.entity.SettingBag;
+import com.bookstore.common.entity.setting.Setting;
+import com.bookstore.common.entity.setting.SettingBag;
 
 import java.util.List;
 

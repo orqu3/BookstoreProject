@@ -1,7 +1,8 @@
-package com.bookstore.common.entity;
+package com.bookstore.common.entity.product;
 
+import com.bookstore.common.entity.Category;
+import com.bookstore.common.entity.IdBasedEntity;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -13,12 +14,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "products")
-@NoArgsConstructor
-public class Product {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Product extends IdBasedEntity {
 
     @Column(unique = true, length = 256, nullable = false)
     private String name;
@@ -82,9 +78,5 @@ public class Product {
 
         }
         return this.price;
-    }
-
-    public Product(Integer id) {
-        this.id = id;
     }
 }

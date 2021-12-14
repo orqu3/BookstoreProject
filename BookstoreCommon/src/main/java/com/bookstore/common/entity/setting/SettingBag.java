@@ -1,4 +1,4 @@
-package com.bookstore.common.entity;
+package com.bookstore.common.entity.setting;
 
 
 import lombok.AllArgsConstructor;
