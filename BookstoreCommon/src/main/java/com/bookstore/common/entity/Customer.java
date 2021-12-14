@@ -38,41 +38,12 @@ public class Customer extends AbstractAddressWithCountry {
     @Column(name = "reset_password_token", length = 30)
     private String resetPasswordToken;
 
-    public AuthenticationType getAuthenticationType() {
-        return authenticationType;
-    }
-
-    public void setAuthenticationType(AuthenticationType authenticationType) {
-        this.authenticationType = authenticationType;
-    }
-
-    public String getResetPasswordToken() {
-        return resetPasswordToken;
-    }
-
-    public void setResetPasswordToken(String resetPasswordToken) {
-        this.resetPasswordToken = resetPasswordToken;
+    public Customer(Integer id) {
+        this.id = id;
     }
 
     @Transient
     public String getFullName() {
         return firstName + " " + lastName;
     }
-
-    public Boolean getEnabled() {
-        return enabled;
-
-    }
-
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                '}';
-    }
-
 }
