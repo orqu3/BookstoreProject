@@ -1,5 +1,6 @@
 package com.bookstore.common.entity;
 
+import com.bookstore.common.entity.product.Product;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

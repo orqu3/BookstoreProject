@@ -3,6 +3,7 @@ package com.bookstore.common.entity.product;
 import com.bookstore.common.entity.Category;
 import com.bookstore.common.entity.IdBasedEntity;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 @Table(name = "products")
 public class Product extends IdBasedEntity {
 
@@ -54,6 +56,14 @@ public class Product extends IdBasedEntity {
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductDetail> details = new ArrayList<>();
+
+    public Product(Integer id) {
+        this.id = id;
+    }
+
+    public Product(String name) {
+        this.name = name;
+    }
 
     public void addDetail(String name, String value) {
         this.details.add(new ProductDetail(name, value, this));
