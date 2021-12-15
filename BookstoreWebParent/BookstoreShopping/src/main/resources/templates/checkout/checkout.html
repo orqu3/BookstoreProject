@@ -22,7 +22,8 @@
                 <div class="card-body">
                     <p>
                         <b>Ship to: </b>[[${shippingAddress}]]
-                        <a th:href="@{/address_book}" style="color: cornflowerblue">[Ship to another address]</a>
+                        <a th:href="@{/address_book(redirect=checkout)}" style="color: cornflowerblue">[Ship to another
+                            address]</a>
                     </p>
 
                     <p>
