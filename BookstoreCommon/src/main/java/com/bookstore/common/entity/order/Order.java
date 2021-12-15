@@ -1,6 +1,7 @@
 package com.bookstore.common.entity.order;
 
 import com.bookstore.common.entity.AbstractAddress;
+import com.bookstore.common.entity.Address;
 import com.bookstore.common.entity.Customer;
 import com.bookstore.common.entity.PaymentMethod;
 import lombok.Data;
@@ -46,7 +47,7 @@ public class Order extends AbstractAddress {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private Set<OrderDetail> orderDetails = new HashSet<>();
 
-    public void copyAddressFromCustomer(){
+    public void copyAddressFromCustomer() {
         setFirstName(customer.getFirstName());
         setLastName(customer.getLastName());
         setPhoneNumber(customer.getPhoneNumber());
@@ -72,9 +73,21 @@ public class Order extends AbstractAddress {
     @Transient
     public String getDestination() {
         String destination = city + ", ";
-        if(state != null && !state.isEmpty()) destination += state + ", ";
+        if (state != null && !state.isEmpty()) destination += state + ", ";
         destination += country;
 
         return destination;
+    }
+
+    public void copyShippingAddress(Address address) {
+        setFirstName(address.getFirstName());
+        setLastName(address.getLastName());
+        setPhoneNumber(address.getPhoneNumber());
+        setAddressLine1(address.getAddressLine1());
+        setAddressLine2(address.getAddressLine2());
+        setCity(address.getCity());
+        setCountry(address.getCountry().getName());
+        setPostalCode(address.getPostalCode());
+        setState(address.getState());
     }
 }
