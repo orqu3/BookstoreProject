@@ -10,7 +10,7 @@ import javax.persistence.MappedSuperclass;
 @Getter
 @Setter
 @MappedSuperclass
-public class AbstractAddressWithCountry extends AbstractAddress {
+public abstract class AbstractAddressWithCountry extends AbstractAddress {
 
     @ManyToOne
     @JoinColumn(name = "country_id")
