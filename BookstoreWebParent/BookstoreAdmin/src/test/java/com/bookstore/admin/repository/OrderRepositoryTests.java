@@ -4,6 +4,7 @@ import com.bookstore.common.entity.*;
 import com.bookstore.common.entity.order.Order;
 import com.bookstore.common.entity.order.OrderDetail;
 import com.bookstore.common.entity.order.OrderStatus;
+import com.bookstore.common.entity.order.OrderTrack;
 import com.bookstore.common.entity.product.Product;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.Rollback;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -151,5 +153,32 @@ public class OrderRepositoryTests {
 
         Optional<Order> result = repo.findById(orderId);
         assertThat(result).isNotPresent();
+    }
+
+    @Test
+    public  void  testUpdateOrderTracks(){
+        Integer orderId = 10;
+        Order order = repo.findById(orderId).get();
+
+        OrderTrack newTrack = new OrderTrack();
+        newTrack.setOrder(order);
+        newTrack.setUpdateTime(new Date());
+        newTrack.setStatus(OrderStatus.NEW);
+        newTrack.setNotes(OrderStatus.NEW.defaultDescription());
+
+        OrderTrack processingTrack = new OrderTrack();
+        processingTrack.setOrder(order);
+        processingTrack.setUpdateTime(new Date());
+        processingTrack.setStatus(OrderStatus.PROCESSING);
+        processingTrack.setNotes(OrderStatus.PROCESSING.defaultDescription());
+
+        List<OrderTrack> orderTracks = order.getOrderTracks();
+        orderTracks.add(newTrack);
+        orderTracks.add(processingTrack);
+
+        Order updatedOrder = repo.save(order);
+
+        assertThat(updatedOrder.getOrderTracks()).hasSizeGreaterThan(1);
+
     }
 }
