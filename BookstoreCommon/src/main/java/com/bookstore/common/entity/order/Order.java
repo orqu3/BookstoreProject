@@ -2,12 +2,12 @@ package com.bookstore.common.entity.order;
 
 import com.bookstore.common.entity.AbstractAddress;
 import com.bookstore.common.entity.Customer;
-import com.bookstore.common.entity.PaymentMethod;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Getter
@@ -78,5 +78,11 @@ public class Order extends AbstractAddress {
         destination += country;
 
         return destination;
+    }
+
+    @Transient
+    public String getDeliverDateOnForm(){
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+        return dateFormatter.format(this.deliverDate);
     }
 }

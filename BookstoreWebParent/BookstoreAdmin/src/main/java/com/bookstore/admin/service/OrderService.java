@@ -1,7 +1,9 @@
 package com.bookstore.admin.service;
 
 import com.bookstore.admin.exception.OrderNotFoundException;
+import com.bookstore.admin.repository.CountryRepository;
 import com.bookstore.admin.repository.OrderRepository;
+import com.bookstore.common.entity.Country;
 import com.bookstore.common.entity.order.Order;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -10,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -19,6 +22,7 @@ public class OrderService {
     public static final int ORDERS_PER_PAGE = 10;
 
     private final OrderRepository orderRepository;
+    private final CountryRepository countryRepository;
 
     public Page<Order> listByPage(int pageNum, String sortField, String sortDir, String keyword){
 
@@ -55,5 +59,9 @@ public class OrderService {
         }
 
         orderRepository.deleteById(id);
+    }
+
+    public List<Country> listAllCountries(){
+        return countryRepository.findAllByOrderByNameAsc();
     }
 }

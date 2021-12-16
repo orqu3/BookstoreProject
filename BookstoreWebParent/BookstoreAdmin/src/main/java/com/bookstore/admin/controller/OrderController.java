@@ -3,6 +3,7 @@ package com.bookstore.admin.controller;
 import com.bookstore.admin.exception.OrderNotFoundException;
 import com.bookstore.admin.service.OrderService;
 import com.bookstore.admin.service.SettingService;
+import com.bookstore.common.entity.Country;
 import com.bookstore.common.entity.order.Order;
 import com.bookstore.common.entity.setting.Setting;
 import lombok.RequiredArgsConstructor;
@@ -97,6 +98,26 @@ public class OrderController {
         }
 
         return defaultRedirectURL;
+    }
+
+    @GetMapping("/orders/edit/{id}")
+    public String editOrder(@PathVariable("id") Integer id,
+                            Model model,
+                            RedirectAttributes ra,
+                            HttpServletRequest request){
+        try{
+            Order order = orderService.get(id);
+            List<Country> listCountries = orderService.listAllCountries();
+
+            model.addAttribute("pageTitle", "Edit Order (ID: " + id + ")");
+            model.addAttribute("order", order);
+            model.addAttribute("listCountries", listCountries);
+
+            return "orders/order_form";
+        } catch (OrderNotFoundException ex){
+            ra.addFlashAttribute("message", ex.getMessage());
+            return defaultRedirectURL;
+        }
     }
 
 }
