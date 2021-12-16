@@ -8,7 +8,7 @@ import com.bookstore.common.entity.order.Order;
 import com.bookstore.common.entity.order.OrderDetail;
 import com.bookstore.common.entity.order.OrderStatus;
 import com.bookstore.common.entity.product.Product;
-import com.bookstore.shopping.checkout.CheckoutInfo;
+import com.bookstore.shopping.util.checkout.CheckoutInfo;
 import com.bookstore.shopping.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.bookstore.shopping.util;
+package com.bookstore.shopping.util.setting;
 
 import com.bookstore.common.entity.setting.Setting;
 import com.bookstore.common.entity.setting.SettingBag;

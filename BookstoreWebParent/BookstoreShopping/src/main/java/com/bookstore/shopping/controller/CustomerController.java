@@ -7,7 +7,7 @@ import com.bookstore.shopping.security.CustomerUserDetails;
 import com.bookstore.shopping.security.oauth.CustomerOAuth2User;
 import com.bookstore.shopping.service.CustomerService;
 import com.bookstore.shopping.service.SettingService;
-import com.bookstore.shopping.util.EmailSettingBag;
+import com.bookstore.shopping.util.setting.EmailSettingBag;
 import com.bookstore.shopping.util.Utility;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.repository.query.Param;

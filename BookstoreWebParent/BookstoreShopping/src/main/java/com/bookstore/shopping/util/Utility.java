@@ -1,6 +1,8 @@
 package com.bookstore.shopping.util;
 
 import com.bookstore.shopping.security.oauth.CustomerOAuth2User;
+import com.bookstore.shopping.util.setting.CurrencySettingBag;
+import com.bookstore.shopping.util.setting.EmailSettingBag;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.authentication.RememberMeAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

@@ -2,11 +2,12 @@ package com.bookstore.shopping.controller;
 
 import com.bookstore.common.entity.*;
 import com.bookstore.common.entity.order.Order;
-import com.bookstore.shopping.checkout.CheckoutInfo;
+import com.bookstore.shopping.util.checkout.CheckoutInfo;
 import com.bookstore.shopping.service.*;
-import com.bookstore.shopping.util.CurrencySettingBag;
-import com.bookstore.shopping.util.EmailSettingBag;
+import com.bookstore.shopping.util.setting.CurrencySettingBag;
+import com.bookstore.shopping.util.setting.EmailSettingBag;
 import com.bookstore.shopping.util.Utility;
+import com.bookstore.shopping.util.setting.PaymentSettingBag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -58,6 +59,13 @@ public class CheckoutController {
         List<CartItem> cartItems = cartService.listCartItems(customer);
         CheckoutInfo checkoutInfo = checkoutService.prepareCheckout(cartItems, shippingRate);
 
+        String currencyCode = settingService.getCurrencyCode();
+        PaymentSettingBag paymentSettings = settingService.getPaymentSettings();
+        String paypalClientId = paymentSettings.getClientID();
+
+        model.addAttribute("paypalClientId", paypalClientId);
+        model.addAttribute("customer", customer);
+        model.addAttribute("currencyCode", currencyCode);
         model.addAttribute("checkoutInfo", checkoutInfo);
         model.addAttribute("cartItems", cartItems);
 

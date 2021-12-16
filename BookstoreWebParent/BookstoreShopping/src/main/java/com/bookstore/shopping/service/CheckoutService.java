@@ -3,7 +3,7 @@ package com.bookstore.shopping.service;
 import com.bookstore.common.entity.CartItem;
 import com.bookstore.common.entity.ShippingRate;
 import com.bookstore.common.entity.product.Product;
-import com.bookstore.shopping.checkout.CheckoutInfo;
+import com.bookstore.shopping.util.checkout.CheckoutInfo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
