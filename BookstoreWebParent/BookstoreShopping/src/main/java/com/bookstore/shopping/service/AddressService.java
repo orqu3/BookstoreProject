@@ -36,6 +36,10 @@ public class AddressService {
         if (defaultAddressId > 0) {
             addressRepository.setDefaultAddress(defaultAddressId);
         }
-        addressRepository.setNonDefaultForOther(defaultAddressId, customerId);
+        addressRepository.setNonDefaultForOthers(defaultAddressId, customerId);
+    }
+
+    public Address getDefaultAddress(Customer customer) {
+        return addressRepository.findDefaultByCustomer(customer.getId());
     }
 }

@@ -1,4 +1,4 @@
-package com.bookstore.shopping.util;
+package com.bookstore.shopping.util.setting;
 
 import com.bookstore.common.entity.setting.Setting;
 import com.bookstore.common.entity.setting.SettingBag;
@@ -51,4 +51,11 @@ public class EmailSettingBag extends SettingBag {
         return super.getValue("CUSTOMER_VERIFY_CONTENT");
     }
 
+    public String getOrderConfirmationSubject() {
+        return super.getValue("ORDER_CONFIRMATION_SUBJECT");
+    }
+
+    public String getOrderConfirmationContent() {
+        return super.getValue("ORDER_CONFIRMATION_CONTENT");
+    }
 }
