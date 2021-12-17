@@ -3,9 +3,11 @@ package com.bookstore.admin.service;
 import com.bookstore.admin.exception.ShippingRateAlreadyExistsException;
 import com.bookstore.admin.exception.ShippingRateNotFoundException;
 import com.bookstore.admin.repository.CountryRepository;
+import com.bookstore.admin.repository.ProductRepository;
 import com.bookstore.admin.repository.ShippingRateRepository;
 import com.bookstore.common.entity.Country;
 import com.bookstore.common.entity.ShippingRate;
+import com.bookstore.common.entity.product.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -23,9 +26,11 @@ import java.util.NoSuchElementException;
 public class ShippingRateService {
 
     public static final int RATES_PER_PAGE = 10;
+    private static final int DIM_DIVISOR = 139;
 
     private final ShippingRateRepository shippingRateRepository;
     private final CountryRepository countryRepository;
+    private final ProductRepository productRepository;
 
     public Page<ShippingRate> listByPage(int pageNum, String sortField, String sortDir, String keyword) {
         Sort sort = Sort.by(sortField);
@@ -77,5 +82,20 @@ public class ShippingRateService {
             throw new ShippingRateNotFoundException("Could not find shipping rate with ID " + id);
         }
         shippingRateRepository.deleteById(id);
+    }
+
+    public float calculateShippingCost(Integer productId, Integer countryId, String state) throws ShippingRateNotFoundException {
+        ShippingRate shippingRate = shippingRateRepository.findByCountryAndState(countryId, state);
+
+        if(shippingRate == null){
+            throw new ShippingRateNotFoundException("No shipping rate found for the given destination." +
+                    "You have to enter shipping cost manually");
+        }
+
+        Product product = productRepository.findById(productId).get();
+
+        float dimWeight = product.getWeight();
+
+        return dimWeight * shippingRate.getRate();
     }
 }
