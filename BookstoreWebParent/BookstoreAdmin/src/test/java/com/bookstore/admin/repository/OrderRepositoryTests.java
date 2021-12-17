@@ -86,20 +86,20 @@ public class OrderRepositoryTests {
         orderDetail2.setProduct(product2);
         orderDetail2.setOrder(mainOrder);
         orderDetail2.setProductCost(product2.getCost());
-        orderDetail2.setShippingCost(200);
+        orderDetail2.setShippingCost(2000);
         orderDetail2.setQuantity(20);
-        orderDetail2.setSubtotal(product2.getPrice() * 2);
+        orderDetail2.setSubtotal(product2.getPrice() * 20);
         orderDetail2.setUnitPrice(product2.getPrice());
 
         mainOrder.getOrderDetails().add(orderDetail1);
         mainOrder.getOrderDetails().add(orderDetail2);
 
-        mainOrder.setShippingCost(100);
+        mainOrder.setShippingCost(2010);
         mainOrder.setProductCost(product1.getCost() + product2.getCost());
         mainOrder.setTax(0);
         float subtotal = product1.getPrice() + product2.getPrice() * 20;
         mainOrder.setSubtotal(subtotal);
-        mainOrder.setTotal(subtotal + 300);
+        mainOrder.setTotal(subtotal + 2010);
 
         mainOrder.setPaymentMethod(PaymentMethod.CREDIT_CARD);
         mainOrder.setStatus(OrderStatus.SHIPPING);
