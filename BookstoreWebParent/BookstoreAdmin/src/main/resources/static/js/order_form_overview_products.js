@@ -4,6 +4,9 @@ var fieldShippingCost;
 var fieldTax;
 var fieldTotal;
 
+decimalSeparator = decimalPointType == 'COMMA' ? ',' : '.';
+thousandsSeparator = thousandsPointType == 'POINT' ? '.' : ',';
+
 $(document).ready(function () {
     fieldProductCost = $("#productCost");
     fieldSubtotal = $("#subtotal");
@@ -74,7 +77,7 @@ function getNumberValueRemoveThousandSeparator(fieldRef) {
 }
 
 function setAndFormatNumberForField(fieldId, fieldValue) {
-    formattedValue = $.number(fieldValue, 2, ".", ",");
+    formattedValue = $.number(fieldValue, 2, decimalSeparator, thousandsSeparator);
     $("#" + fieldId).val(formattedValue);
 }
 
@@ -125,7 +128,7 @@ function formatOrderAmounts() {
 }
 
 function formatNumberForField(fieldRef) {
-    fieldRef.val($.number(fieldRef.val(), 2, ".", ","));
+    fieldRef.val($.number(fieldRef.val(), 2, decimalSeparator, thousandsSeparator));
 }
 
 

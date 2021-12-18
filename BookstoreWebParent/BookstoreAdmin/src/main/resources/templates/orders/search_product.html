@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: page_head('Search Product', 'none')"></head>
+<body>
+    <div class="container-fluid">
+        <div>
+            <form th:action="@{/orders/search_product}" method="post" class="form-inline mt-2">
+                <input type="search" required class="form-control mr-sm-2" name="keyword"
+                       th:value="${keyword}"
+                       placeholder="product name"
+                />
+                <input type="submit" class="btn btn-outline-success" value="Search"/>
+            </form>
+        </div>
+        <div class="row">
+            <th:block th:each="product : ${listProducts}">
+                <div class="col">
+                    <a href="" class="linkProduct" th:pid="${product.id}">
+                        <b th:id="'pname' + ${product.id}">[[${product.name}]]</b>
+                    </a>
+                </div>
+            </th:block>
+        </div>
+        <div th:replace="fragments :: pagination('/orders/search_product', 'listProducts')"></div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            handleLinkProduct();
+        });
+        function handleLinkProduct() {
+            $(".linkProduct").on("click", function (e) {
+                e.preventDefault();
+                productId = $(this).attr("pid");
+                productName = $("#pname" + productId).text();
+
+                alert("Selected product ID: " + productId + "\n" + productName);
+            });
+        }
+    </script>
+</body>
