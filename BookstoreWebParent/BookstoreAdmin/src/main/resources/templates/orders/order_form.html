@@ -66,6 +66,8 @@
         thousandsPointType = "[[${THOUSANDS_POINT_TYPE}]]";
 
         contextPath = "[[@{/}]]";
+        var csrfHeaderName = "[[${_csrf.headerName}]]";
+        var csrfValue = "[[${_csrf.token}]]";
 
         $(document).ready(function () {
             $('#buttonCancel').click(function () {
