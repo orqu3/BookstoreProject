@@ -11,6 +11,11 @@ import com.bookstore.common.entity.product.Product;
 import com.bookstore.shopping.util.checkout.CheckoutInfo;
 import com.bookstore.shopping.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -21,6 +26,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class OrderService {
 
+    public static final int ORDER_PER_PAGE = 10;
     private final OrderRepository orderRepository;
 
     public Order createOrder(Customer customer, Address address, List<CartItem> cartItems, PaymentMethod paymentMethod,
@@ -69,5 +75,19 @@ public class OrderService {
         }
 
         return orderRepository.save(newOrder);
+    }
+
+    public Page<Order> listForCustomerByPage(Customer customer, int pageNum,
+                                             String sortField, String sortDir, String keyword) {
+        Sort sort = Sort.by(sortField);
+        sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+
+        Pageable pageable = PageRequest.of(pageNum - 1, ORDER_PER_PAGE, sort);
+
+        if (keyword != null) {
+            return orderRepository.findAll(keyword, customer.getId(),pageable);
+        }
+
+        return orderRepository.findAll(customer.getId(), pageable);
     }
 }
