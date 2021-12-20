@@ -62,15 +62,17 @@ function getProductInfo(productId, shippingCost) {
 
 function generateProductCode(productId, productName, productCost, productPrice, shippingCost) {
     nextCount = $(".hiddenProductId").length + 1;
+    rowId = "row" + nextCount;
     quantityId = "quantity" + nextCount;
     priceId = "price" + nextCount;
     subtotalId = "subtotal" + nextCount;
     htmlCode = `
-    <div class="border rounded p-1 mb-3" ">
+    <div class="border rounded p-1 mb-3" id="${rowId}">
                     <input type="hidden" name="productId" value="${productId}" class="hiddenProductId"/>
                     <div class="row ">
                         <div class="col-1">
-                            <div>${nextCount}</div>
+                            <div class="divCount">${nextCount}</div>
+                            <div><a class="fas fa-trash icon-dark linkRemove" href="" th:rowNumber = "${nextCount}"></a></div>
                         </div>
                     </div>
                     <div class="row m-2">
