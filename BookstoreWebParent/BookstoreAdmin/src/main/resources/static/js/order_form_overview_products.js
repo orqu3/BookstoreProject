@@ -72,7 +72,7 @@ function updateOrderAmounts() {
 }
 
 function getNumberValueRemoveThousandSeparator(fieldRef) {
-    fieldValue = fieldRef.val().replace(",", "");
+    fieldValue = fieldRef.val().replace(thousandsSeparator, "");
     return parseFloat(fieldValue);
 }
 

@@ -50,10 +50,11 @@ function getProductInfo(productId, shippingCost) {
     $.get(requestUrl, function (productJson) {
         console.log(productJson);
         productName = productJson.name;
-        productCost = $.number(productJson.cost, 2);
-        productPrice = $.number(productJson.price, 2);
+        productCost = $.number(productJson.cost, 2, decimalSeparator, thousandsSeparator);
+        productPrice = $.number(productJson.price, 2, decimalSeparator, thousandsSeparator);
         htmlCode = generateProductCode(productId, productName, productCost, productPrice, shippingCost);
         $("#productList").append(htmlCode);
+        updateOrderAmounts();
 
     }).fail(function (err) {
         showWarningModal(err.responseJSON.message);
@@ -66,13 +67,14 @@ function generateProductCode(productId, productName, productCost, productPrice, 
     quantityId = "quantity" + nextCount;
     priceId = "price" + nextCount;
     subtotalId = "subtotal" + nextCount;
+    blankLineId = "blankLine" + nextCount;
     htmlCode = `
     <div class="border rounded p-1 mb-3" id="${rowId}">
                     <input type="hidden" name="productId" value="${productId}" class="hiddenProductId"/>
                     <div class="row ">
                         <div class="col-1">
                             <div class="divCount">${nextCount}</div>
-                            <div><a class="fas fa-trash icon-dark linkRemove" href="" th:rowNumber = "${nextCount}"></a></div>
+                            <div><a class="fas fa-trash icon-dark linkRemove" href="" rowNumber = "${nextCount}"></a></div>
                         </div>
                     </div>
                     <div class="row m-2">
@@ -134,6 +136,7 @@ function generateProductCode(productId, productName, productCost, productPrice, 
                         </table>
                     </div>
                 </div>
+                <div id="${blankLineId}" class="row">&nbsp;</div>
     `;
     return htmlCode;
 }

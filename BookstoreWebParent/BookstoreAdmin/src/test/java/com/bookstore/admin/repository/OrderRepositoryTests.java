@@ -27,7 +27,7 @@ public class OrderRepositoryTests {
 
     @Test
     public void testCreateNewOrderWithSingleProduct(){
-        Customer customer = entityManager.find(Customer.class, 2);
+        Customer customer = entityManager.find(Customer.class, 1);
         Product product = entityManager.find(Product.class, 5);
 
         Order mainOrder = new Order();
