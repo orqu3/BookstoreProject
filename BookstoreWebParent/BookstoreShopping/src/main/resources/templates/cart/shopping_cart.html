@@ -27,7 +27,7 @@
                     <div class="col-5 align-self-center">
                         <div>
                             <a th:href="@{'/p/' + ${product.alias}}" target="_blank"
-                               style="font-size: larger; color: cornflowerblue">[[${product.name}]]</a>
+                               style="font-size: larger">[[${product.name}]]</a>
                         </div>
                     </div>
 
@@ -73,7 +73,24 @@
                     th:remove="tag">[[${CURRENCY_SYMBOL}]]</span>
             </div>
             <div class="mt-4">
-                <button class="btn btn-danger p-3" style="font-size: large"><b>Check Out</b></button>
+
+                <div th:if="${shippingSupported}">
+                    <form th:action="@{/checkout}">
+                        <button type="submit" class="btn btn-danger p-3" style="font-size: large"><b>Check Out</b></button>
+                    </form>
+                </div>
+
+                <div th:unless="${shippingSupported}">
+                    <div><span class="h5 text-warning">No shipping available for your location</span></div>
+                    <div th:if="${usePrimaryAdressAsDefault}">
+                        <a th:href="@{/account_details(redirect=cart)}" class="h6" style="color: cornflowerblue">Update
+                            your address</a>
+                    </div>
+                    <div th:unless="${usePrimaryAdressAsDefault}">
+                        <a th:href="@{/address_book(redirect=cart)}" class="h6" style="color: cornflowerblue">Use
+                            another shipping address</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

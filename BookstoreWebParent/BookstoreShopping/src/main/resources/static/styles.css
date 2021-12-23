@@ -48,3 +48,7 @@
 .bg-default-card .card-body {
     background-color: lightyellow;
 }
+
+a {
+    color: cornflowerblue;
+}

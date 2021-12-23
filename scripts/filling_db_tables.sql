@@ -350,32 +350,6 @@ VALUES (1, 'United States Dollar', '$', 'USD'),
        (11, 'Vietnamese dong', '₫', 'VND'),
        (12, 'Indian Rupee', '₹', 'INR');
 
-INSERT INTO `settings`
-VALUES ('COPYRIGHT', 'Copyright (C) 2021 Bookstore Ltd. ', 'GENERAL'),
-       ('CURRENCY_ID', '5', 'CURRENCY'),
-       ('CURRENCY_SYMBOL', '₽', 'CURRENCY'),
-       ('CURRENCY_SYMBOL_POSITION', 'Before price', 'CURRENCY'),
-       ('DECIMAL_DIGITS', '2', 'CURRENCY'),
-       ('DECIMAL_POINT_TYPE', 'POINT', 'CURRENCY'),
-       ('SITE_NAME', 'Bookstore', 'GENERAL'),
-       ('THOUSANDS_POINT_TYPE', 'COMMA', 'CURRENCY'),
-       ('MAIL_HOST', 'smtp.gmail.com', 'MAIL_SERVER'),
-       ('MAIL_PORT', '587', 'MAIL_SERVER'),
-       ('MAIL_USERNAME', 'myStorePetProject@gmail.com', 'MAIL_SERVER'),
-       ('MAIL_PASSWORD', 'bbaqshfdfghkgtfm', 'MAIL_SERVER'),
-       ('MAIL_FROM', 'mystorepetproject@gmail.com', 'MAIL_SERVER'),
-       ('SMTP_AUTH', 'true', 'MAIL_SERVER'),
-       ('SMTP_SECURED', 'true', 'MAIL_SERVER'),
-       ('MAIL_SENDER_NAME', 'Bookstore Team', 'MAIL_SERVER'),
-       ('CUSTOMER_VERIFY_SUBJECT', 'Please verify your registration to continue shopping.', 'MAIL_TEMPLATES'),
-       ('CUSTOMER_VERIFY_CONTENT', '<span style="font-size:18px;">Dear [[name]],&nbsp;</span><div><span style="font-size:18px;"><br>
- Click the link below to verify your registration.<br>
- <br><b>
- <a href="[[URL]]" target="_self">VERIFY</a><h3 style=""><font color="#000000"></font></h3></b><br>
- Thank you,&nbsp;<br>
- The Bookstore Team.</span><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div></div>',
-        'MAIL_TEMPLATES');
-
 INSERT INTO `states`
 VALUES (1, 'Ha Noi', 242),
        (2, 'Da Nang', 242),
@@ -726,7 +700,7 @@ ALTER TABLE `addresses`
     CHANGE COLUMN `postal_code` `postal_code` VARCHAR(10) NOT NULL AFTER `state`;
 
 ALTER TABLE `addresses`
-    CHANGE COLUMN `default_address` `default_address` BIT(1) NULL DEFAULT 0 ;
+    CHANGE COLUMN `default_address` `default_address` BIT(1) NULL DEFAULT 0;
 
 INSERT INTO `addresses`
 VALUES (1, 1, 234, 'Tobie', 'Abel', '19094644166', '4213  Gordon Street', '', 'Chino', 'California', '91710', 1),
@@ -746,3 +720,34 @@ VALUES (1, 1, 234, 'Tobie', 'Abel', '19094644166', '4213  Gordon Street', '', 'C
         '', '71011', 0),
        (10, 10, 39, 'Bryan', 'Rodriquez', '905-513-6645', '1331  Harvest Moon Dr', '', 'Unionville', 'Ontario',
         'L3R 0L', 0);
+
+INSERT INTO `settings`(`key`, `value`, `category`)
+VALUES ('COPYRIGHT', 'Copyright © 2021 Bookstore Ltd.', 'GENERAL'),
+       ('CURRENCY_ID', '1', 'CURRENCY'),
+       ('CURRENCY_SYMBOL', '$', 'CURRENCY'),
+       ('CURRENCY_SYMBOL_POSITION', 'Before price', 'CURRENCY'),
+       ('CUSTOMER_VERIFY_CONTENT',
+        '<span style=\"font-size:18px;\"></span><span style=\"font-size:16px;\">Dear [[name]],&nbsp;<br>\r\n<br>\r\nClick the link below to verify your registration.</span><div><span style=\"font-size:18px;\"><br><b>\r\n<a href=\"[[URL]]\" target=\"_self\">VERIFY</a><h3 style=\"\"><font color=\"#000000\"></font></h3></b><br>\r\n<span style=\"font-size:16px;\">Thank you,&nbsp;<br>\r\nThe Bookstore Team.</span></span><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div></div>',
+        'MAIL_TEMPLATES'),
+       ('CUSTOMER_VERIFY_SUBJECT', 'Please verify your registration to continue shopping.', 'MAIL_TEMPLATES'),
+       ('DECIMAL_DIGITS', '2', 'CURRENCY'),
+       ('DECIMAL_POINT_TYPE', 'POINT', 'CURRENCY'),
+       ('MAIL_FROM', 'myStorePetProject@gmail.com', 'MAIL_SERVER'),
+       ('MAIL_HOST', 'smtp.gmail.com', 'MAIL_SERVER'),
+       ('MAIL_PASSWORD', 'bbaqshfdfghkgtfm', 'MAIL_SERVER'),
+       ('MAIL_PORT', '587', 'MAIL_SERVER'),
+       ('MAIL_SENDER_NAME', 'myStorePetProject@gmail.com', 'MAIL_SERVER'),
+       ('MAIL_USERNAME', 'myStorePetProject@gmail.com', 'MAIL_SERVER'),
+       ('ORDER_CONFIRMATION_CONTENT',
+        '<div>Dear [[name]],&nbsp;</div><div><br></div><div><b>Thanks for purchasing books at Bookstore!</b><br></div><div><b><br></b></div><div>This email is to confirm that you have successfully placed an order through our website.&nbsp;</div><div>Please review the following order summary:</div><div><br></div><div>- Order ID: [[orderId]]</div><div>- Order time: [[orderTime]]</div><div>- Ship to: [[shippingAddress]]</div><div>- Total: [[total]]</div><div>- Payment method: [[paymentMethod]]</div><div><br></div><div>We\'re currently processing your order. Click here to view full details of your order on our website (login required).</div><div><br></div><div>The Bookstore Team.</div>',
+        'MAIL_TEMPLATES'),
+       ('ORDER_CONFIRMATION_SUBJECT', 'Confirmation of your order ID #[[orderId]]', 'MAIL_TEMPLATES'),
+       ('PAYPAL_API_BASE_URL', 'https://api-m.sandbox.paypal.com', 'PAYMENT'),
+       ('PAYPAL_API_CLIENT_ID', 'Aa9J3FrHxdDPV8EowjMS3hXkjX3j77P5r7u80HJSfjETwtzEiAyS5lTVEYkuOVa5ERGXiQAhmWiYxvZN',
+        'PAYMENT'),
+       ('PAYPAL_API_CLIENT_SECRET', 'ECuRJPya6rq3rrTKfLwVuO1XT88gW-i1RZ4get7c7IPI4lg_6TnILfNql9KHrIO8IeNRQ_wOoWiJX_I4',
+        'PAYMENT'),
+       ('SITE_NAME', 'Bookstore', 'GENERAL'),
+       ('SMTP_AUTH', 'true', 'MAIL_SERVER'),
+       ('SMTP_SECURED', 'true', 'MAIL_SERVER'),
+       ('THOUSANDS_POINT_TYPE', 'COMMA', 'CURRENCY');
