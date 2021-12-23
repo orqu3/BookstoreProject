@@ -17,15 +17,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductSearchController {
 
-    private final ProductService service;
+    private final ProductService productService;
 
     @GetMapping("/orders/search_product")
-    public String showSearchProductPage(){
+    public String showSearchProductPage() {
         return "orders/search_product";
     }
 
     @PostMapping("/orders/search_product")
-    public String searchProducts(String keyword){
+    public String searchProducts(String keyword) {
         return "redirect:/orders/search_product/page/1?sortField=name&sortDir=asc&keyword=" + keyword;
     }
 
@@ -34,14 +34,14 @@ public class ProductSearchController {
                                        Model model,
                                        @Param("sortField") String sortField,
                                        @Param("sortDir") String sortDir,
-                                       @Param("keyword") String keyword){
-        Page<Product> page = service.searchProducts(pageNum, sortField, sortDir, keyword);
+                                       @Param("keyword") String keyword) {
+        Page<Product> page = productService.searchProducts(pageNum, sortField, sortDir, keyword);
         List<Product> listProducts = page.getContent();
 
-        long startCount = (pageNum - 1) * service.PRODUCTS_PER_PAGE + 1;
+        long startCount = (pageNum - 1) * productService.PRODUCTS_PER_PAGE + 1;
         model.addAttribute("startCount", startCount);
 
-        long endCount = startCount + service.PRODUCTS_PER_PAGE - 1;
+        long endCount = startCount + productService.PRODUCTS_PER_PAGE - 1;
 
         if (endCount > page.getTotalElements()) {
             endCount = page.getTotalElements();

@@ -26,7 +26,6 @@ import java.util.Optional;
 public class ShippingRateService {
 
     public static final int RATES_PER_PAGE = 10;
-    private static final int DIM_DIVISOR = 139;
 
     private final ShippingRateRepository shippingRateRepository;
     private final CountryRepository countryRepository;
@@ -87,15 +86,15 @@ public class ShippingRateService {
     public float calculateShippingCost(Integer productId, Integer countryId, String state) throws ShippingRateNotFoundException {
         ShippingRate shippingRate = shippingRateRepository.findByCountryAndState(countryId, state);
 
-        if(shippingRate == null){
-            throw new ShippingRateNotFoundException("No shipping rate found for the given destination." +
-                    "You have to enter shipping cost manually");
+        if (shippingRate == null) {
+            throw new ShippingRateNotFoundException("No shipping rate found for the given destination. You have to " +
+                    "enter shipping cost manually");
         }
 
         Product product = productRepository.findById(productId).get();
 
-        float dimWeight = product.getWeight();
+        float weight = product.getWeight();
 
-        return dimWeight * shippingRate.getRate();
+        return weight * shippingRate.getRate();
     }
 }

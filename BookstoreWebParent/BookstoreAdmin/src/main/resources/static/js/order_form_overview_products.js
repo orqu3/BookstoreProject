@@ -38,6 +38,7 @@ $(document).ready(function () {
 
 function updateOrderAmounts() {
     totalCost = 0.0;
+
     $(".cost-input").each(function (e) {
         costInputField = $(this);
         rowNumber = costInputField.attr("rowNumber");
@@ -50,6 +51,7 @@ function updateOrderAmounts() {
     setAndFormatNumberForField("productCost", totalCost);
 
     orderSubtotal = 0.0;
+
     $(".subtotal-output").each(function (e) {
         productSubtotal = getNumberValueRemoveThousandSeparator($(this));
         orderSubtotal += productSubtotal;
@@ -57,16 +59,18 @@ function updateOrderAmounts() {
 
     setAndFormatNumberForField("subtotal", orderSubtotal);
 
-    shippindCost = 0.0;
+    shippingCost = 0.0;
+
     $(".ship-input").each(function (e) {
         productShip = getNumberValueRemoveThousandSeparator($(this));
-        shippindCost += productShip;
+        shippingCost += productShip;
     });
 
-    setAndFormatNumberForField("shippingCost", shippindCost);
+    setAndFormatNumberForField("shippingCost", shippingCost);
 
     tax = getNumberValueRemoveThousandSeparator(fieldTax);
-    orderTotal = orderSubtotal + tax + shippindCost;
+
+    orderTotal = orderSubtotal + tax + shippingCost;
 
     setAndFormatNumberForField("total", orderTotal);
 }

@@ -10,7 +10,7 @@
                 <input type="hidden" name="trackId" th:value="${track.id}" class="hiddenTrackId"/>
 
                 <div class="col-1 align-self-center">
-                    <div class="divCountTrack">[[${status.count}]]</div>
+                    <div class="divCountTrack">[[${status.count}]].</div>
                 </div>
 
                 <div class="col-10">
@@ -33,7 +33,7 @@
                             <select name="trackStatus"
                                     class="form-control dropDownStatus"
                                     required
-                                    style="max-width: 150px"
+                                    style="max-width: 300px"
                                     th:rowNumber="${status.count}"
                                     th:disabled="${isTrackWithStatusNew}"
                                     id="${isTrackWithStatusNew ? 'trackStatusOptions' : ''}">
@@ -56,13 +56,13 @@
                     </div>
                 </div>
 
-                <div class="col-2">
+                <div class="form-group row">
+                    <div class="col-2 align-self-center">
                         <th:block th:if="${!isTrackWithStatusNew}">
-                            <div>
-                                <a class="fas fa-trash fa-2x icon-dark linkRemoveTrack" href=""
-                                   th:rowNumber="${status.count}"></a>
-                            </div>
+                            <a class="fas fa-trash fa-2x icon-dark linkRemoveTrack" href=""
+                               th:rowNumber="${status.count}"></a>
                         </th:block>
+                    </div>
                 </div>
 
             </div>

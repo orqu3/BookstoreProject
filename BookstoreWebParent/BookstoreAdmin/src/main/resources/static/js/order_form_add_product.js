@@ -47,12 +47,15 @@ function getShippingCost(productId) {
 
 function getProductInfo(productId, shippingCost) {
     requestUrl = contextPath + "products/get/" + productId;
+
     $.get(requestUrl, function (productJson) {
         console.log(productJson);
         productName = productJson.name;
         productCost = $.number(productJson.cost, 2, decimalSeparator, thousandsSeparator);
         productPrice = $.number(productJson.price, 2, decimalSeparator, thousandsSeparator);
+
         htmlCode = generateProductCode(productId, productName, productCost, productPrice, shippingCost);
+
         $("#productList").append(htmlCode);
         updateOrderAmounts();
 
@@ -62,87 +65,86 @@ function getProductInfo(productId, shippingCost) {
 }
 
 function generateProductCode(productId, productName, productCost, productPrice, shippingCost) {
+
     nextCount = $(".hiddenProductId").length + 1;
     rowId = "row" + nextCount;
     quantityId = "quantity" + nextCount;
     priceId = "price" + nextCount;
     subtotalId = "subtotal" + nextCount;
     blankLineId = "blankLine" + nextCount;
+
     htmlCode = `
-    <div class="border rounded p-1 mb-3" id="${rowId}">
-                    <input type="hidden" name="productId" value="${productId}" class="hiddenProductId"/>
-                    <div class="row ">
-                        <div class="col-1">
-                            <div class="divCount">${nextCount}</div>
-                            <div><a class="fas fa-trash icon-dark linkRemove" href="" rowNumber = "${nextCount}"></a></div>
-                        </div>
-                    </div>
-                    <div class="row m-2">
-                        <b>${productName}</b>
-                    </div>
-                    <div class="row">&nbsp;</div>
-                    <div class="row m-2">
-                        <table>
-                            <tr>
-                                <td>Product Cost:</td>
-                                <td>
-                                    <input
-                                            type="text" required class="form-control m-1 cost-input"
-                                           rowNumber="${nextCount}"
-                                           value="${productCost}" style="max-width: 140px"
-                                    />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Quantity:</td>
-                                <td>
-                                    <input
-                                            type="number" step="1" min="1" max="1000" class="form-control m-1 quantity-input"
-                                           id="${quantityId}"
-                                           rowNumber="${nextCount}"
-                                           value="1" style="max-width: 140px"
-                                    />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Unit Price:</td>
-                                <td>
-                                    <input
-                                            type="text" required class="form-control m-1 price-input"
-                                           id="${priceId}"
-                                           rowNumber="${nextCount}"
-                                           value="${productPrice}" style="max-width: 140px"
-                                    />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Subtotal:</td>
-                                <td>
-                                    <input
-                                            type="text" readonly="readonly" class="form-control m-1 subtotal-output"
-                                           id="'${subtotalId}"
-                                           value="${productPrice}" style="max-width: 140px"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Shipping Cost:</td>
-                                <td>
-                                    <input
-                                            type="text" required class="form-control m-1 ship-input"
-                                           value="${shippingCost}" style="max-width: 140px"
-                                    />
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
+    <div class="border rounded p-1 mb-3">
+                <input type="hidden" name="productId" value="${productId}" class="hiddenProductId"/>
+
+                <div class="row m-2" style="font-size: large">
+                    <div class="divCount">${nextCount}.</div>&nbsp;&nbsp;
+                    <h5>${productName}</h5>&nbsp;&nbsp;
+                    <a class="fas fa-trash icon-dark linkRemove" href="" rowNumber="${nextCount}"></a>
                 </div>
-                <div id="${blankLineId}" class="row">&nbsp;</div>
+
+                <div class="row m-2">
+                    <table>
+                        <tr>
+                            <td>Product Cost:</td>
+                            <td>
+                                <input
+                                        type="text" required class="form-control m-1 cost-input"
+                                        rowNumber="${nextCount}"
+                                        value="${productCost}" style="max-width: 150px"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Quantity:</td>
+                            <td>
+                                <input
+                                        type="number" step="1" min="1" max="5"
+                                        class="form-control m-1 quantity-input"
+                                        id="${quantityId}"
+                                        rowNumber="${nextCount}"
+                                        value="1" style="max-width: 150px"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Unit Price:</td>
+                            <td>
+                                <input
+                                        type="text" required class="form-control m-1 price-input"
+                                        id="${priceId}"
+                                        rowNumber="${nextCount}"
+                                        value="${productPrice}" style="max-width: 150px"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Subtotal:</td>
+                            <td>
+                                <input
+                                        type="text" readonly="readonly" class="form-control m-1 subtotal-output"
+                                        id="${subtotalId}"
+                                        value="${productPrice}" style="max-width: 150px"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Shipping Cost:</td>
+                            <td>
+                                <input
+                                        type="text" required class="form-control m-1 ship-input"
+                                        value="${shippingCost}" style="max-width: 150px"/>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+            <div th:id="'blankLine' + ${nextCount}" class="row">&nbsp;</div>
     `;
+
     return htmlCode;
 }
 
 function isProductAlreadyAdded(productId) {
     productExists = false;
+
     $(".hiddenProductId").each(function (e) {
         aProductId = $(this).val();
 
