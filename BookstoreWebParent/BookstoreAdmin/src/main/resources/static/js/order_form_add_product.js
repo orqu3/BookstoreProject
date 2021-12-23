@@ -12,7 +12,7 @@ $(document).ready(function () {
     });
 });
 
-function addProduct(productId, productName){
+function addProduct(productId, productName) {
     getShippingCost(productId);
 }
 
@@ -20,7 +20,7 @@ function getShippingCost(productId) {
     selectedCountry = $("#country option:selected");
     countryId = selectedCountry.val();
     state = $("#state").val();
-    if(state.length == 0){
+    if (state.length == 0) {
         state = $("#city").val();
     }
 
@@ -141,12 +141,12 @@ function generateProductCode(productId, productName, productCost, productPrice, 
     return htmlCode;
 }
 
-function isProductAlreadyAdded(productId){
+function isProductAlreadyAdded(productId) {
     productExists = false;
     $(".hiddenProductId").each(function (e) {
         aProductId = $(this).val();
 
-        if (aProductId == productId){
+        if (aProductId == productId) {
             productExists = true;
             return;
         }

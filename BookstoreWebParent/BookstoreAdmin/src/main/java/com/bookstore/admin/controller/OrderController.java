@@ -104,8 +104,8 @@ public class OrderController {
     public String editOrder(@PathVariable("id") Integer id,
                             Model model,
                             RedirectAttributes ra,
-                            HttpServletRequest request){
-        try{
+                            HttpServletRequest request) {
+        try {
             Order order = orderService.get(id);
             List<Country> listCountries = orderService.listAllCountries();
 
@@ -114,10 +114,9 @@ public class OrderController {
             model.addAttribute("listCountries", listCountries);
 
             return "orders/order_form";
-        } catch (OrderNotFoundException ex){
+        } catch (OrderNotFoundException ex) {
             ra.addFlashAttribute("message", ex.getMessage());
             return defaultRedirectURL;
         }
     }
-
 }

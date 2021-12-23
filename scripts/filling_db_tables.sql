@@ -751,3 +751,4 @@ VALUES ('COPYRIGHT', 'Copyright © 2021 Bookstore Ltd.', 'GENERAL'),
        ('SMTP_AUTH', 'true', 'MAIL_SERVER'),
        ('SMTP_SECURED', 'true', 'MAIL_SERVER'),
        ('THOUSANDS_POINT_TYPE', 'COMMA', 'CURRENCY');
+

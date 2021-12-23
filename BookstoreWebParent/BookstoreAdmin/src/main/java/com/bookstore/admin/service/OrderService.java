@@ -24,11 +24,11 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final CountryRepository countryRepository;
 
-    public Page<Order> listByPage(int pageNum, String sortField, String sortDir, String keyword){
+    public Page<Order> listByPage(int pageNum, String sortField, String sortDir, String keyword) {
 
         Sort sort = null;
 
-        if("destination".equals(sortField)){
+        if ("destination".equals(sortField)) {
             sort = Sort.by("country").and(Sort.by("state").and(Sort.by("city")));
         } else {
             sort = Sort.by(sortField);
@@ -44,24 +44,24 @@ public class OrderService {
         return orderRepository.findAll(pageable);
     }
 
-    public Order get(Integer id) throws OrderNotFoundException{
-        try{
+    public Order get(Integer id) throws OrderNotFoundException {
+        try {
             return orderRepository.findById(id).get();
-        }catch (NoSuchElementException ex){
+        } catch (NoSuchElementException ex) {
             throw new OrderNotFoundException("Could not find any orders with ID " + id);
         }
     }
 
-    public void delete(Integer id) throws OrderNotFoundException{
+    public void delete(Integer id) throws OrderNotFoundException {
         Long count = orderRepository.countById(id);
-        if(count == null || count ==0){
+        if (count == null || count == 0) {
             throw new OrderNotFoundException("Could not find any orders with ID " + id);
         }
 
         orderRepository.deleteById(id);
     }
 
-    public List<Country> listAllCountries(){
+    public List<Country> listAllCountries() {
         return countryRepository.findAllByOrderByNameAsc();
     }
 }

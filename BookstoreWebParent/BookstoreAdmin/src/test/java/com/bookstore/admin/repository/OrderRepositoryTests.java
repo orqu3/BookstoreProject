@@ -22,11 +22,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Rollback(false)
 @RequiredArgsConstructor
 public class OrderRepositoryTests {
-    @Autowired private OrderRepository repo;
-    @Autowired private TestEntityManager entityManager;
+    @Autowired
+    private OrderRepository repo;
+    @Autowired
+    private TestEntityManager entityManager;
 
     @Test
-    public void testCreateNewOrderWithSingleProduct(){
+    public void testCreateNewOrderWithSingleProduct() {
         Customer customer = entityManager.find(Customer.class, 1);
         Product product = entityManager.find(Product.class, 5);
 
@@ -63,7 +65,7 @@ public class OrderRepositoryTests {
     }
 
     @Test
-    public void testCreateNewOrderWithMultipleProducts(){
+    public void testCreateNewOrderWithMultipleProducts() {
         Customer customer = entityManager.find(Customer.class, 1);
         Product product1 = entityManager.find(Product.class, 1);
         Product product2 = entityManager.find(Product.class, 6);
@@ -111,7 +113,7 @@ public class OrderRepositoryTests {
     }
 
     @Test
-    public void testListOrders(){
+    public void testListOrders() {
         Iterable<Order> orders = repo.findAll();
 
         assertThat(orders).hasSizeGreaterThan(0);
@@ -120,7 +122,7 @@ public class OrderRepositoryTests {
     }
 
     @Test
-    public void testUpdateOrder(){
+    public void testUpdateOrder() {
         Integer orderId = 3;
         Order order = repo.findById(orderId).get();
 
@@ -135,7 +137,7 @@ public class OrderRepositoryTests {
     }
 
     @Test
-    public void testGetOrder(){
+    public void testGetOrder() {
         Integer orderId = 5;
         Order order = repo.findById(orderId).get();
 
@@ -144,7 +146,7 @@ public class OrderRepositoryTests {
     }
 
     @Test
-    public void testDeleteOrder(){
+    public void testDeleteOrder() {
         Integer orderId = 2;
         repo.deleteById(orderId);
 
@@ -153,19 +155,19 @@ public class OrderRepositoryTests {
     }
 
     @Test
-    public  void  testUpdateOrderTracks(){
+    public void testUpdateOrderTracks() {
         Integer orderId = 10;
         Order order = repo.findById(orderId).get();
 
         OrderTrack newTrack = new OrderTrack();
         newTrack.setOrder(order);
-        newTrack.setUpdateTime(new Date());
+        newTrack.setUpdatedTime(new Date());
         newTrack.setStatus(OrderStatus.PICKED);
         newTrack.setNotes(OrderStatus.PICKED.defaultDescription());
 
         OrderTrack processingTrack = new OrderTrack();
         processingTrack.setOrder(order);
-        processingTrack.setUpdateTime(new Date());
+        processingTrack.setUpdatedTime(new Date());
         processingTrack.setStatus(OrderStatus.PACKAGED);
         processingTrack.setNotes(OrderStatus.PACKAGED.defaultDescription());
 
@@ -176,6 +178,5 @@ public class OrderRepositoryTests {
         Order updatedOrder = repo.save(order);
 
         assertThat(updatedOrder.getOrderTracks()).hasSizeGreaterThan(1);
-
     }
 }

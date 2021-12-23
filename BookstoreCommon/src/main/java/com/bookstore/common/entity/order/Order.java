@@ -45,10 +45,10 @@ public class Order extends AbstractAddress {
     private Set<OrderDetail> orderDetails = new HashSet<>();
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    @OrderBy("updateTime ASC")
+    @OrderBy("updatedTime ASC")
     private List<OrderTrack> orderTracks = new ArrayList<>();
 
-    public void copyAddressFromCustomer(){
+    public void copyAddressFromCustomer() {
         setFirstName(customer.getFirstName());
         setLastName(customer.getLastName());
         setPhoneNumber(customer.getPhoneNumber());
@@ -74,14 +74,14 @@ public class Order extends AbstractAddress {
     @Transient
     public String getDestination() {
         String destination = city + ", ";
-        if(state != null && !state.isEmpty()) destination += state + ", ";
+        if (state != null && !state.isEmpty()) destination += state + ", ";
         destination += country;
 
         return destination;
     }
 
     @Transient
-    public String getDeliverDateOnForm(){
+    public String getDeliverDateOnForm() {
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
         return dateFormatter.format(this.deliverDate);
     }

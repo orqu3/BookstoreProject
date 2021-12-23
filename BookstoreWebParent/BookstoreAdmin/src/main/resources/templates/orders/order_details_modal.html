@@ -15,7 +15,7 @@
             <a class="nav-link" id="shipping-tab" data-toggle="tab" href="#shipping" role="tab">Shipping</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="track-tab" data-toggle="tab" href="#track" >Track</a>
+            <a class="nav-link" id="track-tab" data-toggle="tab" href="#track">Track</a>
         </li>
     </ul>
 
@@ -198,7 +198,7 @@
                     </thead>
                     <tbody>
                     <tr th:each="track: ${order.orderTracks}">
-                        <td>[[${track.updateTime}]]</td>
+                        <td>[[${track.updatedTime}]]</td>
                         <td>[[${track.status}]]</td>
                         <td>[[${track.notes}]]</td>
                     </tr>

@@ -19,7 +19,7 @@ public class OrderTrack extends IdBasedEntity {
     @Column(length = 255)
     private String notes;
 
-    private Date updateTime;
+    private Date updatedTime;
 
     @Enumerated(EnumType.STRING)
     @Column(length = 45, nullable = false)
@@ -30,17 +30,17 @@ public class OrderTrack extends IdBasedEntity {
     private Order order;
 
     @Transient
-    public String getUpdatedTimeOnForm(){
+    public String getUpdatedTimeOnForm() {
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");
-        return dateFormatter.format(this.updateTime);
+        return dateFormatter.format(this.updatedTime);
     }
 
-    public void setUpdateTimeOnForm(String dateString){
+    public void setUpdateTimeOnForm(String dateString) {
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");
 
-        try{
-            this.updateTime = dateFormatter.parse(dateString);
-        }catch (ParseException ex){
+        try {
+            this.updatedTime = dateFormatter.parse(dateString);
+        } catch (ParseException ex) {
             ex.printStackTrace();
         }
     }

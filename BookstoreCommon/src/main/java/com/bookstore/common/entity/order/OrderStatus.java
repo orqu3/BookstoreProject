@@ -1,70 +1,71 @@
 package com.bookstore.common.entity.order;
 
 public enum OrderStatus {
-    NEW{
+    
+    NEW {
         @Override
         public String defaultDescription() {
             return "Order was placed by the customer";
         }
     },
 
-    CANCELLED{
+    CANCELLED {
         @Override
         public String defaultDescription() {
             return "Order was rejected";
         }
     },
 
-    PROCESSING{
+    PROCESSING {
         @Override
         public String defaultDescription() {
             return "Order is being processed";
         }
     },
 
-    PACKAGED{
+    PACKAGED {
         @Override
         public String defaultDescription() {
             return "Product were packaged";
         }
     },
 
-    PICKED{
+    PICKED {
         @Override
         public String defaultDescription() {
             return "Shipper picked the package";
         }
     },
 
-    SHIPPING{
+    SHIPPING {
         @Override
         public String defaultDescription() {
             return "Shipper is delivering the package";
         }
     },
 
-    DELIVERED{
+    DELIVERED {
         @Override
         public String defaultDescription() {
             return "Customer received products";
         }
     },
 
-    RETURNED{
+    RETURNED {
         @Override
         public String defaultDescription() {
             return "Products were returned";
         }
     },
 
-    PAID{
+    PAID {
         @Override
         public String defaultDescription() {
             return "Customer has paid this order";
         }
     },
 
-    REFUNDED{
+    REFUNDED {
         @Override
         public String defaultDescription() {
             return "Customer has been refunded";
