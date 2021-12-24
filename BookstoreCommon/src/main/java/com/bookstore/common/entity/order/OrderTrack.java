@@ -35,7 +35,7 @@ public class OrderTrack extends IdBasedEntity {
         return dateFormatter.format(this.updatedTime);
     }
 
-    public void setUpdateTimeOnForm(String dateString) {
+    public void setUpdatedTimeOnForm(String dateString) {
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");
 
         try {
