@@ -75,6 +75,7 @@ function generateProductCode(productId, productName, productCost, productPrice, 
 
     htmlCode = `
     <div class="border rounded p-1" id="${rowId}">
+                <input type="hidden" name="detailId" value="0"/>
                 <input type="hidden" name="productId" value="${productId}" class="hiddenProductId"/>
 
                 <div class="row m-2" style="font-size: large">
@@ -90,6 +91,7 @@ function generateProductCode(productId, productName, productCost, productPrice, 
                             <td>
                                 <input
                                         type="text" required class="form-control m-1 cost-input"
+                                        name="productDetailCost"
                                         rowNumber="${nextCount}"
                                         value="${productCost}" style="max-width: 150px"/>
                             </td>
@@ -98,8 +100,8 @@ function generateProductCode(productId, productName, productCost, productPrice, 
                             <td>Quantity:</td>
                             <td>
                                 <input
-                                        type="number" step="1" min="1" max="5"
-                                        class="form-control m-1 quantity-input"
+                                        type="number" step="1" min="1" max="5" class="form-control m-1 quantity-input"
+                                        name="quantity"
                                         id="${quantityId}"
                                         rowNumber="${nextCount}"
                                         value="1" style="max-width: 150px"/>
@@ -110,6 +112,7 @@ function generateProductCode(productId, productName, productCost, productPrice, 
                             <td>
                                 <input
                                         type="text" required class="form-control m-1 price-input"
+                                        name="productPrice"
                                         id="${priceId}"
                                         rowNumber="${nextCount}"
                                         value="${productPrice}" style="max-width: 150px"/>
@@ -120,6 +123,7 @@ function generateProductCode(productId, productName, productCost, productPrice, 
                             <td>
                                 <input
                                         type="text" readonly="readonly" class="form-control m-1 subtotal-output"
+                                        name="productSubtotal"
                                         id="${subtotalId}"
                                         value="${productPrice}" style="max-width: 150px"/>
                             </td>
@@ -129,6 +133,7 @@ function generateProductCode(productId, productName, productCost, productPrice, 
                             <td>
                                 <input
                                         type="text" required class="form-control m-1 ship-input"
+                                        name="productShipCost"
                                         value="${shippingCost}" style="max-width: 150px"/>
                             </td>
                         </tr>
