@@ -48,6 +48,14 @@ public class ProductService {
         return productRepository.findAll(pageable);
     }
 
+    public Page<Product> searchProducts(int pageNum, String sortField, String sortDir, String keyword) {
+        Sort sort = Sort.by(sortField);
+        sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+        Pageable pageable = PageRequest.of(pageNum - 1, PRODUCTS_PER_PAGE, sort);
+
+        return productRepository.searchProductsByName(keyword, pageable);
+    }
+
     public Product save(Product product) {
         if (product.getId() == null) {
             product.setCreatedTime(new Date());
