@@ -74,7 +74,7 @@ function generateProductCode(productId, productName, productCost, productPrice, 
     blankLineId = "blankLine" + nextCount;
 
     htmlCode = `
-    <div class="border rounded p-1 mb-3">
+    <div class="border rounded p-1" id="${rowId}">
                 <input type="hidden" name="productId" value="${productId}" class="hiddenProductId"/>
 
                 <div class="row m-2" style="font-size: large">
@@ -136,7 +136,7 @@ function generateProductCode(productId, productName, productCost, productPrice, 
                     </table>
                 </div>
             </div>
-            <div th:id="'blankLine' + ${nextCount}" class="row">&nbsp;</div>
+            <div id="${blankLineId}" class="row">&nbsp;</div>
     `;
 
     return htmlCode;

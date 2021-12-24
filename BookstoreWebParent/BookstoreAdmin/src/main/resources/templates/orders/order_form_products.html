@@ -7,7 +7,7 @@
 
         <th:block th:each="detail, status : ${order.orderDetails}">
 
-            <div class="border rounded p-1 mb-3" th:with="product = ${detail.product}" th:id="'row' + ${status.count}">
+            <div class="border rounded p-1" th:with="product = ${detail.product}" th:id="'row' + ${status.count}">
                 <input type="hidden" name="productId" th:value="${product.id}" class="hiddenProductId"/>
 
                 <div class="row m-2" style="font-size: large">
