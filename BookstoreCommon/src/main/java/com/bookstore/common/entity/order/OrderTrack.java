@@ -2,6 +2,7 @@ package com.bookstore.common.entity.order;
 
 import com.bookstore.common.entity.IdBasedEntity;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ import java.util.Date;
 @Setter
 @Entity
 @Table(name = "order_track")
+@NoArgsConstructor
 public class OrderTrack extends IdBasedEntity {
 
     @Column(length = 255)

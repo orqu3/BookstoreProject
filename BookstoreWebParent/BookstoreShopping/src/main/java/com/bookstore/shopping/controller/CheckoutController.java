@@ -2,6 +2,7 @@ package com.bookstore.shopping.controller;
 
 import com.bookstore.common.entity.*;
 import com.bookstore.common.entity.order.Order;
+import com.bookstore.common.entity.order.PaymentMethod;
 import com.bookstore.shopping.exception.PayPalApiException;
 import com.bookstore.shopping.util.checkout.CheckoutInfo;
 import com.bookstore.shopping.service.*;

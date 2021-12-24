@@ -1,6 +1,7 @@
 package com.bookstore.common.entity.order;
 
 import com.bookstore.common.entity.AbstractAddress;
+import com.bookstore.common.entity.Address;
 import com.bookstore.common.entity.Customer;
 import lombok.Getter;
 import lombok.Setter;
@@ -60,6 +61,18 @@ public class Order extends AbstractAddress {
         setState(customer.getState());
     }
 
+    public void copyShippingAddress(Address address) {
+        setFirstName(address.getFirstName());
+        setLastName(address.getLastName());
+        setPhoneNumber(address.getPhoneNumber());
+        setAddressLine1(address.getAddressLine1());
+        setAddressLine2(address.getAddressLine2());
+        setCity(address.getCity());
+        setCountry(address.getCountry().getName());
+        setPostalCode(address.getPostalCode());
+        setState(address.getState());
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -69,6 +82,28 @@ public class Order extends AbstractAddress {
                 ", status=" + status +
                 ", customer=" + customer.getFullName() +
                 '}';
+    }
+
+    @Transient
+    public String getShippingAddress() {
+        String address = firstName;
+
+        if (lastName != null && !lastName.isEmpty()) address += " " + lastName;
+
+        if (!addressLine1.isEmpty()) address += ", " + addressLine1;
+
+        if (addressLine2 != null && !addressLine2.isEmpty()) address += ", " + addressLine2;
+
+        if (!city.isEmpty()) address += ", " + city;
+
+        if (state != null && !state.isEmpty()) address += ", " + state;
+
+        address += ", " + country;
+
+        if (!postalCode.isEmpty()) address += ". Postal Code: " + postalCode;
+        if (!phoneNumber.isEmpty()) address += ". Phone Number: " + phoneNumber;
+
+        return address;
     }
 
     @Transient

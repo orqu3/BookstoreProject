@@ -1,4 +1,9 @@
+var productDetailCount;
+
 $(document).ready(function () {
+
+    productDetailCount = $(".hiddenProductId").length;
+
     $("#products").on("click", "#linkAddProduct", function (e) {
         e.preventDefault();
         link = $(this);
@@ -65,8 +70,8 @@ function getProductInfo(productId, shippingCost) {
 }
 
 function generateProductCode(productId, productName, productCost, productPrice, shippingCost) {
-
-    nextCount = $(".hiddenProductId").length + 1;
+    nextCount = productDetailCount + 1;
+    productDetailCount++;
     rowId = "row" + nextCount;
     quantityId = "quantity" + nextCount;
     priceId = "price" + nextCount;

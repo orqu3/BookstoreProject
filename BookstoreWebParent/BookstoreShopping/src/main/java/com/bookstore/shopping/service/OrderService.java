@@ -3,13 +3,10 @@ package com.bookstore.shopping.service;
 import com.bookstore.common.entity.Address;
 import com.bookstore.common.entity.CartItem;
 import com.bookstore.common.entity.Customer;
-import com.bookstore.common.entity.PaymentMethod;
-import com.bookstore.common.entity.order.Order;
-import com.bookstore.common.entity.order.OrderDetail;
-import com.bookstore.common.entity.order.OrderStatus;
+import com.bookstore.common.entity.order.*;
 import com.bookstore.common.entity.product.Product;
-import com.bookstore.shopping.util.checkout.CheckoutInfo;
 import com.bookstore.shopping.repository.OrderRepository;
+import com.bookstore.shopping.util.checkout.CheckoutInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -67,6 +64,14 @@ public class OrderService {
 
             orderDetails.add(orderDetail);
         }
+
+        OrderTrack track = new OrderTrack();
+        track.setOrder(newOrder);
+        track.setStatus(OrderStatus.NEW);
+        track.setNotes(OrderStatus.NEW.defaultDescription());
+        track.setUpdatedTime(new Date());
+
+        newOrder.getOrderTracks().add(track);
 
         return orderRepository.save(newOrder);
     }
