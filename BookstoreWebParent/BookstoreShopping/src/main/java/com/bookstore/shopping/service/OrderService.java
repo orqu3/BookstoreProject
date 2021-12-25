@@ -8,6 +8,7 @@ import com.bookstore.common.entity.product.Product;
 import com.bookstore.shopping.repository.OrderRepository;
 import com.bookstore.shopping.util.checkout.CheckoutInfo;
 import lombok.RequiredArgsConstructor;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -94,5 +95,9 @@ public class OrderService {
         }
 
         return orderRepository.findAll(customer.getId(), pageable);
+    }
+
+    public Order getOrder(Integer id, Customer customer) {
+        return orderRepository.findByIdAndCustomer(id,customer);
     }
 }

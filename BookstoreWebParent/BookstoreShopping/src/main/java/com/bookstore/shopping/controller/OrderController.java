@@ -6,6 +6,7 @@ import com.bookstore.common.entity.order.Order;
 import com.bookstore.shopping.service.CustomerService;
 import com.bookstore.shopping.service.OrderService;
 import com.bookstore.shopping.util.Utility;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -67,5 +68,15 @@ public class OrderController {
     private Customer getAuthenticatedCustomer (HttpServletRequest request) {
         String email = Utility.getEmailOfAuthenticatedCustomer(request);
         return customerService.getCustomerByEmail(email);
+    }
+
+    @GetMapping("/orders/details/{id}")
+    public String viewOrderDetails(Model model, @PathVariable(name = "id") Integer id, HttpServletRequest request) {
+        Customer customer = getAuthenticatedCustomer(request);
+
+        Order order = orderService.getOrder(id,customer);
+        model.addAttribute("order",order);
+
+        return "orders/order_details_modal";
     }
 }
