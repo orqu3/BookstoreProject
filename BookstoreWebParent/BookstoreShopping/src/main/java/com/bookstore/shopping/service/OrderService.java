@@ -7,15 +7,13 @@ import com.bookstore.common.entity.order.*;
 import com.bookstore.common.entity.product.Product;
 import com.bookstore.common.exception.OrderNotFoundException;
 import com.bookstore.shopping.repository.OrderRepository;
-import com.bookstore.shopping.util.OrderReturnRequest;
+import com.bookstore.shopping.util.order.OrderReturnRequest;
 import com.bookstore.shopping.util.checkout.CheckoutInfo;
 import lombok.RequiredArgsConstructor;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -82,8 +80,6 @@ public class OrderService {
 
         newOrder.getOrderTracks().add(track);
 
-
-
         return orderRepository.save(newOrder);
     }
 
@@ -95,41 +91,41 @@ public class OrderService {
         Pageable pageable = PageRequest.of(pageNum - 1, ORDER_PER_PAGE, sort);
 
         if (keyword != null) {
-            return orderRepository.findAll(keyword, customer.getId(),pageable);
+            return orderRepository.findAll(keyword, customer.getId(), pageable);
         }
 
         return orderRepository.findAll(customer.getId(), pageable);
     }
 
     public Order getOrder(Integer id, Customer customer) {
-        return orderRepository.findByIdAndCustomer(id,customer);
+        return orderRepository.findByIdAndCustomer(id, customer);
     }
 
     public void setOrderReturnRequested(OrderReturnRequest request, Customer customer) throws OrderNotFoundException {
-       Order order = orderRepository.findByIdAndCustomer(request.getOrderId(),customer);
-       if (order == null) {
-            throw new OrderNotFoundException("Order ID" + request.getOrderId() + "not found");
-       }
+        Order order = orderRepository.findByIdAndCustomer(request.getOrderId(), customer);
 
-       if (order.isReturnRequested()) return;
+        if (order == null) {
+            throw new OrderNotFoundException("Order ID " + request.getOrderId() + " not found");
+        }
 
-       OrderTrack track = new OrderTrack();
-       track.setOrder(order);
-       track.setUpdatedTime(new Date());
-       track.setStatus(OrderStatus.RETURN_REQUESTED);
+        if (order.isReturnRequested()) return;
 
-       String notes = "Reason:" + request.getReason();
-       if(!"".equals(request.getNote())) {
-           notes += ". " + request.getNote();
-       }
+        OrderTrack track = new OrderTrack();
+        track.setOrder(order);
+        track.setUpdatedTime(new Date());
+        track.setStatus(OrderStatus.RETURN_REQUESTED);
 
-       track.setNotes(notes);
+        String notes = "Reason: " + request.getReason();
+        
+        if (!"".equals(request.getNote())) {
+            notes += ". " + request.getNote();
+        }
 
-       order.getOrderTracks().add(track);
-       order.setStatus(OrderStatus.RETURN_REQUESTED);
+        track.setNotes(notes);
 
-       orderRepository.save(order);
+        order.getOrderTracks().add(track);
+        order.setStatus(OrderStatus.RETURN_REQUESTED);
 
-
+        orderRepository.save(order);
     }
 }

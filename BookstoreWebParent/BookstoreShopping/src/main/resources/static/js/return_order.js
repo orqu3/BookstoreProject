@@ -17,7 +17,6 @@ $(document).ready(function () {
     secondButton = $("#secondButton");
 
     handleReturnOrderLink();
-
 });
 
 function showReturnModalDialog(link) {
@@ -30,7 +29,6 @@ function showReturnModalDialog(link) {
     orderId = link.attr("orderId");
     modalTitle.text("Return Order ID #" + orderId);
     returnModal.modal("show");
-
 }
 
 function showMessageModal(message) {
@@ -38,16 +36,11 @@ function showMessageModal(message) {
     firstButton.hide();
     secondButton.text("Close");
     divMessage.text(message);
-
     divMessage.show();
-
-
 }
 
 function handleReturnOrderLink(link) {
-
-
-    $(".linkReturnOrder").on("click",function (e) {
+    $(".linkReturnOrder").on("click", function (e) {
         e.preventDefault();
         showReturnModalDialog($(this));
     });
@@ -57,7 +50,7 @@ function submitReturnOrderFrom() {
     reason = $("input[name='returnReason']:checked").val();
     note = fieldNote.val();
 
-    sendReturnOrderRequest(reason,note);
+    sendReturnOrderRequest(reason, note);
 
     return false;
 }
@@ -69,8 +62,8 @@ function sendReturnOrderRequest(reason, note) {
     $.ajax({
         type: "POST",
         url: requestURL,
-        beforeSend: function(xhr) {
-            xhr.setRequestHeader(csrfHeaderName,csrfValue);
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader(csrfHeaderName, csrfValue);
         },
         data: JSON.stringify(requestBody),
         contentType: 'application/json'
@@ -82,7 +75,6 @@ function sendReturnOrderRequest(reason, note) {
         console.log(err);
         showMessageModal(err.responseText);
     });
-
 }
 
 function updateStatusTextAndHideReturnButton(orderId) {

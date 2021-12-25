@@ -1,5 +1,7 @@
-package com.bookstore.shopping.util;
+package com.bookstore.shopping.util.order;
 
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -7,10 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class OrderReturnRequest {
+@AllArgsConstructor
+public class OrderReturnResponse {
     private Integer orderId;
-    private String reason;
-    private String note;
-
-
 }

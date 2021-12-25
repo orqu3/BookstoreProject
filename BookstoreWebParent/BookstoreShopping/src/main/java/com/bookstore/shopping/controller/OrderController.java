@@ -6,8 +6,7 @@ import com.bookstore.common.entity.order.Order;
 import com.bookstore.shopping.service.CustomerService;
 import com.bookstore.shopping.service.OrderService;
 import com.bookstore.shopping.util.Utility;
-import org.aspectj.weaver.ast.Or;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,28 +17,24 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class OrderController {
+
     private final OrderService orderService;
-
     private final CustomerService customerService;
-
-    public OrderController(OrderService orderService, CustomerService customerService) {
-        this.orderService = orderService;
-        this.customerService = customerService;
-    }
 
     @GetMapping("/orders")
     public String listFirstPage(Model model, HttpServletRequest request) {
-        return listOrderByPage(model, request, 1, "orderTime", "desc", null);
+        return listOrdersByPage(model, request, 1, "orderTime", "desc", null);
     }
 
     @GetMapping("/orders/page/{pageNum}")
-    public String listOrderByPage(Model model, HttpServletRequest request,
-                                  @PathVariable(name = "pageNum") int pageNum,
-                                  String sortField, String sortDir, String orderKeyword) {
+    public String listOrdersByPage(Model model, HttpServletRequest request,
+                                   @PathVariable(name = "pageNum") int pageNum,
+                                   String sortField, String sortDir, String orderKeyword) {
         Customer customer = getAuthenticatedCustomer(request);
 
-        Page<Order> page = orderService.listForCustomerByPage(customer,pageNum,sortField,sortDir,orderKeyword);
+        Page<Order> page = orderService.listForCustomerByPage(customer, pageNum, sortField, sortDir, orderKeyword);
         List<Order> listOrders = page.getContent();
 
         model.addAttribute("totalPages", page.getTotalPages());
@@ -56,26 +51,26 @@ public class OrderController {
         model.addAttribute("startCount", startCount);
 
         long endCount = startCount + OrderService.ORDER_PER_PAGE - 1;
-        if(endCount > page.getTotalElements()) {
+        if (endCount > page.getTotalElements()) {
             endCount = page.getTotalElements();
         }
 
         model.addAttribute("endCount", endCount);
-        return "orders/orders_customer";
 
+        return "orders/orders_customer";
     }
 
-    private Customer getAuthenticatedCustomer (HttpServletRequest request) {
+    private Customer getAuthenticatedCustomer(HttpServletRequest request) {
         String email = Utility.getEmailOfAuthenticatedCustomer(request);
         return customerService.getCustomerByEmail(email);
     }
 
-    @GetMapping("/orders/details/{id}")
+    @GetMapping("/orders/detail/{id}")
     public String viewOrderDetails(Model model, @PathVariable(name = "id") Integer id, HttpServletRequest request) {
         Customer customer = getAuthenticatedCustomer(request);
 
-        Order order = orderService.getOrder(id,customer);
-        model.addAttribute("order",order);
+        Order order = orderService.getOrder(id, customer);
+        model.addAttribute("order", order);
 
         return "orders/order_details_modal";
     }

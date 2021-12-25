@@ -137,16 +137,14 @@ public class Order extends AbstractAddress {
 
         productNames = "<ul>";
 
-        for (OrderDetail detail: orderDetails) {
-            productNames += "<li>" + detail.getProduct().getName() + "<li>";
-
+        for (OrderDetail detail : orderDetails) {
+            productNames += "<li>" + detail.getProduct().getName() + "</li>";
         }
 
         productNames += "</ul>";
 
         return productNames;
     }
-
 
     public boolean hasStatus(OrderStatus status) {
         for (OrderTrack aTrack : orderTracks) {
@@ -166,8 +164,6 @@ public class Order extends AbstractAddress {
     public boolean isProcessing() {
         return hasStatus(OrderStatus.PROCESSING);
     }
-
-
 
     @Transient
     public String getRecipientName() {

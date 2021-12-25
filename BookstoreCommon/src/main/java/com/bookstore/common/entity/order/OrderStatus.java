@@ -1,7 +1,7 @@
 package com.bookstore.common.entity.order;
 
 public enum OrderStatus {
-    
+
     NEW {
         @Override
         public String defaultDescription() {
@@ -72,9 +72,10 @@ public enum OrderStatus {
         }
     },
 
-    RETURN_REQUESTED{
+    RETURN_REQUESTED {
         @Override
-        public String defaultDescription() {return "Customer sent request to return purchase";
+        public String defaultDescription() {
+            return "Customer sent request to return purchase";
         }
 
     };
