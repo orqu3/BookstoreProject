@@ -1,7 +1,7 @@
 package com.bookstore.admin.service;
 
 import com.bookstore.admin.repository.ProductRepository;
-import com.bookstore.common.entity.Product;
+import com.bookstore.common.entity.product.Product;
 import com.bookstore.common.exception.ProductNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -20,7 +20,7 @@ import java.util.NoSuchElementException;
 @Transactional
 public class ProductService {
 
-    public static final int PRODUCTS_PER_PAGE = 5;
+    public static final int PRODUCTS_PER_PAGE = 7;
     private final ProductRepository productRepository;
 
     public List<Product> listAll() {
@@ -46,6 +46,14 @@ public class ProductService {
         }
 
         return productRepository.findAll(pageable);
+    }
+
+    public Page<Product> searchProducts(int pageNum, String sortField, String sortDir, String keyword) {
+        Sort sort = Sort.by(sortField);
+        sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+        Pageable pageable = PageRequest.of(pageNum - 1, PRODUCTS_PER_PAGE, sort);
+
+        return productRepository.searchProductsByName(keyword, pageable);
     }
 
     public Product save(Product product) {

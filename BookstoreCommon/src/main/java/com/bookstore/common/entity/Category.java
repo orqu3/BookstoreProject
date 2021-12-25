@@ -9,12 +9,7 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @Table(name = "categories")
-public class Category {
-
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Category extends IdBasedEntity {
 
     @Column(name = "name", length = 128, nullable = false, unique = true)
     private String name;

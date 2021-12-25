@@ -4,7 +4,7 @@ import com.bookstore.common.entity.Customer;
 import com.bookstore.common.exception.CustomerNotFoundException;
 import com.bookstore.shopping.service.CustomerService;
 import com.bookstore.shopping.service.SettingService;
-import com.bookstore.shopping.util.EmailSettingBag;
+import com.bookstore.shopping.util.setting.EmailSettingBag;
 import com.bookstore.shopping.util.Utility;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.repository.query.Param;

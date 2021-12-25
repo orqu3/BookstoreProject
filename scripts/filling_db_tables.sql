@@ -1,19 +1,26 @@
-INSERT INTO `roles` (`name`, `description`)
-VALUES ('Admin', 'manage everything');
-INSERT INTO `roles` (`name`, `description`)
-VALUES ('Salesperson', 'manage products, categories, orders');
+INSERT INTO `roles` (`id`, `name`, `description`)
+VALUES (1, 'Admin', 'manage everything');
+INSERT INTO `roles` (`id`, `name`, `description`)
+VALUES (2, 'Salesperson', 'manage products, categories, orders');
+INSERT INTO `roles` (`id`, `name`, `description`)
+VALUES (3, 'Shipper', 'view orders and update order status');
 
-INSERT INTO `users` (`email`, `first_name`, `last_name`, `enabled`, `password`)
-VALUES ('admin@mail.com', 'Glen', 'Doe', '1', '$2a$10$Op29XN5Se3.XsCcWzBYpuuJhZqDYG0/MZof5PIN5RpeC9cR13hXw2');
-INSERT INTO `users` (`email`, `first_name`, `last_name`, `enabled`, `password`)
-VALUES ('salesperson@mail.com', 'Ann', 'Watertown', '1',
+INSERT INTO `users` (`id`, `email`, `first_name`, `last_name`, `enabled`, `password`)
+VALUES (1, 'admin@mail.com', 'Glen', 'Doe', '1', '$2a$10$Op29XN5Se3.XsCcWzBYpuuJhZqDYG0/MZof5PIN5RpeC9cR13hXw2');
+INSERT INTO `users` (`id`, `email`, `first_name`, `last_name`, `enabled`, `password`)
+VALUES (2, 'salesperson@mail.com', 'Ann', 'Watertown', '1',
         '$2a$10$kVrVmIORCh52d0Nmn/bCLOp9Gxb7gz/OjlKCpzPqNFUfhaHu624cK');
+INSERT INTO `users` (`id`, `email`, `first_name`, `last_name`, `enabled`, `password`)
+VALUES (3, 'shipper@mail.com', 'Boris', 'Smith', '1',
+        '$2a$10$pLMne44pGXpbrnuKYHOhbuXIgBFnhroIW1f3c5VMDUIH/8NVteQCi');
 
 
 INSERT INTO `roles_users` (`role_id`, `user_id`)
 VALUES ('1', '1');
 INSERT INTO `roles_users` (`role_id`, `user_id`)
 VALUES ('2', '2');
+INSERT INTO `roles_users` (`role_id`, `user_id`)
+VALUES ('3', '3');
 
 INSERT INTO `categories` (`id`, `name`, `alias`, `enabled`)
 VALUES ('1', 'Arts', 'Arts', '1'),
@@ -349,32 +356,6 @@ VALUES (1, 'United States Dollar', '$', 'USD'),
        (10, 'Canadian Dollar', '$', 'CAD'),
        (11, 'Vietnamese dong', '₫', 'VND'),
        (12, 'Indian Rupee', '₹', 'INR');
-
-INSERT INTO `settings`
-VALUES ('COPYRIGHT', 'Copyright (C) 2021 Bookstore Ltd. ', 'GENERAL'),
-       ('CURRENCY_ID', '5', 'CURRENCY'),
-       ('CURRENCY_SYMBOL', '₽', 'CURRENCY'),
-       ('CURRENCY_SYMBOL_POSITION', 'Before price', 'CURRENCY'),
-       ('DECIMAL_DIGITS', '2', 'CURRENCY'),
-       ('DECIMAL_POINT_TYPE', 'POINT', 'CURRENCY'),
-       ('SITE_NAME', 'Bookstore', 'GENERAL'),
-       ('THOUSANDS_POINT_TYPE', 'COMMA', 'CURRENCY'),
-       ('MAIL_HOST', 'smtp.gmail.com', 'MAIL_SERVER'),
-       ('MAIL_PORT', '587', 'MAIL_SERVER'),
-       ('MAIL_USERNAME', 'myStorePetProject@gmail.com', 'MAIL_SERVER'),
-       ('MAIL_PASSWORD', 'bbaqshfdfghkgtfm', 'MAIL_SERVER'),
-       ('MAIL_FROM', 'mystorepetproject@gmail.com', 'MAIL_SERVER'),
-       ('SMTP_AUTH', 'true', 'MAIL_SERVER'),
-       ('SMTP_SECURED', 'true', 'MAIL_SERVER'),
-       ('MAIL_SENDER_NAME', 'Bookstore Team', 'MAIL_SERVER'),
-       ('CUSTOMER_VERIFY_SUBJECT', 'Please verify your registration to continue shopping.', 'MAIL_TEMPLATES'),
-       ('CUSTOMER_VERIFY_CONTENT', '<span style="font-size:18px;">Dear [[name]],&nbsp;</span><div><span style="font-size:18px;"><br>
- Click the link below to verify your registration.<br>
- <br><b>
- <a href="[[URL]]" target="_self">VERIFY</a><h3 style=""><font color="#000000"></font></h3></b><br>
- Thank you,&nbsp;<br>
- The Bookstore Team.</span><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div></div>',
-        'MAIL_TEMPLATES');
 
 INSERT INTO `states`
 VALUES (1, 'Ha Noi', 242),
@@ -715,4 +696,66 @@ VALUES (2, 234, 'New York', 10, 7, 1),
        (28, 39, 'British Columbia', 9.88, 7, 1),
        (29, 14, 'New South Wales', 4.57, 6, 1),
        (30, 234, 'Illinois', 13, 9, 1);
+
+ALTER TABLE `addresses`
+    CHANGE COLUMN `customer_id` `customer_id` INT NULL DEFAULT NULL AFTER `id`,
+    CHANGE COLUMN `country_id` `country_id` INT NULL DEFAULT NULL AFTER `customer_id`,
+    CHANGE COLUMN `first_name` `first_name` VARCHAR(45) NOT NULL AFTER `country_id`,
+    CHANGE COLUMN `last_name` `last_name` VARCHAR(45) NOT NULL AFTER `first_name`,
+    CHANGE COLUMN `phone_number` `phone_number` VARCHAR(15) NOT NULL AFTER `last_name`,
+    CHANGE COLUMN `state` `state` VARCHAR(45) NOT NULL AFTER `city`,
+    CHANGE COLUMN `postal_code` `postal_code` VARCHAR(10) NOT NULL AFTER `state`;
+
+ALTER TABLE `addresses`
+    CHANGE COLUMN `default_address` `default_address` BIT(1) NULL DEFAULT 0;
+
+INSERT INTO `addresses`
+VALUES (1, 1, 234, 'Tobie', 'Abel', '19094644166', '4213  Gordon Street', '', 'Chino', 'California', '91710', 1),
+       (2, 2, 106, 'Adri', 'Hora', '04426585493', '28, Ebenezer Street, Pudur, Ambattur', '', 'Chennai', 'Tamil Nadu',
+        '600053', 0),
+       (3, 3, 199, 'Chan', 'Yi', '068900012', '28 Ayer Rajah Cresent #05-01', 'Ayer Rajah Industrial Estate 1399',
+        'Singapore', '', '139959', 0),
+       (4, 4, 234, 'Robert', 'Martin', '703-325-3192', '92  Golf Course Drive', '', 'Alexandria', 'Virginia', '22303',
+        0),
+       (5, 5, 234, 'Juanita', 'Mason', '608-827-2230', '256  Irish Lane', '', 'Verona', 'Wisconsin', '53593', 0),
+       (6, 6, 199, 'Bao', 'Shao', '068601449', '30 Tuas Ave 2, 639461', '', 'Singapore', '', '639461', 0),
+       (7, 7, 106, 'Hastimukha', 'Krishna', '02224033183', '44 New Nehru Nagar Hsg Society Gr Floor',
+        'Feet Road, Opp Santac', 'Mumbai', 'Maharashtra', '400017', 1),
+       (8, 8, 106, 'Varun', 'Ramkissoon', '01126910573', 'B 9, Lajpat Nagar', '', ' Bangalore', 'Karnataka', '110024',
+        0),
+       (9, 9, 242, 'Diep', 'Ngoc Hao', '0909102509', '56 Cu Lao St., Ward 2', 'Phu Nhuan District', 'Ho Chi Minh city',
+        '', '71011', 0),
+       (10, 10, 39, 'Bryan', 'Rodriquez', '905-513-6645', '1331  Harvest Moon Dr', '', 'Unionville', 'Ontario',
+        'L3R 0L', 0);
+
+INSERT INTO `settings`(`key`, `value`, `category`)
+VALUES ('COPYRIGHT', 'Copyright © 2021 Bookstore Ltd.', 'GENERAL'),
+       ('CURRENCY_ID', '1', 'CURRENCY'),
+       ('CURRENCY_SYMBOL', '$', 'CURRENCY'),
+       ('CURRENCY_SYMBOL_POSITION', 'Before price', 'CURRENCY'),
+       ('CUSTOMER_VERIFY_CONTENT',
+        '<span style=\"font-size:18px;\"></span><span style=\"font-size:16px;\">Dear [[name]],&nbsp;<br>\r\n<br>\r\nClick the link below to verify your registration.</span><div><span style=\"font-size:18px;\"><br><b>\r\n<a href=\"[[URL]]\" target=\"_self\">VERIFY</a><h3 style=\"\"><font color=\"#000000\"></font></h3></b><br>\r\n<span style=\"font-size:16px;\">Thank you,&nbsp;<br>\r\nThe Bookstore Team.</span></span><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div></div>',
+        'MAIL_TEMPLATES'),
+       ('CUSTOMER_VERIFY_SUBJECT', 'Please verify your registration to continue shopping.', 'MAIL_TEMPLATES'),
+       ('DECIMAL_DIGITS', '2', 'CURRENCY'),
+       ('DECIMAL_POINT_TYPE', 'POINT', 'CURRENCY'),
+       ('MAIL_FROM', 'myStorePetProject@gmail.com', 'MAIL_SERVER'),
+       ('MAIL_HOST', 'smtp.gmail.com', 'MAIL_SERVER'),
+       ('MAIL_PASSWORD', 'bbaqshfdfghkgtfm', 'MAIL_SERVER'),
+       ('MAIL_PORT', '587', 'MAIL_SERVER'),
+       ('MAIL_SENDER_NAME', 'myStorePetProject@gmail.com', 'MAIL_SERVER'),
+       ('MAIL_USERNAME', 'myStorePetProject@gmail.com', 'MAIL_SERVER'),
+       ('ORDER_CONFIRMATION_CONTENT',
+        '<div>Dear [[name]],&nbsp;</div><div><br></div><div><b>Thanks for purchasing books at Bookstore!</b><br></div><div><b><br></b></div><div>This email is to confirm that you have successfully placed an order through our website.&nbsp;</div><div>Please review the following order summary:</div><div><br></div><div>- Order ID: [[orderId]]</div><div>- Order time: [[orderTime]]</div><div>- Ship to: [[shippingAddress]]</div><div>- Total: [[total]]</div><div>- Payment method: [[paymentMethod]]</div><div><br></div><div>We\'re currently processing your order. Click here to view full details of your order on our website (login required).</div><div><br></div><div>The Bookstore Team.</div>',
+        'MAIL_TEMPLATES'),
+       ('ORDER_CONFIRMATION_SUBJECT', 'Confirmation of your order ID #[[orderId]]', 'MAIL_TEMPLATES'),
+       ('PAYPAL_API_BASE_URL', 'https://api-m.sandbox.paypal.com', 'PAYMENT'),
+       ('PAYPAL_API_CLIENT_ID', 'Aa9J3FrHxdDPV8EowjMS3hXkjX3j77P5r7u80HJSfjETwtzEiAyS5lTVEYkuOVa5ERGXiQAhmWiYxvZN',
+        'PAYMENT'),
+       ('PAYPAL_API_CLIENT_SECRET', 'ECuRJPya6rq3rrTKfLwVuO1XT88gW-i1RZ4get7c7IPI4lg_6TnILfNql9KHrIO8IeNRQ_wOoWiJX_I4',
+        'PAYMENT'),
+       ('SITE_NAME', 'Bookstore', 'GENERAL'),
+       ('SMTP_AUTH', 'true', 'MAIL_SERVER'),
+       ('SMTP_SECURED', 'true', 'MAIL_SERVER'),
+       ('THOUSANDS_POINT_TYPE', 'COMMA', 'CURRENCY');
 

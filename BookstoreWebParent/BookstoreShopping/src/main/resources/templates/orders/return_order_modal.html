@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"></html>
+<body>
+
+<div th:fragment="content" class="modal fade" id="returnOrderModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title" id="returnOrderModalTitle">Return Order</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <form onsubmit="return submitReturnOrderFrom();">
+                <div class="modal-body">
+                    <div id="divReason">
+                        <div class="p-1"><h5>Reason:</h5></div>
+                        <div><input type="radio" name="returnReason" value="I bought the wrong items" required
+                                    style="font-size: large"> I bought the wrong items
+                        </div>
+                        <div><input type="radio" name="returnReason" value="I received the wrong items"
+                                    style="font-size: large"> I received the wrong items
+                        </div>
+                        <div><input type="radio" name="returnReason" value="The product was damaged/defective"
+                                    style="font-size: large"> The product was damaged/defective
+                        </div>
+                        <div><input type="radio" name="returnReason" value="The product arrived too late"
+                                    style="font-size: large"> The product arrived too late
+                        </div>
+                        <div class="mt-3">
+                            <textarea class="form-control" id="returnNote" rows="3" maxlength="120"
+                                      placeholder="Enter additional information"></textarea>
+                        </div>
+                    </div>
+                    <div id="divMessage" class="text-center"></div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" id="firstButton">Send Request</button>
+                    <button type="button" class="btn btn-danger" id="secondButton" data-dismiss="modal">Cancel</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

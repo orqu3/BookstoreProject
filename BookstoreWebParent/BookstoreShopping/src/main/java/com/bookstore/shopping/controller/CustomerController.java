@@ -7,7 +7,7 @@ import com.bookstore.shopping.security.CustomerUserDetails;
 import com.bookstore.shopping.security.oauth.CustomerOAuth2User;
 import com.bookstore.shopping.service.CustomerService;
 import com.bookstore.shopping.service.SettingService;
-import com.bookstore.shopping.util.EmailSettingBag;
+import com.bookstore.shopping.util.setting.EmailSettingBag;
 import com.bookstore.shopping.util.Utility;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.repository.query.Param;
@@ -65,7 +65,18 @@ public class CustomerController {
 
         updateNameForAuthenticatedCustomer(customer, request);
 
-        return "redirect:/account_details";
+        String redirectOption = request.getParameter("redirect");
+        String redirectURL = "redirect:/account_details";
+
+        if ("address_book".equals(redirectOption)) {
+            redirectURL = "redirect:/address_book";
+        } else if ("cart".equals(redirectOption)) {
+            redirectURL = "redirect:/cart";
+        } else if ("checkout".equals(redirectOption)) {
+            redirectURL = "redirect:/address_book?redirect=checkout";
+        }
+
+        return redirectURL;
     }
 
     private void updateNameForAuthenticatedCustomer(Customer customer, HttpServletRequest request) {

@@ -40,3 +40,18 @@
     background-color: cornflowerblue;
     border-color: cornflowerblue;
 }
+
+.bg-default-card .card-header {
+    background-color: lightgoldenrodyellow;
+}
+
+.bg-default-card .card-body {
+    background-color: lightyellow;
+}
+
+a {
+    color: cornflowerblue;
+}
+
+
+

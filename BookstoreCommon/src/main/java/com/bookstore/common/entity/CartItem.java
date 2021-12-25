@@ -1,5 +1,6 @@
 package com.bookstore.common.entity;
 
+import com.bookstore.common.entity.product.Product;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,6 +28,9 @@ public class CartItem {
 
     private int quantity;
 
+    @Transient
+    private float shippingCost;
+
     @Override
     public String toString() {
         return "CartItem{" +
@@ -40,5 +44,10 @@ public class CartItem {
     @Transient
     public float getSubTotal() {
         return product.getDiscountPrice() * quantity;
+    }
+
+    @Transient
+    public float getShippingCost() {
+        return shippingCost;
     }
 }

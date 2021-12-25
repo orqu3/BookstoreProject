@@ -1,12 +1,16 @@
 package com.bookstore.shopping.util;
 
 import com.bookstore.shopping.security.oauth.CustomerOAuth2User;
+import com.bookstore.shopping.util.setting.CurrencySettingBag;
+import com.bookstore.shopping.util.setting.EmailSettingBag;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.authentication.RememberMeAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.Properties;
 
 public class Utility {
@@ -36,7 +40,7 @@ public class Utility {
 
     public static String getEmailOfAuthenticatedCustomer(HttpServletRequest request) {
         Object principal = request.getUserPrincipal();
-        if(principal == null) return null;
+        if (principal == null) return null;
 
         String customerEmail = null;
 
@@ -48,5 +52,35 @@ public class Utility {
             customerEmail = oAuth2User.getEmail();
         }
         return customerEmail;
+    }
+
+    public static String formatCurrency(float amount, CurrencySettingBag settings) {
+
+        String symbol = settings.getSymbol();
+        String symbolPosition = settings.getSymbolPosition();
+        String decimalPointType = settings.getDecimalPointType();
+        String thousandPointType = settings.getThousandPointType();
+        int decimalDigits = settings.getDecimalDigits();
+
+        String pattern = symbolPosition.equals("Before price") ? symbol : "";
+        pattern += "###,###";
+
+        if (decimalDigits > 0) {
+            pattern += ".";
+            for (int count = 1; count <= decimalDigits; count++) pattern += "#";
+        }
+
+        pattern += symbolPosition.equals("After price") ? symbol : "";
+
+        char thousandSeparator = thousandPointType.equals("POINT") ? '.' : ',';
+        char decimalSeparator = decimalPointType.equals("POINT") ? '.' : ',';
+
+        DecimalFormatSymbols decimalFormatSymbols = DecimalFormatSymbols.getInstance();
+        decimalFormatSymbols.setDecimalSeparator(decimalSeparator);
+        decimalFormatSymbols.setGroupingSeparator(thousandSeparator);
+
+        DecimalFormat formatter = new DecimalFormat(pattern, decimalFormatSymbols);
+
+        return formatter.format(amount);
     }
 }

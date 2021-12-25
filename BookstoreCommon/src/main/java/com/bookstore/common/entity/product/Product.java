@@ -1,5 +1,7 @@
-package com.bookstore.common.entity;
+package com.bookstore.common.entity.product;
 
+import com.bookstore.common.entity.Category;
+import com.bookstore.common.entity.IdBasedEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,13 +14,9 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "products")
 @NoArgsConstructor
-public class Product {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+@Table(name = "products")
+public class Product extends IdBasedEntity {
 
     @Column(unique = true, length = 256, nullable = false)
     private String name;
@@ -59,6 +57,14 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductDetail> details = new ArrayList<>();
 
+    public Product(Integer id) {
+        this.id = id;
+    }
+
+    public Product(String name) {
+        this.name = name;
+    }
+
     public void addDetail(String name, String value) {
         this.details.add(new ProductDetail(name, value, this));
     }
@@ -82,9 +88,5 @@ public class Product {
 
         }
         return this.price;
-    }
-
-    public Product(Integer id) {
-        this.id = id;
     }
 }

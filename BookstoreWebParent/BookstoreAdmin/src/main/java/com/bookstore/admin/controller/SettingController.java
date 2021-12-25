@@ -4,7 +4,7 @@ import com.bookstore.admin.util.settings.GeneralSettingBag;
 import com.bookstore.admin.repository.CurrencyRepository;
 import com.bookstore.admin.service.SettingService;
 import com.bookstore.common.entity.Currency;
-import com.bookstore.common.entity.Setting;
+import com.bookstore.common.entity.setting.Setting;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -84,6 +84,16 @@ public class SettingController {
         updateSettingValuesFromForm(request, mailTemplateSetting);
 
         ra.addFlashAttribute("message", "Mail template settings have been saved");
+
+        return "redirect:/settings";
+    }
+
+    @PostMapping("/settings/save_payment")
+    public String savePaymentSettings(HttpServletRequest request, RedirectAttributes ra) {
+        List<Setting> paymentSettings = settingService.getPaymentSettings();
+        updateSettingValuesFromForm(request, paymentSettings);
+
+        ra.addFlashAttribute("message", "Payment settings have been saved");
 
         return "redirect:/settings";
     }

@@ -2,7 +2,7 @@ package com.bookstore.shopping.service;
 
 import com.bookstore.common.entity.CartItem;
 import com.bookstore.common.entity.Customer;
-import com.bookstore.common.entity.Product;
+import com.bookstore.common.entity.product.Product;
 import com.bookstore.shopping.exception.ShoppingCartException;
 import com.bookstore.shopping.repository.CartItemRepository;
 import com.bookstore.shopping.repository.ProductRepository;
@@ -59,5 +59,9 @@ public class ShoppingCartService {
 
     public void removeProduct(Integer productId, Customer customer) {
         cartItemRepository.deleteByCustomerAndProduct(customer.getId(), productId);
+    }
+
+    public void deleteByCustomer(Customer customer) {
+        cartItemRepository.deleteByCustomer(customer.getId());
     }
 }

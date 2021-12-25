@@ -1,6 +1,6 @@
 package com.bookstore.shopping.service;
 
-import com.bookstore.common.entity.Product;
+import com.bookstore.common.entity.product.Product;
 import com.bookstore.common.exception.ProductNotFoundException;
 import com.bookstore.shopping.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ProductService {
 
-    public static final int PRODUCTS_PER_PAGE = 10;
-    public static final int SEARCH_RESULT_PER_PAGE = 10;
+    public static final int PRODUCTS_PER_PAGE = 12;
+    public static final int SEARCH_RESULT_PER_PAGE = 12;
 
     private final ProductRepository productRepository;
 
