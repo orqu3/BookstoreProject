@@ -132,6 +132,40 @@ public class Order extends AbstractAddress {
     }
 
     @Transient
+    public String getProductNames() {
+        String productNames = "";
+
+        productNames = "<ul>";
+
+        for (OrderDetail detail : orderDetails) {
+            productNames += "<li>" + detail.getProduct().getName() + "</li>";
+        }
+
+        productNames += "</ul>";
+
+        return productNames;
+    }
+
+    public boolean hasStatus(OrderStatus status) {
+        for (OrderTrack aTrack : orderTracks) {
+            if (aTrack.getStatus().equals(status)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Transient
+    public boolean isReturnRequested() {
+        return hasStatus(OrderStatus.RETURN_REQUESTED);
+    }
+
+    @Transient
+    public boolean isProcessing() {
+        return hasStatus(OrderStatus.PROCESSING);
+    }
+
+    @Transient
     public String getRecipientName() {
         String name = firstName;
         if (lastName != null && !lastName.isEmpty()) name += " " + lastName;
@@ -179,16 +213,6 @@ public class Order extends AbstractAddress {
     @Transient
     public boolean isReturned() {
         return hasStatus(OrderStatus.RETURNED);
-    }
-
-    public boolean hasStatus(OrderStatus status) {
-        for (OrderTrack aTrack :
-                orderTracks) {
-            if (aTrack.getStatus().equals(status)) {
-                return true;
-            }
-        }
-        return false;
     }
 
 }

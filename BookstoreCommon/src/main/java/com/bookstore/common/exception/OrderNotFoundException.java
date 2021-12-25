@@ -1,4 +1,4 @@
-package com.bookstore.admin.exception;
+package com.bookstore.common.exception;
 
 public class OrderNotFoundException extends Exception {
     public OrderNotFoundException(String message) {
