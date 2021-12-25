@@ -5,7 +5,9 @@ import com.bookstore.common.entity.CartItem;
 import com.bookstore.common.entity.Customer;
 import com.bookstore.common.entity.order.*;
 import com.bookstore.common.entity.product.Product;
+import com.bookstore.common.exception.OrderNotFoundException;
 import com.bookstore.shopping.repository.OrderRepository;
+import com.bookstore.shopping.util.OrderReturnRequest;
 import com.bookstore.shopping.util.checkout.CheckoutInfo;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.weaver.ast.Or;
@@ -80,6 +82,8 @@ public class OrderService {
 
         newOrder.getOrderTracks().add(track);
 
+
+
         return orderRepository.save(newOrder);
     }
 
@@ -99,5 +103,33 @@ public class OrderService {
 
     public Order getOrder(Integer id, Customer customer) {
         return orderRepository.findByIdAndCustomer(id,customer);
+    }
+
+    public void setOrderReturnRequested(OrderReturnRequest request, Customer customer) throws OrderNotFoundException {
+       Order order = orderRepository.findByIdAndCustomer(request.getOrderId(),customer);
+       if (order == null) {
+            throw new OrderNotFoundException("Order ID" + request.getOrderId() + "not found");
+       }
+
+       if (order.isReturnRequested()) return;
+
+       OrderTrack track = new OrderTrack();
+       track.setOrder(order);
+       track.setUpdatedTime(new Date());
+       track.setStatus(OrderStatus.RETURN_REQUESTED);
+
+       String notes = "Reason:" + request.getReason();
+       if(!"".equals(request.getNote())) {
+           notes += ". " + request.getNote();
+       }
+
+       track.setNotes(notes);
+
+       order.getOrderTracks().add(track);
+       order.setStatus(OrderStatus.RETURN_REQUESTED);
+
+       orderRepository.save(order);
+
+
     }
 }
