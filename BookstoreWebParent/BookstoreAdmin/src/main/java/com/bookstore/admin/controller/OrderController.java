@@ -1,6 +1,7 @@
 package com.bookstore.admin.controller;
 
 import com.bookstore.admin.exception.OrderNotFoundException;
+import com.bookstore.admin.security.BookstoreUserDetails;
 import com.bookstore.admin.service.OrderService;
 import com.bookstore.admin.service.SettingService;
 import com.bookstore.common.entity.Country;
@@ -14,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.method.P;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,7 +49,8 @@ public class OrderController {
                              @Param("sortField") String sortField,
                              @Param("sortDir") String sortDir,
                              @Param("keyword") String keyword,
-                             HttpServletRequest request) {
+                             HttpServletRequest request,
+                             @AuthenticationPrincipal BookstoreUserDetails loggedUser) {
         Page<Order> page = orderService.listByPage(pageNum, sortField, sortDir, keyword);
         List<Order> listOrders = page.getContent();
 
@@ -72,6 +75,10 @@ public class OrderController {
 
         loadCurrencySetting(request);
 
+        if (!loggedUser.hasRole("Admin") && !loggedUser.hasRole("Salesperson") && loggedUser.hasRole("Shipper")) {
+            return "orders/orders_shipper";
+        }
+
         return "orders/orders";
     }
 
@@ -85,10 +92,19 @@ public class OrderController {
 
     @GetMapping("/orders/detail/{id}")
     public String viewOrderDetails(@PathVariable("id") Integer id, Model model,
-                                   RedirectAttributes ra, HttpServletRequest request) {
+                                   RedirectAttributes ra, HttpServletRequest request,
+                                   @AuthenticationPrincipal BookstoreUserDetails loggedUser) {
         try {
             Order order = orderService.get(id);
             loadCurrencySetting(request);
+
+            boolean isVisibleForAdminOrSalesperson = false;
+
+            if (loggedUser.hasRole("Admin") || loggedUser.hasRole("Salesperson")) {
+                isVisibleForAdminOrSalesperson = true;
+            }
+
+            model.addAttribute("isVisibleForAdminOrSalesperson", isVisibleForAdminOrSalesperson);
             model.addAttribute("order", order);
 
             return "orders/order_details_modal";
