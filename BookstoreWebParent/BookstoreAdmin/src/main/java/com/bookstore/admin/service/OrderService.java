@@ -5,6 +5,8 @@ import com.bookstore.admin.repository.CountryRepository;
 import com.bookstore.admin.repository.OrderRepository;
 import com.bookstore.common.entity.Country;
 import com.bookstore.common.entity.order.Order;
+import com.bookstore.common.entity.order.OrderStatus;
+import com.bookstore.common.entity.order.OrderTrack;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -72,5 +75,26 @@ public class OrderService {
         orderInForm.setCustomer(orderInDB.getCustomer());
 
         orderRepository.save(orderInForm);
+    }
+
+    public void updateStatus(Integer orderId, String status) {
+        Order orderInDB = orderRepository.findById(orderId).get();
+        OrderStatus statusToUpdate = OrderStatus.valueOf(status);
+
+        if (!orderInDB.hasStatus(statusToUpdate)) {
+            List<OrderTrack> orderTracks = orderInDB.getOrderTracks();
+
+            OrderTrack track = new OrderTrack();
+            track.setOrder(orderInDB);
+            track.setStatus(statusToUpdate);
+            track.setUpdatedTime(new Date());
+            track.setNotes(statusToUpdate.defaultDescription());
+
+            orderTracks.add(track);
+
+            orderInDB.setStatus(statusToUpdate);
+
+            orderRepository.save(orderInDB);
+        }
     }
 }

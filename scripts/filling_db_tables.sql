@@ -1,19 +1,26 @@
-INSERT INTO `roles` (`name`, `description`)
-VALUES ('Admin', 'manage everything');
-INSERT INTO `roles` (`name`, `description`)
-VALUES ('Salesperson', 'manage products, categories, orders');
+INSERT INTO `roles` (`id`, `name`, `description`)
+VALUES (1, 'Admin', 'manage everything');
+INSERT INTO `roles` (`id`, `name`, `description`)
+VALUES (2, 'Salesperson', 'manage products, categories, orders');
+INSERT INTO `roles` (`id`, `name`, `description`)
+VALUES (3, 'Shipper', 'view orders and update order status');
 
-INSERT INTO `users` (`email`, `first_name`, `last_name`, `enabled`, `password`)
-VALUES ('admin@mail.com', 'Glen', 'Doe', '1', '$2a$10$Op29XN5Se3.XsCcWzBYpuuJhZqDYG0/MZof5PIN5RpeC9cR13hXw2');
-INSERT INTO `users` (`email`, `first_name`, `last_name`, `enabled`, `password`)
-VALUES ('salesperson@mail.com', 'Ann', 'Watertown', '1',
+INSERT INTO `users` (`id`, `email`, `first_name`, `last_name`, `enabled`, `password`)
+VALUES (1, 'admin@mail.com', 'Glen', 'Doe', '1', '$2a$10$Op29XN5Se3.XsCcWzBYpuuJhZqDYG0/MZof5PIN5RpeC9cR13hXw2');
+INSERT INTO `users` (`id`, `email`, `first_name`, `last_name`, `enabled`, `password`)
+VALUES (2, 'salesperson@mail.com', 'Ann', 'Watertown', '1',
         '$2a$10$kVrVmIORCh52d0Nmn/bCLOp9Gxb7gz/OjlKCpzPqNFUfhaHu624cK');
+INSERT INTO `users` (`id`, `email`, `first_name`, `last_name`, `enabled`, `password`)
+VALUES (3, 'shipper@mail.com', 'Boris', 'Smith', '1',
+        '$2a$10$pLMne44pGXpbrnuKYHOhbuXIgBFnhroIW1f3c5VMDUIH/8NVteQCi');
 
 
 INSERT INTO `roles_users` (`role_id`, `user_id`)
 VALUES ('1', '1');
 INSERT INTO `roles_users` (`role_id`, `user_id`)
 VALUES ('2', '2');
+INSERT INTO `roles_users` (`role_id`, `user_id`)
+VALUES ('3', '3');
 
 INSERT INTO `categories` (`id`, `name`, `alias`, `enabled`)
 VALUES ('1', 'Arts', 'Arts', '1'),

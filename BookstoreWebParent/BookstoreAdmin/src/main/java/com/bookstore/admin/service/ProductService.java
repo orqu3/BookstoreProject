@@ -20,7 +20,7 @@ import java.util.NoSuchElementException;
 @Transactional
 public class ProductService {
 
-    public static final int PRODUCTS_PER_PAGE = 5;
+    public static final int PRODUCTS_PER_PAGE = 7;
     private final ProductRepository productRepository;
 
     public List<Product> listAll() {
